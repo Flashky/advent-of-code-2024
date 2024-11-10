@@ -1,3 +1,3 @@
 # Day 23: 
 
-[https://adventofcode.com/{year}/day/23](https://adventofcode.com/{year}/day/23)
+[https://adventofcode.com/2024/day/23](https://adventofcode.com/2024/day/23)
