@@ -1,18 +1,20 @@
 package com.adventofcode.flashk.day01;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 
 public class HistorianHysteria {
 
-    private List<Long> left = new ArrayList<>();
-    private List<Long> right = new ArrayList<>();
+    private final List<Long> left = new ArrayList<>();
+    private final List<Long> right = new ArrayList<>();
 
     public HistorianHysteria(List<String> input) {
         for(String line : input) {
-            String[] split = line.split("   ");
+            String[] split = line.split(" {3}");
             left.add(Long.valueOf(split[0]));
             right.add(Long.valueOf(split[1]));
         }
@@ -22,7 +24,7 @@ public class HistorianHysteria {
         List<Long> leftSorted = left.stream().sorted().toList();
         List<Long> rightSorted = right.stream().sorted().toList();
 
-        Long result = 0L;
+        long result = 0L;
 
         for(int i  = 0; i < leftSorted.size(); i++) {
             result += Math.abs(leftSorted.get(i)-rightSorted.get(i));
@@ -33,30 +35,16 @@ public class HistorianHysteria {
 
     public Long solveB() {
 
-        Long result = 0L;
-        Map<Long,Long> numberOccurrences = new HashMap<>();
+        long result = 0L;
 
-        for(Long number : left) {
-            Long occurrences = 0L;
-            if(numberOccurrences.containsKey(number)) {
-                occurrences = numberOccurrences.get(number);
-                result += number * numberOccurrences.get(number);
-            } else {
+        Map<Long,Long> occurrences = right.stream()
+                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 
-                for(Long numberRight : right) {
-                    if(number.equals(numberRight)) {
-                        occurrences++;
-                    }
-                }
-
-                numberOccurrences.put(number, occurrences);
-            }
-            result += number * occurrences;
-
+        for(long number : left) {
+            result += number * occurrences.getOrDefault(number,0L);
         }
 
         return result;
     }
-
 
 }
