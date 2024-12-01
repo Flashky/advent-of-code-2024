@@ -19,6 +19,8 @@ import com.adventofcode.flashk.common.test.utils.PuzzleTest;
 import com.adventofcode.flashk.common.test.utils.Timer;
 import com.adventofcode.flashk.common.test.utils.Input;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @DisplayName(TestDisplayName.DAY_01)
 @TestMethodOrder(OrderAnnotation.class)
 public class Day01Test extends PuzzleTest {
@@ -42,7 +44,10 @@ public class Day01Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+
+		HistorianHysteria historianHysteria = new HistorianHysteria(inputs);
+
+		assertEquals(11, historianHysteria.solveA());
 	}
 	
 	@Test
@@ -56,7 +61,10 @@ public class Day01Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+		HistorianHysteria historianHysteria = new HistorianHysteria(inputs);
+
+		assertEquals(3574690, historianHysteria.solveA());
+
 	}
 	
 	@Test
@@ -70,7 +78,10 @@ public class Day01Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+
+		HistorianHysteria historianHysteria = new HistorianHysteria(inputs);
+
+		assertEquals(31, historianHysteria.solveB());
 	}
 	
 	@Test
@@ -84,6 +95,10 @@ public class Day01Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
+
+		HistorianHysteria historianHysteria = new HistorianHysteria(inputs);
+
+		assertEquals(22565391, historianHysteria.solveB());
 		
 	}
 
