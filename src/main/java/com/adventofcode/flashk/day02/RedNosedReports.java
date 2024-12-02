@@ -10,25 +10,11 @@ public class RedNosedReports {
         reports = inputs.stream().map(Report::new).toList();
     }
 
-    public int solveA() {
-        int result = 0;
-        for(Report report : reports) {
-            if(report.isSafe()) {
-                result++;
-            }
-        }
-
-        return result;
+    public long solveA() {
+        return reports.stream().filter(Report::isSafe).count();
     }
 
-    public int solveB() {
-        int result = 0;
-        for(Report report : reports) {
-            if(report.isSafeDampener()) {
-                result++;
-            }
-        }
-
-        return result;
+    public long solveB() {
+        return reports.stream().filter(Report::isSafeDampener).count();
     }
 }

@@ -25,27 +25,20 @@ public class Report {
         boolean expectedIncreasing = isIncreasing();
         boolean isSafe = true;
 
-        int i = 1;
-        int lastLevel = levels.get(0);
+        Iterator<Integer> iterator = levels.iterator();
+        int previousLevel = iterator.next();
 
-        while(isSafe && i < levels.size()) {
-            int currentLevel = levels.get(i);
-            int distance = currentLevel-lastLevel;
+        while(isSafe && iterator.hasNext()) {
+            int currentLevel = iterator.next();
+            int distance = currentLevel-previousLevel;
 
-            if(distance == 0) {
+            if((distance == 0) ||
+                ((expectedIncreasing) && (distance > 3 || distance < 0)) ||
+                ((!expectedIncreasing) && (distance < -3 || distance > 0))) {
                 isSafe = false;
-            } else if(expectedIncreasing) {
-                if(distance > 3 || distance < 0) {
-                    isSafe = false;
-                }
-            } else {
-                if(distance < -3 || distance > 0) {
-                    isSafe = false;
-                }
             }
 
-            lastLevel = currentLevel;
-            i++;
+            previousLevel = currentLevel;
         }
 
         return isSafe;
@@ -74,11 +67,7 @@ public class Report {
 
         return isSafe;
     }
-    /**
-     * true si creciente
-     * false si decreciente;
-     * @return
-     */
+
     private boolean isIncreasing() {
         int i = 0;
         boolean found = false;
