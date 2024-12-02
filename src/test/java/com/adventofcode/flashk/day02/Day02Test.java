@@ -19,9 +19,10 @@ import com.adventofcode.flashk.common.test.utils.PuzzleTest;
 import com.adventofcode.flashk.common.test.utils.Timer;
 import com.adventofcode.flashk.common.test.utils.Input;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @DisplayName(TestDisplayName.DAY_02)
 @TestMethodOrder(OrderAnnotation.class)
-@Disabled // TODO Remove comment when implemented
 public class Day02Test extends PuzzleTest {
 
 	private final static String INPUT_FOLDER = TestFolder.DAY_02;
@@ -43,7 +44,9 @@ public class Day02Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+
+		RedNosedReports reports = new RedNosedReports(inputs);
+		assertEquals(2,reports.solveA());
 	}
 	
 	@Test
@@ -57,8 +60,11 @@ public class Day02Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+		RedNosedReports reports = new RedNosedReports(inputs);
+
+		assertEquals(257,reports.solveA());
 	}
+
 	
 	@Test
 	@Order(3)
@@ -71,7 +77,9 @@ public class Day02Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+		RedNosedReports reports = new RedNosedReports(inputs);
+
+		assertEquals(4, reports.solveB());
 	}
 	
 	@Test
@@ -85,6 +93,9 @@ public class Day02Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
+		RedNosedReports reports = new RedNosedReports(inputs);
+
+		assertEquals(328, reports.solveB());
 		
 	}
 
