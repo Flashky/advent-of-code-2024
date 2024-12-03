@@ -16,11 +16,12 @@ import com.adventofcode.flashk.common.test.constants.TestTag;
 import com.adventofcode.flashk.common.test.utils.PuzzleTest;
 import com.adventofcode.flashk.common.test.utils.Input;
 
+import static com.adventofcode.flashk.common.test.constants.TestFilename.INPUT_FILE_SAMPLE_PART_2;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName(TestDisplayName.DAY_03)
 @TestMethodOrder(OrderAnnotation.class)
-public class Day03Test extends PuzzleTest {
+class Day03Test extends PuzzleTest {
 
 	private static final String INPUT_FOLDER = TestFolder.DAY_03;
 
@@ -38,7 +39,7 @@ public class Day03Test extends PuzzleTest {
 
 		MullItOver mullItOver = new MullItOver(inputs);
 
-		assertEquals(161, mullItOver.solveA());
+		assertEquals(161, mullItOver.solve(false));
 	}
 	
 	@Test
@@ -54,44 +55,10 @@ public class Day03Test extends PuzzleTest {
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
 		MullItOver mullItOver = new MullItOver(inputs);
 
-		assertEquals(160672468, mullItOver.solveA());
+		assertEquals(160672468, mullItOver.solve(false));
 
 	}
 
-	@Test
-	@Order(2)
-	@Tag(TestTag.PART_ONE)
-	@Tag(TestTag.INPUT)
-	@DisplayName(TestDisplayName.PART_ONE_DEBUG)
-	public void testSolvePart1InputByLines() {
-
-		System.out.print("1 | input  | ");
-
-		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-
-
-		MullItOver mullItOver = new MullItOver(List.of(inputs.get(0)));
-
-		assertEquals(30243322, mullItOver.solveA());
-
-		mullItOver = new MullItOver(List.of(inputs.get(1)));
-		assertEquals(29041171, mullItOver.solveA());
-
-		mullItOver = new MullItOver(List.of(inputs.get(2)));
-		assertEquals(22674551, mullItOver.solveA());
-
-		mullItOver = new MullItOver(List.of(inputs.get(3)));
-		assertEquals(26491961, mullItOver.solveA());
-
-		mullItOver = new MullItOver(List.of(inputs.get(4)));
-		assertEquals(24532437, mullItOver.solveA());
-
-		mullItOver = new MullItOver(List.of(inputs.get(5)));
-		assertEquals(27689026, mullItOver.solveA());
-
-
-	}
 
 	@Test
 	@Order(2)
@@ -108,7 +75,7 @@ public class Day03Test extends PuzzleTest {
 
 		MullItOver mullItOver = new MullItOver(List.of(inputs.get(0)));
 
-		assertEquals(26546863, mullItOver.solveB());
+		assertEquals(26546863, mullItOver.solve(true));
 
 	}
 	
@@ -122,10 +89,10 @@ public class Day03Test extends PuzzleTest {
 		System.out.print("2 | sample | ");
 		
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		MullItOver mullItOver = new MullItOver(List.of("xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))"));
+		List<String> inputs = Input.readStringLines(INPUT_FOLDER, INPUT_FILE_SAMPLE_PART_2);
+		MullItOver mullItOver = new MullItOver(inputs);
 
-		assertEquals(48, mullItOver.solveB());
+		assertEquals(48, mullItOver.solve(true));
 	}
 	
 	@Test
@@ -141,7 +108,7 @@ public class Day03Test extends PuzzleTest {
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
 		MullItOver mullItOver = new MullItOver(inputs);
 
-		assertEquals(84893551, mullItOver.solveB());
+		assertEquals(84893551, mullItOver.solve(true));
 
 	}
 

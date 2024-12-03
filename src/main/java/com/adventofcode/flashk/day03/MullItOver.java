@@ -5,71 +5,43 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 public class MullItOver {
 
-    // [0-9][0-9]?[0-9]?,[0-9][0-9]?[0-9]?
-    private static final Pattern PATTERN = Pattern.compile("(mul\\([0-9][0-9]?[0-9]?,[0-9][0-9]?[0-9]?\\))");
+    private static final Pattern MULTIPLY_PATTERN = Pattern.compile("(mul\\([0-9][0-9]?[0-9]?,[0-9][0-9]?[0-9]?\\))");
     private static final Pattern OPERATORS_PATTERN = Pattern.compile("([0-9][0-9]?[0-9]?),([0-9][0-9]?[0-9]?)");
     private static final Pattern IGNORE_MULTIPLICATIONS = Pattern.compile("don't\\(\\).*?do\\(\\)");
+    private static final String DONT = "don't()";
 
-    private List<String> inputs;
+    private final List<String> inputs;
 
     public MullItOver(List<String> inputs) {
         this.inputs = inputs;
     }
 
-    public long solveA() {
+    public long solve(boolean cleanMemory) {
+
+        // The input is just a single word, even when the input is a list of lines.
+        String input = String.join(StringUtils.EMPTY, inputs);
+        String memory = cleanMemory ? clean(input) : input;
 
         long result = 0;
-        for(String input : inputs) {
-            Matcher matcher = PATTERN.matcher(input);
+        Matcher matcher = MULTIPLY_PATTERN.matcher(memory);
 
-            while(matcher.find()){
-                result += multiply(matcher.group());
-            }
-        }
-
-        return result;
-    }
-
-    public long solveB() {
-        long result = 0;
-
-        String complete = String.join("", inputs);
-        String cleanedInput = removeMultiplications(complete);
-        Matcher matcher = PATTERN.matcher(cleanedInput);
         while(matcher.find()){
             result += multiply(matcher.group());
         }
 
-
         return result;
     }
 
-    private String removeMultiplications(String input) {
-
-        String modifiedInput = IGNORE_MULTIPLICATIONS.matcher(input).replaceAll("");
-
-        if(!modifiedInput.contains("don't()")) {
-            return modifiedInput;
-        }
-
-        return modifiedInput.substring(0, modifiedInput.indexOf("don't()"));
-
+    private String clean(String input) {
+        String modifiedInput = IGNORE_MULTIPLICATIONS.matcher(input).replaceAll(StringUtils.EMPTY);
+        return modifiedInput.contains(DONT) ? modifiedInput.substring(0, modifiedInput.indexOf(DONT)) : modifiedInput;
     }
 
     private long multiply(String operation) {
         Matcher matcher = OPERATORS_PATTERN.matcher(operation);
-
-        long op1;
-        long op2;
-        if(matcher.find()){
-            op1 = Long.parseLong(matcher.group(1));
-            op2 = Long.parseLong(matcher.group(2));
-            return op1 * op2;
-        }
-        return 0;
+        return matcher.find() ? Long.parseLong(matcher.group(1)) * Long.parseLong(matcher.group(2)) : 0;
     }
 }

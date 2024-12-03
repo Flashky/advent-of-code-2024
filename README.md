@@ -5,7 +5,7 @@
 
 - [Day 1 - Historian Hysteria](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day01)
 - [Day 2 - Red-Nosed Reports](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day02)
-- [Day 3](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day03)
+- [Day 3 - Mull It Over](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day03)
 - [Day 4](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day04)
 - [Day 5](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day05)
 - [Day 6](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day06)
