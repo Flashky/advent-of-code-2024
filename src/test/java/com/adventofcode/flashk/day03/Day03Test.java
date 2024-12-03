@@ -2,7 +2,6 @@ package com.adventofcode.flashk.day03;
 
 import java.util.List;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -17,15 +16,14 @@ import com.adventofcode.flashk.common.test.constants.TestTag;
 import com.adventofcode.flashk.common.test.utils.PuzzleTest;
 import com.adventofcode.flashk.common.test.utils.Input;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @DisplayName(TestDisplayName.DAY_03)
 @TestMethodOrder(OrderAnnotation.class)
-@Disabled // TODO Remove comment when implemented
 public class Day03Test extends PuzzleTest {
 
-	private final static String INPUT_FOLDER = TestFolder.DAY_03;
+	private static final String INPUT_FOLDER = TestFolder.DAY_03;
 
- 
-	
 	@Test
 	@Order(1)
 	@Tag(TestTag.PART_ONE)
@@ -37,7 +35,10 @@ public class Day03Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+
+		MullItOver mullItOver = new MullItOver(inputs);
+
+		assertEquals(161, mullItOver.solveA());
 	}
 	
 	@Test
@@ -51,7 +52,10 @@ public class Day03Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+		MullItOver mullItOver = new MullItOver(inputs);
+
+		assertEquals(160672468, mullItOver.solveA());
+
 	}
 	
 	@Test
@@ -65,7 +69,9 @@ public class Day03Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+		MullItOver mullItOver = new MullItOver(List.of("xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))"));
+
+		assertEquals(48, mullItOver.solveB());
 	}
 	
 	@Test
@@ -79,7 +85,18 @@ public class Day03Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+		MullItOver mullItOver = new MullItOver(inputs);
+
+		System.out.println("Sol: "+mullItOver.solveB());
+
+		// Incorrectas:
+		// 49347471
+		// 112946746 -> Too high
+		// 112946746
+		// 93733733 -> Too high
+
+		//assertEquals(160672468, mullItOver.solveB());
+
 	}
 
 }
