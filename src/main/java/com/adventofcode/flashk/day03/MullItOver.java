@@ -8,8 +8,8 @@ import java.util.regex.Pattern;
 
 public class MullItOver {
 
-    private static final Pattern MULTIPLY_PATTERN = Pattern.compile("(mul\\([0-9][0-9]?[0-9]?,[0-9][0-9]?[0-9]?\\))");
-    private static final Pattern OPERATORS_PATTERN = Pattern.compile("([0-9][0-9]?[0-9]?),([0-9][0-9]?[0-9]?)");
+    private static final Pattern MULTIPLY_PATTERN = Pattern.compile("(mul\\(\\d*,\\d*\\))");
+    private static final Pattern OPERATORS_PATTERN = Pattern.compile("(\\d*),(\\d*)");
     private static final Pattern IGNORE_MULTIPLICATIONS = Pattern.compile("don't\\(\\).*?do\\(\\)");
     private static final String DONT = "don't()";
 
