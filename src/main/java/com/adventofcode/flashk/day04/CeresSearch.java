@@ -4,6 +4,7 @@ import com.adventofcode.flashk.common.Vector2;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class CeresSearch {
 
@@ -35,7 +36,7 @@ public class CeresSearch {
     }
 
     public long solveA() {
-        return xPositions.stream().map(this::find).reduce(0, Integer::sum);
+        return xPositions.stream().mapToInt(this::find).sum();
     }
 
     public long solveB() {
@@ -45,16 +46,10 @@ public class CeresSearch {
     private int find(Vector2 xPos) {
         char[] word = { M, A, S };
 
-        int totalCount = find(word, 0, xPos, new Vector2(-1,-1));
-        totalCount += find(word, 0, xPos, new Vector2(-1,1));
-        totalCount += find(word, 0, xPos, new Vector2(1,-1));
-        totalCount += find(word, 0, xPos, new Vector2(1,1));
-        totalCount += find(word, 0, xPos, new Vector2(-1,0));
-        totalCount += find(word, 0, xPos, new Vector2(1,0));
-        totalCount += find(word, 0, xPos, new Vector2(0,-1));
-        totalCount += find(word, 0, xPos, new Vector2(0,1));
+        return Stream.of(Vector2.down(), Vector2.up(), Vector2.right(), Vector2.left(),
+                Vector2.upLeft(), Vector2.upRight(), Vector2.downLeft(), Vector2.downRight())
+                .mapToInt(dir -> find(word, 0, xPos, dir)).sum();
 
-        return totalCount;
     }
 
     private int find(final char[] word, int letterIndex, Vector2 position, final Vector2 direction) {
