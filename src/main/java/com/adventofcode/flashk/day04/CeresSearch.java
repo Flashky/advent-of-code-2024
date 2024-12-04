@@ -13,6 +13,13 @@ public class CeresSearch {
     private static final char A = 'A';
     private static final char S = 'S';
 
+    private static final char[] word = { M, A, S };
+
+    private static final Vector2[] directions = {
+            Vector2.down(), Vector2.up(), Vector2.right(), Vector2.left(),
+            Vector2.upLeft(), Vector2.upRight(), Vector2.downLeft(), Vector2.downRight()
+    };
+
     private final char[][] input;
     private final int rows;
     private final int cols;
@@ -44,15 +51,11 @@ public class CeresSearch {
     }
 
     private int find(Vector2 xPos) {
-        char[] word = { M, A, S };
-
-        return Stream.of(Vector2.down(), Vector2.up(), Vector2.right(), Vector2.left(),
-                Vector2.upLeft(), Vector2.upRight(), Vector2.downLeft(), Vector2.downRight())
-                .mapToInt(dir -> find(word, 0, xPos, dir)).sum();
+        return Stream.of(directions).mapToInt(dir -> find(0, xPos, dir)).sum();
 
     }
 
-    private int find(final char[] word, int letterIndex, Vector2 position, final Vector2 direction) {
+    private int find(int letterIndex, Vector2 position, final Vector2 direction) {
         Vector2 newPos = Vector2.transform(position, direction);
 
         if(isOutOfRange(newPos.getY(), newPos.getX())) {
@@ -63,11 +66,11 @@ public class CeresSearch {
             return 0;
         }
 
-        if(input[newPos.getY()][newPos.getX()] == S && letterIndex == word.length-1) {
+        if(letterIndex == word.length-1) {
             return 1;
         }
 
-        return find(word, letterIndex+1, newPos, direction);
+        return find(letterIndex+1, newPos, direction);
     }
 
     private boolean hasMasDiagonal1(Vector2 aPos){
