@@ -40,38 +40,11 @@ public class CeresSearch {
     }
 
     public long solveA() {
-        long totalCount = countHorizontal();
-        totalCount += countVertical();
-        totalCount += countDiagonal();
-        return totalCount;
+        return xPositions.stream().map(this::find).reduce(0, Integer::sum);
     }
 
     public long solveB() {
         return aPositions.stream().filter(this::hasMasDiagonal1).filter(this::hasMasDiagonal2).count();
-    }
-
-    private int countHorizontal() {
-        int totalCount = 0;
-        for(int row = 0; row < rows; row++) {
-            String line = new String(input[row]);
-            totalCount += StringUtils.countMatches(line, XMAS) + StringUtils.countMatches(line, SAMX);
-        }
-        return totalCount;
-    }
-
-    private int countVertical() {
-
-        char[][] transposedInput = Array2DUtil.transpose(input);
-        int totalCount = 0;
-        for(int row = 0; row < rows; row++) {
-            String line = new String(transposedInput[row]);
-            totalCount += StringUtils.countMatches(line, XMAS) + StringUtils.countMatches(line, SAMX);
-        }
-        return totalCount;
-    }
-
-    private long countDiagonal() {
-        return xPositions.stream().map(this::find).reduce(0, Integer::sum);
     }
 
     private int find(Vector2 xPos) {
@@ -81,6 +54,10 @@ public class CeresSearch {
         totalCount += find(word, 0, xPos, new Vector2(-1,1));
         totalCount += find(word, 0, xPos, new Vector2(1,-1));
         totalCount += find(word, 0, xPos, new Vector2(1,1));
+        totalCount += find(word, 0, xPos, new Vector2(-1,0));
+        totalCount += find(word, 0, xPos, new Vector2(1,0));
+        totalCount += find(word, 0, xPos, new Vector2(0,-1));
+        totalCount += find(word, 0, xPos, new Vector2(0,1));
 
         return totalCount;
     }
