@@ -19,9 +19,10 @@ import com.adventofcode.flashk.common.test.utils.PuzzleTest;
 import com.adventofcode.flashk.common.test.utils.Timer;
 import com.adventofcode.flashk.common.test.utils.Input;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @DisplayName(TestDisplayName.DAY_04)
 @TestMethodOrder(OrderAnnotation.class)
-@Disabled // TODO Remove comment when implemented
 public class Day04Test extends PuzzleTest {
 
 	private final static String INPUT_FOLDER = TestFolder.DAY_04;
@@ -42,8 +43,10 @@ public class Day04Test extends PuzzleTest {
 		System.out.print("1 | sample | ");
 		
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+		CeresSearch ceresSearch = new CeresSearch(inputs);
+
+		assertEquals(18, ceresSearch.solveA());
 	}
 	
 	@Test
@@ -56,8 +59,11 @@ public class Day04Test extends PuzzleTest {
 		System.out.print("1 | input  | ");
 		
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
+		CeresSearch ceresSearch = new CeresSearch(inputs);
+
+		assertEquals(2344, ceresSearch.solveA());
+
 	}
 	
 	@Test
@@ -70,8 +76,10 @@ public class Day04Test extends PuzzleTest {
 		System.out.print("2 | sample | ");
 		
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+		CeresSearch ceresSearch = new CeresSearch(inputs);
+
+		assertEquals(9, ceresSearch.solveB());
 	}
 	
 	@Test
@@ -84,8 +92,11 @@ public class Day04Test extends PuzzleTest {
 		System.out.print("2 | input  | ");
 		
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
+		CeresSearch ceresSearch = new CeresSearch(inputs);
+
+		assertEquals(1815,  ceresSearch.solveB());
+
 	}
 
 }
