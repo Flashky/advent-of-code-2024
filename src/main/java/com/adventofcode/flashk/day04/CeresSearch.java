@@ -1,17 +1,12 @@
 package com.adventofcode.flashk.day04;
 
-import com.adventofcode.flashk.common.Array2DUtil;
 import com.adventofcode.flashk.common.Vector2;
-import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CeresSearch {
 
-    private static final String XMAS = "XMAS";
-    private static final String SAMX = "SAMX";
-    private static final String MAS = "MAS";
     private static final char X = 'X';
     private static final char M = 'M';
     private static final char A = 'A';
@@ -48,7 +43,7 @@ public class CeresSearch {
     }
 
     private int find(Vector2 xPos) {
-        char[] word = MAS.toCharArray();
+        char[] word = { M, A, S };
 
         int totalCount = find(word, 0, xPos, new Vector2(-1,-1));
         totalCount += find(word, 0, xPos, new Vector2(-1,1));
