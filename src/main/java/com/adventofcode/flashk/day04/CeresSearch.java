@@ -2,9 +2,7 @@ package com.adventofcode.flashk.day04;
 
 import com.adventofcode.flashk.common.Array2DUtil;
 import com.adventofcode.flashk.common.Vector2;
-import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.jgrapht.util.ArrayUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +11,7 @@ public class CeresSearch {
 
     private static final String XMAS = "XMAS";
     private static final String SAMX = "SAMX";
+    private static final String MAS = "MAS";
     private static final char X = 'X';
     private static final char M = 'M';
     private static final char A = 'A';
@@ -41,17 +40,68 @@ public class CeresSearch {
     }
 
     public long solveA() {
-        long wordCount = countHorizontal();
-        wordCount += countVertical();
-        wordCount += countDiagonal();
-
-        return wordCount;
+        long totalCount = countHorizontal();
+        totalCount += countVertical();
+        totalCount += countDiagonal();
+        return totalCount;
     }
 
     public long solveB() {
-       return aPositions.stream().filter(this::hasMasDiagonal1).filter(this::hasMasDiagonal2).count();
+        return aPositions.stream().filter(this::hasMasDiagonal1).filter(this::hasMasDiagonal2).count();
     }
 
+    private int countHorizontal() {
+        int totalCount = 0;
+        for(int row = 0; row < rows; row++) {
+            String line = new String(input[row]);
+            totalCount += StringUtils.countMatches(line, XMAS) + StringUtils.countMatches(line, SAMX);
+        }
+        return totalCount;
+    }
+
+    private int countVertical() {
+
+        char[][] transposedInput = Array2DUtil.transpose(input);
+        int totalCount = 0;
+        for(int row = 0; row < rows; row++) {
+            String line = new String(transposedInput[row]);
+            totalCount += StringUtils.countMatches(line, XMAS) + StringUtils.countMatches(line, SAMX);
+        }
+        return totalCount;
+    }
+
+    private long countDiagonal() {
+        return xPositions.stream().map(this::find).reduce(0, Integer::sum);
+    }
+
+    private int find(Vector2 xPos) {
+        char[] word = MAS.toCharArray();
+
+        int totalCount = find(word, 0, xPos, new Vector2(-1,-1));
+        totalCount += find(word, 0, xPos, new Vector2(-1,1));
+        totalCount += find(word, 0, xPos, new Vector2(1,-1));
+        totalCount += find(word, 0, xPos, new Vector2(1,1));
+
+        return totalCount;
+    }
+
+    private int find(final char[] word, int letterIndex, Vector2 position, final Vector2 direction) {
+        Vector2 newPos = Vector2.transform(position, direction);
+
+        if(isOutOfRange(newPos.getY(), newPos.getX())) {
+            return 0;
+        }
+
+        if(input[newPos.getY()][newPos.getX()] != word[letterIndex]) {
+            return 0;
+        }
+
+        if(input[newPos.getY()][newPos.getX()] == S && letterIndex == word.length-1) {
+            return 1;
+        }
+
+        return find(word, letterIndex+1, newPos, direction);
+    }
 
     private boolean hasMasDiagonal1(Vector2 aPos){
 
@@ -97,165 +147,6 @@ public class CeresSearch {
         }
 
         return input[upRightRow][upRightCol] == S && input[downLeftRow][downLeftCol] == M;
-    }
-
-    private int countHorizontal() {
-        int totalCount = 0;
-        for(int row = 0; row < rows; row++) {
-            String line = new String(input[row]);
-            totalCount += StringUtils.countMatches(line, XMAS) + StringUtils.countMatches(line, SAMX);
-        }
-        return totalCount;
-    }
-
-    private int countVertical() {
-
-        char[][] transposedInput = Array2DUtil.transpose(input);
-        int totalCount = 0;
-        for(int row = 0; row < rows; row++) {
-            String line = new String(transposedInput[row]);
-            totalCount += StringUtils.countMatches(line, XMAS) + StringUtils.countMatches(line, SAMX);
-        }
-        return totalCount;
-    }
-
-    private long countDiagonal() {
-        int totalCount = 0;
-        for(Vector2 xPosition : xPositions) {
-            totalCount += upLeftDiagonal(xPosition.getY(), xPosition.getX());
-            totalCount += upRightDiagonal(xPosition.getY(), xPosition.getX());
-            totalCount += downLeftDiagonal(xPosition.getY(), xPosition.getX());
-            totalCount += downRightDiagonal(xPosition.getY(), xPosition.getX());
-        }
-        
-        return totalCount;
-    }
-
-
-    private int upLeftDiagonal(int row, int col) {
-
-        int nextPosRow = row-1;
-        int nextPosCol = col-1;
-
-        if(isOutOfRange(nextPosRow, nextPosCol)) {
-            return 0;
-        }
-
-        if(input[nextPosRow][nextPosCol] != M) {
-            return 0;
-        }
-
-        if(isOutOfRange(--nextPosRow, --nextPosCol)) {
-            return 0;
-        }
-
-        if(input[nextPosRow][nextPosCol] != A) {
-            return 0;
-        }
-
-        if(isOutOfRange(--nextPosRow, --nextPosCol)) {
-            return 0;
-        }
-
-        if(input[nextPosRow][nextPosCol] != S) {
-            return 0;
-        }
-
-        return 1;
-    }
-
-    private int upRightDiagonal(int row, int col) {
-
-        int nextPosRow = row-1;
-        int nextPosCol = col+1;
-
-        if(isOutOfRange(nextPosRow, nextPosCol)) {
-            return 0;
-        }
-
-        if(input[nextPosRow][nextPosCol] != M) {
-            return 0;
-        }
-
-        if(isOutOfRange(--nextPosRow, ++nextPosCol)) {
-            return 0;
-        }
-
-        if(input[nextPosRow][nextPosCol] != A) {
-            return 0;
-        }
-
-        if(isOutOfRange(--nextPosRow, ++nextPosCol)) {
-            return 0;
-        }
-
-        if(input[nextPosRow][nextPosCol] != S) {
-            return 0;
-        }
-
-        return 1;
-    }
-
-    private int downLeftDiagonal(int row, int col) {
-        int nextPosRow = row+1;
-        int nextPosCol = col-1;
-
-        if(isOutOfRange(nextPosRow, nextPosCol)) {
-            return 0;
-        }
-
-        if(input[nextPosRow][nextPosCol] != M) {
-            return 0;
-        }
-
-        if(isOutOfRange(++nextPosRow, --nextPosCol)) {
-            return 0;
-        }
-
-        if(input[nextPosRow][nextPosCol] != A) {
-            return 0;
-        }
-
-        if(isOutOfRange(++nextPosRow, --nextPosCol)) {
-            return 0;
-        }
-
-        if(input[nextPosRow][nextPosCol] != S) {
-            return 0;
-        }
-
-        return 1;
-    }
-
-    private int downRightDiagonal(int row, int col) {
-        int nextPosRow = row+1;
-        int nextPosCol = col+1;
-
-        if(isOutOfRange(nextPosRow, nextPosCol)) {
-            return 0;
-        }
-
-        if(input[nextPosRow][nextPosCol] != M) {
-            return 0;
-        }
-
-        if(isOutOfRange(++nextPosRow, ++nextPosCol)) {
-            return 0;
-        }
-
-        if(input[nextPosRow][nextPosCol] != A) {
-            return 0;
-        }
-
-        if(isOutOfRange(++nextPosRow, ++nextPosCol)) {
-            return 0;
-        }
-
-        if(input[nextPosRow][nextPosCol] != S) {
-            return 0;
-        }
-
-        return 1;
     }
 
     private boolean isOutOfRange(int row, int col) {
