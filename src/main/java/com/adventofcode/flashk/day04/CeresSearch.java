@@ -1,12 +1,22 @@
 package com.adventofcode.flashk.day04;
 
+import com.adventofcode.flashk.common.Array2DUtil;
 import com.adventofcode.flashk.common.Vector2;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.jgrapht.util.ArrayUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CeresSearch {
+
+    private static final String XMAS = "XMAS";
+    private static final String SAMX = "SAMX";
+    private static final char X = 'X';
+    private static final char M = 'M';
+    private static final char A = 'A';
+    private static final char S = 'S';
 
     private final char[][] input;
     private final int rows;
@@ -21,9 +31,9 @@ public class CeresSearch {
 
         for(int row = 0; row < rows; row++) {
             for(int col = 0; col < cols; col++) {
-                if(input[row][col] == 'X') {
+                if(input[row][col] == X) {
                     xPositions.add(new Vector2(col,row));
-                } else if(input[row][col] == 'A') {
+                } else if(input[row][col] == A) {
                     aPositions.add(new Vector2(col,row));
                 }
             }
@@ -31,9 +41,7 @@ public class CeresSearch {
     }
 
     public long solveA() {
-        long wordCount = 0;
-
-        wordCount += countHorizontal();
+        long wordCount = countHorizontal();
         wordCount += countVertical();
         wordCount += countDiagonal();
 
@@ -41,89 +49,72 @@ public class CeresSearch {
     }
 
     public long solveB() {
-        long wordCount = 0;
-
-        for(Vector2 aPosition : aPositions) {
-            if(countXShapeDiagonal1(aPosition.getY(), aPosition.getX()) && countXShapeDiagonal2(aPosition.getY(), aPosition.getX())) {
-                wordCount++;
-            }
-
-        }
-
-        return wordCount;
+       return aPositions.stream().filter(this::hasMasDiagonal1).filter(this::hasMasDiagonal2).count();
     }
 
 
-    private boolean countXShapeDiagonal1(int row, int col){
+    private boolean hasMasDiagonal1(Vector2 aPos){
 
-        int upLeftRow = row-1;
-        int upLeftCol = col-1;
+        int upLeftRow = aPos.getY()-1;
+        int upLeftCol = aPos.getX()-1;
 
         if(isOutOfRange(upLeftRow, upLeftCol)) {
             return false;
         }
 
-        int downRightRow = row+1;
-        int downRightCol = col+1;
+        int downRightRow = aPos.getY()+1;
+        int downRightCol = aPos.getX()+1;
 
         if(isOutOfRange(downRightRow, downRightCol)) {
             return false;
         }
 
-        if(input[upLeftRow][upLeftCol] == 'M' && input[downRightRow][downRightCol] == 'S'){
+        if(input[upLeftRow][upLeftCol] == M && input[downRightRow][downRightCol] == S){
             return true;
         }
 
-        if(input[upLeftRow][upLeftCol] == 'S' && input[downRightRow][downRightCol] == 'M'){
-            return true;
-        }
-
-        return false;
+        return input[upLeftRow][upLeftCol] == S && input[downRightRow][downRightCol] == M;
     }
 
-    private boolean countXShapeDiagonal2(int row, int col){
+    private boolean hasMasDiagonal2(Vector2 aPos){
 
-        int upRightRow = row-1;
-        int upRightCol = col+1;
+        int upRightRow = aPos.getY()-1;
+        int upRightCol = aPos.getX()+1;
 
         if(isOutOfRange(upRightRow, upRightCol)) {
             return false;
         }
 
-        int downLeftRow = row+1;
-        int downLeftCol = col-1;
+        int downLeftRow = aPos.getY()+1;
+        int downLeftCol = aPos.getX()-1;
 
         if(isOutOfRange(downLeftRow, downLeftCol)) {
             return false;
         }
 
-        if(input[upRightRow][upRightCol] == 'M' && input[downLeftRow][downLeftCol] == 'S'){
+        if(input[upRightRow][upRightCol] == M && input[downLeftRow][downLeftCol] == S){
             return true;
         }
 
-        if(input[upRightRow][upRightCol] == 'S' && input[downLeftRow][downLeftCol] == 'M'){
-            return true;
-        }
-
-        return false;
+        return input[upRightRow][upRightCol] == S && input[downLeftRow][downLeftCol] == M;
     }
 
     private int countHorizontal() {
         int totalCount = 0;
         for(int row = 0; row < rows; row++) {
             String line = new String(input[row]);
-            totalCount += StringUtils.countMatches(line, "XMAS") + StringUtils.countMatches(line, "SAMX");
+            totalCount += StringUtils.countMatches(line, XMAS) + StringUtils.countMatches(line, SAMX);
         }
         return totalCount;
     }
 
     private int countVertical() {
 
-        char[][] transposedInput = transpose();
+        char[][] transposedInput = Array2DUtil.transpose(input);
         int totalCount = 0;
         for(int row = 0; row < rows; row++) {
             String line = new String(transposedInput[row]);
-            totalCount += StringUtils.countMatches(line, "XMAS") + StringUtils.countMatches(line, "SAMX");
+            totalCount += StringUtils.countMatches(line, XMAS) + StringUtils.countMatches(line, SAMX);
         }
         return totalCount;
     }
@@ -131,7 +122,6 @@ public class CeresSearch {
     private long countDiagonal() {
         int totalCount = 0;
         for(Vector2 xPosition : xPositions) {
-            // Recorrer hacia cada una de las 4 esquinas buscando "MAS"
             totalCount += upLeftDiagonal(xPosition.getY(), xPosition.getX());
             totalCount += upRightDiagonal(xPosition.getY(), xPosition.getX());
             totalCount += downLeftDiagonal(xPosition.getY(), xPosition.getX());
@@ -151,7 +141,7 @@ public class CeresSearch {
             return 0;
         }
 
-        if(input[nextPosRow][nextPosCol] != 'M') {
+        if(input[nextPosRow][nextPosCol] != M) {
             return 0;
         }
 
@@ -159,7 +149,7 @@ public class CeresSearch {
             return 0;
         }
 
-        if(input[nextPosRow][nextPosCol] != 'A') {
+        if(input[nextPosRow][nextPosCol] != A) {
             return 0;
         }
 
@@ -167,7 +157,7 @@ public class CeresSearch {
             return 0;
         }
 
-        if(input[nextPosRow][nextPosCol] != 'S') {
+        if(input[nextPosRow][nextPosCol] != S) {
             return 0;
         }
 
@@ -183,7 +173,7 @@ public class CeresSearch {
             return 0;
         }
 
-        if(input[nextPosRow][nextPosCol] != 'M') {
+        if(input[nextPosRow][nextPosCol] != M) {
             return 0;
         }
 
@@ -191,7 +181,7 @@ public class CeresSearch {
             return 0;
         }
 
-        if(input[nextPosRow][nextPosCol] != 'A') {
+        if(input[nextPosRow][nextPosCol] != A) {
             return 0;
         }
 
@@ -199,7 +189,7 @@ public class CeresSearch {
             return 0;
         }
 
-        if(input[nextPosRow][nextPosCol] != 'S') {
+        if(input[nextPosRow][nextPosCol] != S) {
             return 0;
         }
 
@@ -214,7 +204,7 @@ public class CeresSearch {
             return 0;
         }
 
-        if(input[nextPosRow][nextPosCol] != 'M') {
+        if(input[nextPosRow][nextPosCol] != M) {
             return 0;
         }
 
@@ -222,7 +212,7 @@ public class CeresSearch {
             return 0;
         }
 
-        if(input[nextPosRow][nextPosCol] != 'A') {
+        if(input[nextPosRow][nextPosCol] != A) {
             return 0;
         }
 
@@ -230,7 +220,7 @@ public class CeresSearch {
             return 0;
         }
 
-        if(input[nextPosRow][nextPosCol] != 'S') {
+        if(input[nextPosRow][nextPosCol] != S) {
             return 0;
         }
 
@@ -245,7 +235,7 @@ public class CeresSearch {
             return 0;
         }
 
-        if(input[nextPosRow][nextPosCol] != 'M') {
+        if(input[nextPosRow][nextPosCol] != M) {
             return 0;
         }
 
@@ -253,7 +243,7 @@ public class CeresSearch {
             return 0;
         }
 
-        if(input[nextPosRow][nextPosCol] != 'A') {
+        if(input[nextPosRow][nextPosCol] != A) {
             return 0;
         }
 
@@ -261,7 +251,7 @@ public class CeresSearch {
             return 0;
         }
 
-        if(input[nextPosRow][nextPosCol] != 'S') {
+        if(input[nextPosRow][nextPosCol] != S) {
             return 0;
         }
 
@@ -272,13 +262,4 @@ public class CeresSearch {
         return row < 0 || row >= rows || col < 0 || col >= cols;
     }
 
-    private char[][] transpose() {
-        char[][] transposedInput = new char[cols][rows];
-        for(int row = 0; row < rows; row++) {
-            for(int col = 0; col < cols; col++) {
-                transposedInput[col][row] = input[row][col];
-            }
-        }
-        return transposedInput;
-    }
 }
