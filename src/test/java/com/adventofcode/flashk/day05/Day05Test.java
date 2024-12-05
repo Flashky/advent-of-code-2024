@@ -3,7 +3,6 @@ package com.adventofcode.flashk.day05;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -19,12 +18,13 @@ import com.adventofcode.flashk.common.test.utils.PuzzleTest;
 import com.adventofcode.flashk.common.test.utils.Timer;
 import com.adventofcode.flashk.common.test.utils.Input;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @DisplayName(TestDisplayName.DAY_05)
 @TestMethodOrder(OrderAnnotation.class)
-@Disabled // TODO Remove comment when implemented
 public class Day05Test extends PuzzleTest {
 
-	private final static String INPUT_FOLDER = TestFolder.DAY_05;
+	private static final String INPUT_FOLDER = TestFolder.DAY_05;
 
 	@BeforeAll
 	public static void beforeAll() {
@@ -43,7 +43,9 @@ public class Day05Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+		PrintQueue printQueue = new PrintQueue(inputs);
+
+		assertEquals(143, printQueue.solveA());
 	}
 	
 	@Test
@@ -57,7 +59,9 @@ public class Day05Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+		PrintQueue printQueue = new PrintQueue(inputs);
+
+		assertEquals(5747, printQueue.solveA());
 	}
 	
 	@Test
@@ -71,7 +75,9 @@ public class Day05Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+		PrintQueue printQueue = new PrintQueue(inputs);
+
+		assertEquals(123, printQueue.solveB());
 	}
 	
 	@Test
@@ -85,7 +91,9 @@ public class Day05Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+		PrintQueue printQueue = new PrintQueue(inputs);
+
+		assertEquals(5502, printQueue.solveB());
 	}
 
 }
