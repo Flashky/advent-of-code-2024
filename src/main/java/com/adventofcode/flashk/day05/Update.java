@@ -3,6 +3,7 @@ package com.adventofcode.flashk.day05;
 import lombok.Getter;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +29,7 @@ public class Update {
         int i = 0;
         while(isOrdered && i < pages.size()) {
             int page = pages.get(i);
-            isOrdered = isOrdered(i, orderingRules.getOrDefault(page, new HashSet<>()));
+            isOrdered = isOrdered(i, orderingRules.getOrDefault(page, Collections.emptySet()));
             i++;
         }
 
