@@ -19,9 +19,10 @@ import com.adventofcode.flashk.common.test.utils.PuzzleTest;
 import com.adventofcode.flashk.common.test.utils.Timer;
 import com.adventofcode.flashk.common.test.utils.Input;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @DisplayName(TestDisplayName.DAY_06)
 @TestMethodOrder(OrderAnnotation.class)
-@Disabled // TODO Remove comment when implemented
 public class Day06Test extends PuzzleTest {
 
 	private final static String INPUT_FOLDER = TestFolder.DAY_06;
@@ -42,8 +43,10 @@ public class Day06Test extends PuzzleTest {
 		System.out.print("1 | sample | ");
 		
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+		GuardGallivant guardGallivant = new GuardGallivant(inputs);
+
+		assertEquals(41,guardGallivant.solveA());
 	}
 	
 	@Test
@@ -56,8 +59,10 @@ public class Day06Test extends PuzzleTest {
 		System.out.print("1 | input  | ");
 		
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
+		GuardGallivant guardGallivant = new GuardGallivant(inputs);
+
+		assertEquals(5269,guardGallivant.solveA());
 	}
 	
 	@Test
@@ -70,8 +75,10 @@ public class Day06Test extends PuzzleTest {
 		System.out.print("2 | sample | ");
 		
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+		GuardGallivant guardGallivant = new GuardGallivant(inputs);
+
+		assertEquals(6,guardGallivant.solveB());
 	}
 	
 	@Test
@@ -84,8 +91,10 @@ public class Day06Test extends PuzzleTest {
 		System.out.print("2 | input  | ");
 		
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+		char[][]inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
+		GuardGallivant guardGallivant = new GuardGallivant(inputs);
+
+		assertEquals(1957,guardGallivant.solveB());
 	}
 
 }
