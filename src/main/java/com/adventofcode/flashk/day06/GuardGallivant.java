@@ -11,8 +11,7 @@ public class GuardGallivant {
 
     private static final char OBSTACLE = '#';
     private static final char OBSTRUCTION = 'O';
-    private static final char UNVISITED = '.';
-    private static final char VISITED = 'X';
+    private static final char EMPTY = '.';
 
     private final char[][] map;
     private final int rows;
@@ -50,7 +49,7 @@ public class GuardGallivant {
         simulateGuardMovement();
         List<Vector2> possibleObstructionPositions =  guardStates.stream().map(GuardState::pos)
                 .distinct().filter(pos -> !pos.equals(initialGuardState.pos())).toList();
-        resetMap();
+        resetMap(null);
 
         // Search for loops
         long loopCount = 0;
@@ -59,7 +58,7 @@ public class GuardGallivant {
             if(simulateGuardMovement()) {
                 loopCount++;
             }
-            resetMap();
+            resetMap(obstructionPos);
         }
 
         return loopCount;
@@ -70,7 +69,6 @@ public class GuardGallivant {
         boolean isLoop = false;
         Vector2 guardPos = initialGuardState.pos();
         Vector2 guardDir = initialGuardState.dir();
-
         Vector2 nextPos;
 
         do {
@@ -83,7 +81,6 @@ public class GuardGallivant {
                     isLoop = true;
                 } else {
                     guardStates.add(guardState);
-                    map[nextPos.getY()][nextPos.getX()] = VISITED;
                 }
             } else {
                 guardDir.rotateLeft();
@@ -106,17 +103,14 @@ public class GuardGallivant {
         return row < 0 || row >= rows || col < 0 || col >= cols;
     }
 
-    private void resetMap() {
+    private void resetMap(Vector2 obstaclePos) {
 
         guardStates = new HashSet<>();
         guardStates.add(initialGuardState);
 
-        for(int row = 0; row < rows; row++) {
-            for(int col = 0; col < cols; col++) {
-                if(map[row][col] != OBSTACLE) {
-                    map[row][col] = UNVISITED;
-                }
-            }
+        if(obstaclePos != null) {
+            map[obstaclePos.getY()][obstaclePos.getX()] = EMPTY;
         }
+
     }
 }
