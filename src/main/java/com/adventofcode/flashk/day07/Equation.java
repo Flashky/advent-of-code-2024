@@ -37,10 +37,8 @@ public class Equation {
         Integer currentOperator = operators.poll();
         boolean hasSolution = hasSolution(partialResult + currentOperator);
 
-        if(!hasSolution && partialResult != 0) {
+        if(!hasSolution) {
             hasSolution = hasSolution(partialResult * currentOperator);
-        } else if(partialResult == 0) {
-            hasSolution = hasSolution(currentOperator);
         }
 
         if(!hasSolution && concatenate) {
