@@ -30,6 +30,8 @@ public class Equation {
 
         if(operators.isEmpty()) {
             return partialResult == result;
+        } else if(partialResult > result) {
+            return false;
         }
 
         Integer currentOperator = operators.poll();
