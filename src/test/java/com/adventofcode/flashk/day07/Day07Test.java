@@ -15,7 +15,6 @@ import com.adventofcode.flashk.common.test.constants.TestFilename;
 import com.adventofcode.flashk.common.test.constants.TestFolder;
 import com.adventofcode.flashk.common.test.constants.TestTag;
 import com.adventofcode.flashk.common.test.utils.PuzzleTest;
-import com.adventofcode.flashk.common.test.utils.Timer;
 import com.adventofcode.flashk.common.test.utils.Input;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -24,13 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @TestMethodOrder(OrderAnnotation.class)
 public class Day07Test extends PuzzleTest {
 
-	private final static String INPUT_FOLDER = TestFolder.DAY_07;
-
-	@BeforeAll
-	public static void beforeAll() {
-		Timer.printHeader(TestDisplayName.DAY_07);
-	}
-
+	private static final String INPUT_FOLDER = TestFolder.DAY_07;
 	
 	@Test
 	@Order(1)

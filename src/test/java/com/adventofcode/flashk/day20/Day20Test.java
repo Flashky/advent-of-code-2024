@@ -2,7 +2,6 @@ package com.adventofcode.flashk.day20;
 
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -16,7 +15,6 @@ import com.adventofcode.flashk.common.test.constants.TestFilename;
 import com.adventofcode.flashk.common.test.constants.TestFolder;
 import com.adventofcode.flashk.common.test.constants.TestTag;
 import com.adventofcode.flashk.common.test.utils.PuzzleTest;
-import com.adventofcode.flashk.common.test.utils.Timer;
 import com.adventofcode.flashk.common.test.utils.Input;
 
 @DisplayName(TestDisplayName.DAY_20)
@@ -24,14 +22,8 @@ import com.adventofcode.flashk.common.test.utils.Input;
 @Disabled // TODO Remove comment when implemented
 public class Day20Test extends PuzzleTest {
 
-	private final static String INPUT_FOLDER = TestFolder.DAY_20;
+	private static final String INPUT_FOLDER = TestFolder.DAY_20;
 
-	@BeforeAll
-	public static void beforeAll() {
-		Timer.printHeader(TestDisplayName.DAY_20);
-	}
-
-	
 	@Test
 	@Order(1)
 	@Tag(TestTag.PART_ONE)
@@ -52,9 +44,7 @@ public class Day20Test extends PuzzleTest {
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_ONE_INPUT)
 	public void testSolvePart1Input() {
-		
-		System.out.print("1 | input  | ");
-		
+
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
 		
@@ -66,9 +56,7 @@ public class Day20Test extends PuzzleTest {
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_TWO_SAMPLE)
 	public void testSolvePart2Sample() {
-		
-		System.out.print("2 | sample | ");
-		
+
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 		
@@ -80,9 +68,7 @@ public class Day20Test extends PuzzleTest {
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_TWO_INPUT)
 	public void testSolvePart2Input() {
-		
-		System.out.print("2 | input  | ");
-		
+
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
 		

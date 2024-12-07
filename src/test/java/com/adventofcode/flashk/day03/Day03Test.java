@@ -31,9 +31,7 @@ class Day03Test extends PuzzleTest {
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_ONE_SAMPLE)
 	public void testSolvePart1Sample() {
-		
-		System.out.print("1 | sample | ");
-		
+
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
@@ -48,9 +46,7 @@ class Day03Test extends PuzzleTest {
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_ONE_INPUT)
 	public void testSolvePart1Input() {
-		
-		System.out.print("1 | input  | ");
-		
+
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
 		MullItOver mullItOver = new MullItOver(inputs);
@@ -66,8 +62,6 @@ class Day03Test extends PuzzleTest {
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_TWO_DEBUG)
 	void testSolvePart2InputByLines() {
-
-		System.out.print("1 | input  | ");
 
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
@@ -85,9 +79,7 @@ class Day03Test extends PuzzleTest {
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_TWO_SAMPLE)
 	public void testSolvePart2Sample() {
-		
-		System.out.print("2 | sample | ");
-		
+
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, INPUT_FILE_SAMPLE_PART_2);
 		MullItOver mullItOver = new MullItOver(inputs);
@@ -101,9 +93,7 @@ class Day03Test extends PuzzleTest {
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_TWO_INPUT)
 	public void testSolvePart2Input() {
-		
-		System.out.print("2 | input  | ");
-		
+
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
 		MullItOver mullItOver = new MullItOver(inputs);

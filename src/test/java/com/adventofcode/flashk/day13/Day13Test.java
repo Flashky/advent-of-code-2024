@@ -2,7 +2,6 @@ package com.adventofcode.flashk.day13;
 
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -16,7 +15,6 @@ import com.adventofcode.flashk.common.test.constants.TestFilename;
 import com.adventofcode.flashk.common.test.constants.TestFolder;
 import com.adventofcode.flashk.common.test.constants.TestTag;
 import com.adventofcode.flashk.common.test.utils.PuzzleTest;
-import com.adventofcode.flashk.common.test.utils.Timer;
 import com.adventofcode.flashk.common.test.utils.Input;
 
 @DisplayName(TestDisplayName.DAY_13)
@@ -24,13 +22,7 @@ import com.adventofcode.flashk.common.test.utils.Input;
 @Disabled // TODO Remove comment when implemented
 public class Day13Test extends PuzzleTest {
 
-	private final static String INPUT_FOLDER = TestFolder.DAY_13;
-
-	@BeforeAll
-	public static void beforeAll() {
-		Timer.printHeader(TestDisplayName.DAY_13);
-	}
-
+	private static final String INPUT_FOLDER = TestFolder.DAY_13;
 	
 	@Test
 	@Order(1)
