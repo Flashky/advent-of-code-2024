@@ -26,9 +26,9 @@ public class Day01Test extends PuzzleTest {
 	
 	@Test
 	@Order(1)
-	@Tag(TestTag.PART_ONE)
+	@Tag(TestTag.PART_1)
 	@Tag(TestTag.SAMPLE)
-	@DisplayName(TestDisplayName.PART_ONE_SAMPLE)
+	@DisplayName(TestDisplayName.PART_1_SAMPLE)
 	public void testSolvePart1Sample() {
 
 		// Read input file
@@ -41,9 +41,9 @@ public class Day01Test extends PuzzleTest {
 	
 	@Test
 	@Order(2)
-	@Tag(TestTag.PART_ONE)
+	@Tag(TestTag.PART_1)
 	@Tag(TestTag.INPUT)
-	@DisplayName(TestDisplayName.PART_ONE_INPUT)
+	@DisplayName(TestDisplayName.PART_1_INPUT)
 	public void testSolvePart1Input() {
 		
 		// Read input file
@@ -56,9 +56,9 @@ public class Day01Test extends PuzzleTest {
 	
 	@Test
 	@Order(3)
-	@Tag(TestTag.PART_TWO)
+	@Tag(TestTag.PART_2)
 	@Tag(TestTag.SAMPLE)
-	@DisplayName(TestDisplayName.PART_TWO_SAMPLE)
+	@DisplayName(TestDisplayName.PART_2_SAMPLE)
 	public void testSolvePart2Sample() {
 		
 		// Read input file
@@ -71,9 +71,9 @@ public class Day01Test extends PuzzleTest {
 	
 	@Test
 	@Order(4)
-	@Tag(TestTag.PART_TWO)
+	@Tag(TestTag.PART_2)
 	@Tag(TestTag.INPUT)
-	@DisplayName(TestDisplayName.PART_TWO_INPUT)
+	@DisplayName(TestDisplayName.PART_2_INPUT)
 	public void testSolvePart2Input() {
 		
 		// Read input file

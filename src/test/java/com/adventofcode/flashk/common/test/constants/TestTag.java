@@ -2,12 +2,12 @@ package com.adventofcode.flashk.common.test.constants;
 
 public final class TestTag {
 
-	public TestTag() {}
+	private TestTag() {}
 	
-	public final static String INPUT = "input";
-	public final static String SAMPLE = "sample";
-	public final static String PART_ONE = "part-1";
-	public final static String PART_TWO = "part-2";
-	public final static String DEBUG = "debug";
+	public static final String INPUT = "input";
+	public static final String SAMPLE = "sample";
+	public static final String PART_1 = "part-1";
+	public static final String PART_2 = "part-2";
+	public static final String DEBUG = "debug";
 	
 }
