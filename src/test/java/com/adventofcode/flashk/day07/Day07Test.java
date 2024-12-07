@@ -3,7 +3,6 @@ package com.adventofcode.flashk.day07;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -19,9 +18,10 @@ import com.adventofcode.flashk.common.test.utils.PuzzleTest;
 import com.adventofcode.flashk.common.test.utils.Timer;
 import com.adventofcode.flashk.common.test.utils.Input;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @DisplayName(TestDisplayName.DAY_07)
 @TestMethodOrder(OrderAnnotation.class)
-@Disabled // TODO Remove comment when implemented
 public class Day07Test extends PuzzleTest {
 
 	private final static String INPUT_FOLDER = TestFolder.DAY_07;
@@ -43,6 +43,9 @@ public class Day07Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+
+		BridgeRepair bridgeRepair = new BridgeRepair(inputs);
+		assertEquals(3749, bridgeRepair.solve(false));
 		
 	}
 	
@@ -57,7 +60,9 @@ public class Day07Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+		BridgeRepair bridgeRepair = new BridgeRepair(inputs);
+
+		assertEquals(3351424677624L, bridgeRepair.solve(false));
 	}
 	
 	@Test
@@ -71,7 +76,10 @@ public class Day07Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+		BridgeRepair bridgeRepair = new BridgeRepair(inputs);
+
+		assertEquals(11387, bridgeRepair.solve(true));
+
 	}
 	
 	@Test
@@ -85,7 +93,9 @@ public class Day07Test extends PuzzleTest {
 		
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+		BridgeRepair bridgeRepair = new BridgeRepair(inputs);
+
+		assertEquals(204976636995111L, bridgeRepair.solve(true));
 	}
 
 }

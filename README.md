@@ -9,7 +9,7 @@
 - [Day 4 - Ceres Search](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day04)
 - [Day 5 - Print Queue](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day05)
 - [Day 6 - Guard Gallivant](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day06)
-- [Day 7](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day07)
+- [Day 7 - Bridge Repair](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day07)
 - [Day 8](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day08)
 - [Day 9](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day09)
 - [Day 10](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day10)
