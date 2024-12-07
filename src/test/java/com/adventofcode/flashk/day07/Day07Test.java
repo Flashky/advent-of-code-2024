@@ -30,9 +30,7 @@ public class Day07Test extends PuzzleTest {
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_1_SAMPLE)
 	public void testSolvePart1Sample() {
-		
-		System.out.print("1 | sample | ");
-		
+
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
@@ -47,9 +45,7 @@ public class Day07Test extends PuzzleTest {
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_1_INPUT)
 	public void testSolvePart1Input() {
-		
-		System.out.print("1 | input  | ");
-		
+
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
 		BridgeRepair bridgeRepair = new BridgeRepair(inputs);
@@ -63,9 +59,7 @@ public class Day07Test extends PuzzleTest {
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_2_SAMPLE)
 	public void testSolvePart2Sample() {
-		
-		System.out.print("2 | sample | ");
-		
+
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 		BridgeRepair bridgeRepair = new BridgeRepair(inputs);
@@ -80,9 +74,7 @@ public class Day07Test extends PuzzleTest {
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_2_INPUT)
 	public void testSolvePart2Input() {
-		
-		System.out.print("2 | input  | ");
-		
+
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
 		BridgeRepair bridgeRepair = new BridgeRepair(inputs);
