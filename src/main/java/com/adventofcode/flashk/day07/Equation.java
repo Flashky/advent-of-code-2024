@@ -1,6 +1,7 @@
 package com.adventofcode.flashk.day07;
 
 import lombok.Getter;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
 import java.util.Deque;
@@ -14,42 +15,35 @@ public class Equation {
     private boolean concatenate;
 
     public Equation(String input) {
-        String[] inputParts = input.split(":");
+        String[] inputParts = input.split(": ");
         result = Long.parseLong(inputParts[0]);
-        operators = Arrays.stream(inputParts[1].split(" "))
-                .skip(1).map(Integer::parseInt).collect(Collectors.toCollection(ArrayDeque::new));
+        operators = Arrays.stream(inputParts[1].split(StringUtils.SPACE)).map(Integer::valueOf)
+                .collect(Collectors.toCollection(ArrayDeque::new));
     }
 
     public long solve(boolean concatenate) {
         this.concatenate = concatenate;
-        return hasSolution(operators, 0) ? result : 0;
+        return hasSolution(0) ? result : 0;
     }
 
-    private boolean hasSolution(Deque<Integer> operators, long partialResult) {
+    private boolean hasSolution(long partialResult) {
 
         if(operators.isEmpty()) {
             return partialResult == result;
         }
 
         Integer currentOperator = operators.poll();
-        boolean hasSolution = hasSolution(operators, partialResult + currentOperator);
+        boolean hasSolution = hasSolution(partialResult + currentOperator);
 
         if(!hasSolution && partialResult != 0) {
-            hasSolution = hasSolution(operators, partialResult * currentOperator);
+            hasSolution = hasSolution(partialResult * currentOperator);
         } else if(partialResult == 0) {
-            hasSolution = hasSolution(operators, currentOperator);
+            hasSolution = hasSolution(currentOperator);
         }
 
         if(!hasSolution && concatenate) {
-            StringBuilder sb = new StringBuilder();
-
-            if(partialResult != 0) {
-                sb.append(partialResult);
-            }
-
-            long concatenatedPartialResult = Long.parseLong(sb.append(currentOperator).toString());
-            hasSolution = hasSolution(operators, concatenatedPartialResult);
-
+            long concatenatedPartialResult = Long.parseLong(String.valueOf(partialResult) + currentOperator);
+            hasSolution = hasSolution(concatenatedPartialResult);
         }
 
         operators.addFirst(currentOperator);
