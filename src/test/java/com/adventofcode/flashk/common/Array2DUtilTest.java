@@ -24,4 +24,5 @@ class Array2DUtilTest {
 
         assertArrayEquals(expected, actual);
     }
+
 }

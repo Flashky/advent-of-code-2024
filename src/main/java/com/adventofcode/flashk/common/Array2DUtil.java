@@ -20,4 +20,18 @@ public class Array2DUtil {
         }
         return transposedArray;
     }
+
+    /**
+     * Paints the given array.
+     * @param map the array to paint
+     */
+    public static void paint(char[][] map) {
+
+        System.out.println();
+        for (char[] chars : map) {
+            System.out.println(chars);
+        }
+        System.out.println();
+
+    }
 }
