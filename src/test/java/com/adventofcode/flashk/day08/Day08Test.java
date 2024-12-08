@@ -34,7 +34,7 @@ class Day08Test extends PuzzleTest {
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 		ResonantCollinearity resonantCollinearity = new ResonantCollinearity(inputs);
 
-		assertEquals(14L, resonantCollinearity.solveA());
+		assertEquals(14L, resonantCollinearity.solve(false));
 	}
 	
 	@Test
@@ -48,7 +48,7 @@ class Day08Test extends PuzzleTest {
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
 		ResonantCollinearity resonantCollinearity = new ResonantCollinearity(inputs);
 
-		assertEquals(332L, resonantCollinearity.solveA());
+		assertEquals(332L, resonantCollinearity.solve(false));
 	}
 
 	@Test
@@ -60,7 +60,7 @@ class Day08Test extends PuzzleTest {
 		// Read input file
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE_PART_2);
 		ResonantCollinearity resonantCollinearity = new ResonantCollinearity(inputs);
-		assertEquals(9L, resonantCollinearity.solveB());
+		assertEquals(9L, resonantCollinearity.solve(true));
 
 	}
 
@@ -74,7 +74,7 @@ class Day08Test extends PuzzleTest {
 		// Read input file
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 		ResonantCollinearity resonantCollinearity = new ResonantCollinearity(inputs);
-		assertEquals(34L, resonantCollinearity.solveB());
+		assertEquals(34L, resonantCollinearity.solve(true));
 	}
 	
 	@Test
@@ -88,7 +88,7 @@ class Day08Test extends PuzzleTest {
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
 		ResonantCollinearity resonantCollinearity = new ResonantCollinearity(inputs);
 
-		assertEquals(1174L, resonantCollinearity.solveB());
+		assertEquals(1174L, resonantCollinearity.solve(true));
 	}
 
 }
