@@ -1,6 +1,7 @@
 package com.adventofcode.flashk.day08;
 
 import com.adventofcode.flashk.common.Vector2;
+import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,6 +17,7 @@ public class ResonantCollinearity {
     private final int rows;
     private final int cols;
     private final Map<Character, List<Vector2>> antennasPerFrequency = new HashMap<>();
+    private Set<Vector2> antinodes;
 
     public ResonantCollinearity(char[][] input) {
 
@@ -38,32 +40,23 @@ public class ResonantCollinearity {
     }
 
     public int solve(boolean countHarmonics) {
-        Set<Vector2> antinodeLocations = new HashSet<>();
+
+        antinodes = new HashSet<>();
 
         for(Map.Entry<Character,List<Vector2>> frequency : antennasPerFrequency.entrySet()) {
-            
+
             List<Vector2> antennas = frequency.getValue();
-
-            for (int i = 0; i < antennas.size(); i++) {
-                for (int j = 1; j < antennas.size(); j++) {
-                    Vector2 antenna1 = antennas.get(i);
-                    Vector2 antenna2 = antennas.get(j);
-
-                    if (antenna1.equals(antenna2)) {
-                        continue;
-                    }
-
-                    findAntinodes(countHarmonics, antenna1, antenna2, antinodeLocations);
-                    findAntinodes(countHarmonics, antenna2, antenna1, antinodeLocations);
-
-                }
+            for(List<Vector2> pair : CollectionUtils.permutations(antennas)) {
+                findAntinodes(countHarmonics, pair.get(0), pair.get(1));
+                findAntinodes(countHarmonics, pair.get(1), pair.get(0));
             }
+
         }
 
-        return antinodeLocations.size();
+        return antinodes.size();
     }
 
-    private void findAntinodes(boolean countHarmonics, Vector2 antennaA, Vector2 antennaB, Set<Vector2> antinodes) {
+    private void findAntinodes(boolean countHarmonics, Vector2 antennaA, Vector2 antennaB) {
         Vector2 direction = Vector2.direction(antennaA, antennaB);
         Vector2 antinode = new Vector2(antennaA);
         do {
