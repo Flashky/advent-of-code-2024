@@ -217,7 +217,17 @@ public class Vector2 {
 		int y = leftOperand.y - rightOperand.y;
 		return new Vector2(x,y);
 	}
-	
+
+	/**
+	 * Calculates the direction vector between points p and q.
+	 * @param p the initial point as a Vector2
+	 * @param q the destination point as a Vector2
+	 * @return a direction Vector2
+	 */
+	public static Vector2 direction(Vector2 p, Vector2 q) {
+		return Vector2.substract(p, q);
+	}
+
 	/**
 	 * Shorthand for <code>Vector2(1,0)</code>.
 	 * @return A unitary vector that points to the right.
@@ -243,7 +253,9 @@ public class Vector2 {
 		
 		return xDistance + yDistance;
 	}
-	
+
+
+
 	/**
 	 * Shorthand for <code>Vector2(-1,0)</code>.
 	 * @return A unitary vector that points to the left.

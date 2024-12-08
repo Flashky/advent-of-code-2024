@@ -1,7 +1,5 @@
 package com.adventofcode.flashk.day08;
 
-import java.util.List;
-
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -17,10 +15,11 @@ import com.adventofcode.flashk.common.test.constants.TestTag;
 import com.adventofcode.flashk.common.test.utils.PuzzleTest;
 import com.adventofcode.flashk.common.test.utils.Input;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @DisplayName(TestDisplayName.DAY_08)
 @TestMethodOrder(OrderAnnotation.class)
-@Disabled // TODO Remove comment when implemented
-public class Day08Test extends PuzzleTest {
+class Day08Test extends PuzzleTest {
 
 	private static final String INPUT_FOLDER = TestFolder.DAY_08;
 
@@ -32,8 +31,10 @@ public class Day08Test extends PuzzleTest {
 	public void testSolvePart1Sample() {
 
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+		ResonantCollinearity resonantCollinearity = new ResonantCollinearity(inputs);
+
+		assertEquals(14L, resonantCollinearity.solveA());
 	}
 	
 	@Test
@@ -44,10 +45,25 @@ public class Day08Test extends PuzzleTest {
 	public void testSolvePart1Input() {
 
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
+		ResonantCollinearity resonantCollinearity = new ResonantCollinearity(inputs);
+
+		assertEquals(332L, resonantCollinearity.solveA());
 	}
-	
+
+	@Test
+	@Order(3)
+	@Tag(TestTag.PART_2)
+	@Tag(TestTag.DEBUG)
+	@DisplayName(TestDisplayName.PART_2_DEBUG)
+	void testSolvePart2Debug() {
+		// Read input file
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE_PART_2);
+		ResonantCollinearity resonantCollinearity = new ResonantCollinearity(inputs);
+		assertEquals(9L, resonantCollinearity.solveB());
+
+	}
+
 	@Test
 	@Order(3)
 	@Tag(TestTag.PART_2)
@@ -56,8 +72,9 @@ public class Day08Test extends PuzzleTest {
 	public void testSolvePart2Sample() {
 
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+		ResonantCollinearity resonantCollinearity = new ResonantCollinearity(inputs);
+		assertEquals(34L, resonantCollinearity.solveB());
 	}
 	
 	@Test
@@ -68,8 +85,10 @@ public class Day08Test extends PuzzleTest {
 	public void testSolvePart2Input() {
 
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
+		ResonantCollinearity resonantCollinearity = new ResonantCollinearity(inputs);
+
+		assertEquals(1174L, resonantCollinearity.solveB());
 	}
 
 }
