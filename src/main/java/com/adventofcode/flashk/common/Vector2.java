@@ -225,6 +225,10 @@ public class Vector2 {
 	 * @return a direction Vector2
 	 */
 	public static Vector2 direction(Vector2 p, Vector2 q) {
+
+		// Given (px,py) and (qx,qy):
+		// Direction vector = (px-qx, py-qy)
+
 		return Vector2.substract(p, q);
 	}
 

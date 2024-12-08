@@ -338,6 +338,44 @@ class Vector2Test {
 	}
 
 	@Test
+	void testDirection() {
+		Vector2 p = new Vector2(5,0);
+		Vector2 q = new Vector2(11,0);
+
+		Vector2 result = Vector2.direction(p, q);
+
+		assertNotNull(result);
+		assertEquals(-6, result.getX());
+		assertEquals(0, result.getY());
+
+		// left and right operands are not modified
+		assertEquals(5, p.getX());
+		assertEquals(0, p.getY());
+		assertEquals(11, q.getX());
+		assertEquals(0, q.getY());
+	}
+
+	@Test
+	void testDirectionOpposite() {
+
+		Vector2 p = new Vector2(11,0);
+		Vector2 q = new Vector2(5,0);
+
+		Vector2 result = Vector2.direction(p, q);
+
+		assertNotNull(result);
+		assertEquals(6, result.getX());
+		assertEquals(0, result.getY());
+
+		// left and right operands are not modified
+		assertEquals(11, p.getX());
+		assertEquals(0, p.getY());
+		assertEquals(5, q.getX());
+		assertEquals(0, q.getY());
+	}
+
+
+	@Test
 	void testHashCodeAndEquals() {
 		EqualsVerifier.simple()
 				.forClass(Vector2.class)
@@ -347,7 +385,7 @@ class Vector2Test {
 	// Rotation tests
 
 	@Test
-	public void testRotateRight() {
+	void testRotateRight() {
 
 		Vector2 startVector = new Vector2(-1,0);
 		startVector.rotateRight();
@@ -373,7 +411,7 @@ class Vector2Test {
 	}
 
 	@Test
-	public void testRotateRightNonZero() {
+	void testRotateRightNonZero() {
 
 		Vector2 startVector = new Vector2(2,1);
 		startVector.rotateRight();
@@ -399,7 +437,7 @@ class Vector2Test {
 	}
 
 	@Test
-	public void testRotateRightNonZeroEqual() {
+	void testRotateRightNonZeroEqual() {
 
 		Vector2 startVector = new Vector2(5,5);
 		startVector.rotateRight();
@@ -425,7 +463,7 @@ class Vector2Test {
 	}
 
 	@Test
-	public void testRotateLeft() {
+	void testRotateLeft() {
 
 		Vector2 startVector = new Vector2(-1,0);
 		startVector.rotateLeft();
@@ -451,7 +489,7 @@ class Vector2Test {
 	}
 
 	@Test
-	public void testRotateLeftNonZero() {
+	void testRotateLeftNonZero() {
 
 		Vector2 startVector = new Vector2(2,1);
 		startVector.rotateLeft();
@@ -477,7 +515,7 @@ class Vector2Test {
 	}
 
 	@Test
-	public void testRotateLeftNonZeroEqual() {
+	void testRotateLeftNonZeroEqual() {
 
 		Vector2 startVector = new Vector2(5,5);
 		startVector.rotateLeft();
