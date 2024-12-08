@@ -5,6 +5,7 @@ import com.adventofcode.flashk.common.Vector2;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -39,15 +40,16 @@ public class ResonantCollinearity {
     public int solve(boolean countHarmonics) {
         Set<Vector2> antinodeLocations = new HashSet<>();
 
-        for(Character frequency : antennasPerFrequency.keySet()) {
-            List<Vector2> antennas = antennasPerFrequency.get(frequency);
+        for(Map.Entry<Character,List<Vector2>> frequency : antennasPerFrequency.entrySet()) {
+            
+            List<Vector2> antennas = frequency.getValue();
 
-            for(int i = 0; i < antennas.size(); i++) {
-                for(int j = 1; j < antennas.size(); j++) {
+            for (int i = 0; i < antennas.size(); i++) {
+                for (int j = 1; j < antennas.size(); j++) {
                     Vector2 antenna1 = antennas.get(i);
                     Vector2 antenna2 = antennas.get(j);
 
-                    if(antenna1.equals(antenna2)) {
+                    if (antenna1.equals(antenna2)) {
                         continue;
                     }
 
@@ -80,6 +82,5 @@ public class ResonantCollinearity {
     private boolean isInbounds(Vector2 antinodePos) {
         return antinodePos.getY() >= 0 && antinodePos.getY() < rows && antinodePos.getX() >= 0 && antinodePos.getX() < cols;
     }
-
 
 }
