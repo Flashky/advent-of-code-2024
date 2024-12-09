@@ -9,11 +9,13 @@ public class DiskFragmenter {
     private final Deque<Integer> diskDeque = new ArrayDeque<>();
 
     public DiskFragmenter(List<String> inputs) {
-        char[] diskMap = inputs.get(0).toCharArray();
 
+        char[] diskMap = inputs.get(0).toCharArray();
         int fileId = 0;
         int lastBlockIndex = 0;
+
         for(int i = 0; i < diskMap.length; i++) {
+
             int blockSize = Character.getNumericValue(diskMap[i]);
 
             for(int blockIndex = lastBlockIndex; blockIndex < lastBlockIndex + blockSize; blockIndex++) {
