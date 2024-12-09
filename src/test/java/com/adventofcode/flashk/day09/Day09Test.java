@@ -81,8 +81,8 @@ public class Day09Test extends PuzzleTest {
 
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		DiskFragmenter diskFragmenter = new DiskFragmenter(inputs);
-		assertEquals(2858L, diskFragmenter.solveB());
+		DiskDefragmenter diskDefragmenter = new DiskDefragmenter(inputs);
+		assertEquals(2858L, diskDefragmenter.solve());
 	}
 	
 	@Test
@@ -95,9 +95,9 @@ public class Day09Test extends PuzzleTest {
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
+		DiskDefragmenter diskDefragmenter = new DiskDefragmenter(inputs);
 
-		System.out.println("Solution: ");
-		assertEquals(0L, 0L);
+		assertEquals(6335972980679L, diskDefragmenter.solve());
 
 	}
 

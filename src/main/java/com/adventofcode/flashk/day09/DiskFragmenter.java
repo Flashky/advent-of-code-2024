@@ -58,6 +58,10 @@ public class DiskFragmenter {
 
     }
 
+    public long solveB() {
+
+        return 0;
+    }
     /*
     private long checksum() {
         long result = 0;
