@@ -17,9 +17,10 @@ import com.adventofcode.flashk.common.test.constants.TestTag;
 import com.adventofcode.flashk.common.test.utils.PuzzleTest;
 import com.adventofcode.flashk.common.test.utils.Input;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @DisplayName(TestDisplayName.DAY_10)
 @TestMethodOrder(OrderAnnotation.class)
-@Disabled // TODO Remove comment when implemented
 public class Day10Test extends PuzzleTest {
 
 	private static final String INPUT_FOLDER = TestFolder.DAY_10;
@@ -33,7 +34,8 @@ public class Day10Test extends PuzzleTest {
 
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+
+		assertEquals(0L,0L);
 	}
 	
 	@Test
@@ -42,12 +44,13 @@ public class Day10Test extends PuzzleTest {
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_1_INPUT)
 	public void testSolvePart1Input() {
-		
-		System.out.print("1 | input  | ");
-		
+
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+
+		System.out.println("Solution: ");
+		assertEquals(0L,0L);
+
 	}
 	
 	@Test
@@ -56,12 +59,11 @@ public class Day10Test extends PuzzleTest {
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_2_SAMPLE)
 	public void testSolvePart2Sample() {
-		
-		System.out.print("2 | sample | ");
-		
+
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-		
+
+		assertEquals(0L,0L);
 	}
 	
 	@Test
@@ -70,12 +72,13 @@ public class Day10Test extends PuzzleTest {
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_2_INPUT)
 	public void testSolvePart2Input() {
-		
-		System.out.print("2 | input  | ");
-		
+
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		
+
+		System.out.println("Solution: ");
+		assertEquals(0L,0L);
+
 	}
 
 }

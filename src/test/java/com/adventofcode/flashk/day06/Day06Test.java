@@ -33,7 +33,7 @@ public class Day06Test extends PuzzleTest {
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 		GuardGallivant guardGallivant = new GuardGallivant(inputs);
 
-		assertEquals(41,guardGallivant.solveA());
+		assertEquals(41, guardGallivant.solveA());
 	}
 	
 	@Test
