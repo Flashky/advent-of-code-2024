@@ -5,8 +5,6 @@ import lombok.Getter;
 
 public class File {
 
-    private static int maxIdFile = 0;
-
     private final int id;
     @Getter
     private int startBlockIndex;

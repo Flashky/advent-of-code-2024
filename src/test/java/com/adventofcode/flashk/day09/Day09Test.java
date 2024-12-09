@@ -2,7 +2,6 @@ package com.adventofcode.flashk.day09;
 
 import java.util.List;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -21,25 +20,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName(TestDisplayName.DAY_09)
 @TestMethodOrder(OrderAnnotation.class)
-public class Day09Test extends PuzzleTest {
+class Day09Test extends PuzzleTest {
 
 	private static final String INPUT_FOLDER = TestFolder.DAY_09;
 
-	@Test
-	@Order(1)
-	@Tag(TestTag.PART_1)
-	@Tag(TestTag.SAMPLE)
-	@DisplayName(TestDisplayName.PART_ONE_SINGLE_SAMPLE)
-	void testSolvePart1SingleSample() {
-
-		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SINGLE_SAMPLE);
-
-		DiskFragmenter diskFragmenter = new DiskFragmenter(inputs);
-
-		//assertEquals(0L, diskFragmenter.solveA());
-
-	}
 
 	@Test
 	@Order(1)
@@ -53,7 +37,7 @@ public class Day09Test extends PuzzleTest {
 
 		DiskFragmenter diskFragmenter = new DiskFragmenter(inputs);
 
-		assertEquals(1928L, diskFragmenter.solveA());
+		assertEquals(1928L, diskFragmenter.solve());
 
 	}
 	
@@ -69,7 +53,7 @@ public class Day09Test extends PuzzleTest {
 
 		DiskFragmenter diskFragmenter = new DiskFragmenter(inputs);
 
-		assertEquals(6310675819476L, diskFragmenter.solveA());
+		assertEquals(6310675819476L, diskFragmenter.solve());
 	}
 	
 	@Test

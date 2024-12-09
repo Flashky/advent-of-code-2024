@@ -1,7 +1,5 @@
 package com.adventofcode.flashk.day09;
 
-import lombok.Getter;
-
 public class Unallocated {
 
     private int startBlockIndex;
