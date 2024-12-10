@@ -9,12 +9,13 @@ import java.util.Set;
 
 public class HoofIt {
 
-    private Tile[][] map;
-    private int rows;
-    private int cols;
+    private final Tile[][] map;
+    private final int rows;
+    private final int cols;
 
-    private List<Tile> initialTiles = new ArrayList<>();
-    private Set<Tile> reachedTiles = new HashSet<>();
+    private final List<Tile> initialTiles = new ArrayList<>();
+    private final Set<Tile> reachedTiles = new HashSet<>();
+
 
     public HoofIt(int[][] inputs) {
         this.rows = inputs.length;
@@ -32,27 +33,18 @@ public class HoofIt {
         }
     }
 
-    public long solveA() {
+    public long solve(boolean rating) {
 
         long result = 0;
         for(Tile initialTile : initialTiles) {
-            result += findPath(initialTile, -1);
+            result += findPath(initialTile, -1, rating);
             reachedTiles.clear();
         }
         return result;
     }
 
-    public long solveB() {
 
-        long result = 0;
-        for(Tile initialTile : initialTiles) {
-            result += findPathB(initialTile, -1);
-            //reachedTiles.clear();
-        }
-        return result;
-    }
-
-    private long findPath(Tile tile, int previousHeight) {
+    private long findPath(Tile tile, int previousHeight, boolean rating) {
 
         if(tile.isVisited()) {
             return 0;
@@ -62,51 +54,21 @@ public class HoofIt {
             return 0;
         }
 
-        if(tile.getHeight() == 9 && !reachedTiles.contains(tile)) {
+        if((tile.getHeight() == 9) && !rating && !reachedTiles.contains(tile)){
             reachedTiles.add(tile);
             return 1;
-        }
-
-        long result = 0;
-
-        // revisar condiciones de revisitado
-        tile.setVisited(true);
-
-        Set<Tile> adjacentTiles = getAdjacentTiles(tile);
-
-        for(Tile adjacentTile : adjacentTiles) {
-            result += findPath(adjacentTile, tile.getHeight());
-        }
-
-        tile.setVisited(false);
-
-        return result;
-
-    }
-
-    private long findPathB(Tile tile, int previousHeight) {
-
-        if(tile.isVisited()) {
-            return 0;
-        }
-
-        if(tile.getHeight()-previousHeight != 1) {
-            return 0;
-        }
-
-        if(tile.getHeight() == 9) {
+        } else if((tile.getHeight() == 9) && rating) {
             return 1;
         }
 
         long result = 0;
 
-        // revisar condiciones de revisitado
         tile.setVisited(true);
 
         Set<Tile> adjacentTiles = getAdjacentTiles(tile);
 
         for(Tile adjacentTile : adjacentTiles) {
-            result += findPathB(adjacentTile, tile.getHeight());
+            result += findPath(adjacentTile, tile.getHeight(), rating);
         }
 
         tile.setVisited(false);
@@ -118,33 +80,33 @@ public class HoofIt {
     private Set<Tile> getAdjacentTiles(Tile tile) {
         Set<Tile> adjacentTiles = new HashSet<>();
 
-        Vector2 initialPosition = tile.getPosition();
+        Vector2 initialPos = tile.getPosition();
 
-        Vector2 nextTile = Vector2.transform(initialPosition, Vector2.left());
-        if(!isOutOfBounds(nextTile)) {
-            adjacentTiles.add(map[nextTile.getY()][nextTile.getX()]);
+        Vector2 nextPos = Vector2.transform(initialPos, Vector2.left());
+        if(isInbounds(nextPos)) {
+            adjacentTiles.add(map[nextPos.getY()][nextPos.getX()]);
         }
 
-        nextTile = Vector2.transform(initialPosition, Vector2.right());
-        if(!isOutOfBounds(nextTile)) {
-            adjacentTiles.add(map[nextTile.getY()][nextTile.getX()]);
+        nextPos = Vector2.transform(initialPos, Vector2.right());
+        if(isInbounds(nextPos)) {
+            adjacentTiles.add(map[nextPos.getY()][nextPos.getX()]);
         }
 
-        nextTile = Vector2.transform(initialPosition, Vector2.up());
-        if(!isOutOfBounds(nextTile)) {
-            adjacentTiles.add(map[nextTile.getY()][nextTile.getX()]);
+        nextPos = Vector2.transform(initialPos, Vector2.up());
+        if(isInbounds(nextPos)) {
+            adjacentTiles.add(map[nextPos.getY()][nextPos.getX()]);
         }
 
-        nextTile = Vector2.transform(initialPosition, Vector2.down());
-        if(!isOutOfBounds(nextTile)) {
-            adjacentTiles.add(map[nextTile.getY()][nextTile.getX()]);
+        nextPos = Vector2.transform(initialPos, Vector2.down());
+        if(isInbounds(nextPos)) {
+            adjacentTiles.add(map[nextPos.getY()][nextPos.getX()]);
         }
 
         return adjacentTiles;
     }
 
-    private boolean isOutOfBounds(Vector2 pos) {
-        return (pos.getY() < 0 || pos.getY() >= rows || pos.getX() < 0 || pos.getX() >= cols);
+    private boolean isInbounds(Vector2 pos) {
+        return (pos.getY() >= 0 && pos.getY() < rows && pos.getX() >= 0 && pos.getX() < cols);
     }
 
 

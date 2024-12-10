@@ -36,7 +36,7 @@ public class Day10Test extends PuzzleTest {
 		int[][] inputs = Input.read2DIntArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
 		HoofIt hoofIt = new HoofIt(inputs);
-		assertEquals(36L,hoofIt.solveA());
+		assertEquals(36L,hoofIt.solve(false));
 	}
 	
 	@Test
@@ -50,7 +50,7 @@ public class Day10Test extends PuzzleTest {
 		int[][] inputs = Input.read2DIntArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
 		HoofIt hoofIt = new HoofIt(inputs);
-		assertEquals(825L,hoofIt.solveA());
+		assertEquals(825L,hoofIt.solve(false));
 
 	}
 	
@@ -65,7 +65,7 @@ public class Day10Test extends PuzzleTest {
 		int[][] inputs = Input.read2DIntArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
 		HoofIt hoofIt = new HoofIt(inputs);
-		assertEquals(81L, hoofIt.solveB());
+		assertEquals(81L, hoofIt.solve(true));
 	}
 	
 	@Test
@@ -79,7 +79,7 @@ public class Day10Test extends PuzzleTest {
 		int[][] inputs = Input.read2DIntArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
 		HoofIt hoofIt = new HoofIt(inputs);
-		assertEquals(1805L,hoofIt.solveB());
+		assertEquals(1805L,hoofIt.solve(true));
 
 	}
 
