@@ -4,15 +4,13 @@ import com.adventofcode.flashk.common.Vector2;
 import lombok.Getter;
 import lombok.Setter;
 
+@Getter
 public class Tile {
 
-    @Getter
     @Setter
     private boolean visited = false;
-    @Getter
-    private Vector2 position;
-    @Getter
-    private int height;
+    private final Vector2 position;
+    private final int height;
 
     public Tile(Vector2 position, int height) {
         this.position = position;
