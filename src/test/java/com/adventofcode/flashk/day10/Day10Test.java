@@ -33,9 +33,10 @@ public class Day10Test extends PuzzleTest {
 	public void testSolvePart1Sample() {
 
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+		int[][] inputs = Input.read2DIntArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
-		assertEquals(0L,0L);
+		HoofIt hoofIt = new HoofIt(inputs);
+		assertEquals(36L,hoofIt.solveA());
 	}
 	
 	@Test
@@ -46,10 +47,10 @@ public class Day10Test extends PuzzleTest {
 	public void testSolvePart1Input() {
 
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
+		int[][] inputs = Input.read2DIntArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
-		System.out.println("Solution: ");
-		assertEquals(0L,0L);
+		HoofIt hoofIt = new HoofIt(inputs);
+		assertEquals(825L,hoofIt.solveA());
 
 	}
 	
@@ -61,9 +62,10 @@ public class Day10Test extends PuzzleTest {
 	public void testSolvePart2Sample() {
 
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+		int[][] inputs = Input.read2DIntArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
-		assertEquals(0L,0L);
+		HoofIt hoofIt = new HoofIt(inputs);
+		assertEquals(81L, hoofIt.solveB());
 	}
 	
 	@Test
@@ -74,10 +76,10 @@ public class Day10Test extends PuzzleTest {
 	public void testSolvePart2Input() {
 
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
+		int[][] inputs = Input.read2DIntArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
-		System.out.println("Solution: ");
-		assertEquals(0L,0L);
+		HoofIt hoofIt = new HoofIt(inputs);
+		assertEquals(1805L,hoofIt.solveB());
 
 	}
 
