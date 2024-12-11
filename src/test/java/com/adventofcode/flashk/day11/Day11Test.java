@@ -36,7 +36,13 @@ public class Day11Test extends PuzzleTest {
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
-		assertEquals(0L,0L);
+		PlutonianPebbles plutonianPebbles = new PlutonianPebbles(inputs);
+
+		assertEquals(22L ,plutonianPebbles.solveA(6));
+
+		plutonianPebbles = new PlutonianPebbles(inputs);
+		assertEquals(55312L ,plutonianPebbles.solveA(25));
+
 	}
 
 	@Test
@@ -48,15 +54,16 @@ public class Day11Test extends PuzzleTest {
 
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
+		PlutonianPebbles plutonianPebbles = new PlutonianPebbles(inputs);
 
-		System.out.println("Solution: ");
-		assertEquals(0L,0L);
+		System.out.println("Solution: "+plutonianPebbles.solveA(75));
+		//assertEquals(189547L,0L);
 
 	}
 
 	@Test
-	@Order(3)
-	@Tag(TestTag.PART_2)
+	@Order(1)
+	@Tag(TestTag.PART_1)
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_2_SAMPLE)
 	public void testSolvePart2Sample() {
@@ -64,7 +71,13 @@ public class Day11Test extends PuzzleTest {
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
-		assertEquals(0L,0L);
+		PlutonianPebbles plutonianPebbles = new PlutonianPebbles(inputs);
+
+		assertEquals(22L ,plutonianPebbles.solveB(6));
+
+		plutonianPebbles = new PlutonianPebbles(inputs);
+		assertEquals(55312L ,plutonianPebbles.solveB(25));
+
 	}
 
 	@Test
@@ -77,8 +90,9 @@ public class Day11Test extends PuzzleTest {
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
-		System.out.println("Solution: ");
-		assertEquals(0L,0L);
+		PlutonianPebbles plutonianPebbles = new PlutonianPebbles(inputs);
+
+		assertEquals(224577979481346L, plutonianPebbles.solveB(75));
 
 	}
 
