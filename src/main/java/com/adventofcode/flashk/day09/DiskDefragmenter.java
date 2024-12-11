@@ -12,7 +12,7 @@ public class DiskDefragmenter {
 
     public DiskDefragmenter(List<String> inputs){
 
-        char[] diskMap = inputs.get(0).toCharArray();
+        char[] diskMap = inputs.getFirst().toCharArray();
         int fileId = 0;
         int blockIndex = 0;
 

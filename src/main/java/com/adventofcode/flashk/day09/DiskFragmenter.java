@@ -10,7 +10,7 @@ public class DiskFragmenter {
 
     public DiskFragmenter(List<String> inputs) {
 
-        char[] diskMap = inputs.get(0).toCharArray();
+        char[] diskMap = inputs.getFirst().toCharArray();
         int fileId = 0;
         int lastBlockIndex = 0;
 

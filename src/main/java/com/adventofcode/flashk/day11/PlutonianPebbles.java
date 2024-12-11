@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -41,7 +42,7 @@ public class PlutonianPebbles {
                 updateNumber(1L, rockCount, processedRocks);
             } else if(digits % 2 == 0) {
                 String strNumber = String.valueOf(number);
-                
+
                 String strNumberLeft = strNumber.substring(0, strNumber.length() / 2);
                 updateNumber(Long.parseLong(strNumberLeft), rockCount, processedRocks);
 
