@@ -13,32 +13,24 @@ import java.util.stream.Collectors;
 
 public class PlutonianPebbles {
 
-    private Deque<Long> rocks;
-
     private Map<Long, Long> rocksPerNumber;
 
     public PlutonianPebbles(List<String> inputs) {
-        rocks = Arrays.stream(inputs.get(0).split(StringUtils.SPACE)).map(Long::valueOf).collect(Collectors.toCollection(ArrayDeque::new));
-
-        rocksPerNumber = rocks.stream().collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
+        rocksPerNumber = Arrays.stream(inputs.get(0).split(StringUtils.SPACE)).map(Long::valueOf)
+                               .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
     }
 
-    public long solveA(int blinks) {
+
+    public long solve(int blinks) {
+
         for(int i = 0; i < blinks; i++) {
             blink();
         }
 
-        return rocks.size();
+        return countRocks();
     }
 
-    public long solveB(int blinks) {
-        for(int i = 0; i < blinks; i++) {
-            blinkB();
-        }
-        return countRocksInMap();
-    }
-
-    private void blinkB() {
+    private void blink() {
 
         Map<Long,Long> processedRocks = new HashMap<>();
 
@@ -73,7 +65,7 @@ public class PlutonianPebbles {
         rocksPerNumber = processedRocks;
     }
 
-    private long countRocksInMap() {
+    private long countRocks() {
         long result = 0;
         for(Long number : rocksPerNumber.keySet()) {
             result += rocksPerNumber.get(number);
@@ -81,32 +73,4 @@ public class PlutonianPebbles {
         return result;
     }
 
-    private void blink() {
-
-        Deque<Long> processedRocks = new ArrayDeque<>();
-
-        // Para cada roca:
-        // Si roca == 0 -> roca = 1
-        // y si roca tiene un número par de dígitos -> Partir en 2 -> tendré que convertir a string y partir.
-        // resto de casos: roca *= 2024
-
-        while(!rocks.isEmpty()) {
-            long number = rocks.pollFirst();
-            long digits = String.valueOf(number).length();
-            if(number == 0) {
-                processedRocks.add(1L);
-            } else if(digits % 2 == 0) {
-                String strNumber = String.valueOf(number);
-                String numberLeft = strNumber.substring(0, strNumber.length() / 2);
-                String numberRight = strNumber.substring(strNumber.length() / 2);
-                processedRocks.add(Long.valueOf(numberLeft));
-                processedRocks.add(Long.valueOf(numberRight));
-            } else {
-                processedRocks.add(number*2024);
-            }
-        }
-
-
-        rocks = processedRocks;
-    }
 }
