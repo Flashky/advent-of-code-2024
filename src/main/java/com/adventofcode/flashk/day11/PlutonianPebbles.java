@@ -2,9 +2,7 @@ package com.adventofcode.flashk.day11;
 
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayDeque;
 import java.util.Arrays;
-import java.util.Deque;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,7 +14,7 @@ public class PlutonianPebbles {
     private Map<Long, Long> rocksPerNumber;
 
     public PlutonianPebbles(List<String> inputs) {
-        rocksPerNumber = Arrays.stream(inputs.get(0).split(StringUtils.SPACE)).map(Long::valueOf)
+        rocksPerNumber = Arrays.stream(inputs.getFirst().split(StringUtils.SPACE)).map(Long::valueOf)
                                .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
     }
 
@@ -27,50 +25,39 @@ public class PlutonianPebbles {
             blink();
         }
 
-        return countRocks();
+        return rocksPerNumber.values().stream().reduce(0L, Long::sum);
     }
 
     private void blink() {
 
         Map<Long,Long> processedRocks = new HashMap<>();
 
-        for(Long number : rocksPerNumber.keySet()) {
+        for(Map.Entry<Long,Long> rock : rocksPerNumber.entrySet()) {
+            long number = rock.getKey();
+            long rockCount = rock.getValue();
             long digits = String.valueOf(number).length();
-            long rockCount = rocksPerNumber.get(number);
-            long newNumber;
+
             if(number == 0) {
-                newNumber = 1L;
-                rockCount += processedRocks.getOrDefault(newNumber, 0L);
-                processedRocks.put(1L, rockCount);
+                updateNumber(1L, rockCount, processedRocks);
             } else if(digits % 2 == 0) {
                 String strNumber = String.valueOf(number);
-
+                
                 String strNumberLeft = strNumber.substring(0, strNumber.length() / 2);
-                newNumber = Long.parseLong(strNumberLeft);
-                long rockCountLeft = rockCount + processedRocks.getOrDefault(newNumber, 0L);
-                processedRocks.put(newNumber, rockCountLeft);
+                updateNumber(Long.parseLong(strNumberLeft), rockCount, processedRocks);
 
                 String strNumberRight = strNumber.substring(strNumber.length() / 2);
-                newNumber = Long.parseLong(strNumberRight);
-                long rockCountRight = rockCount + processedRocks.getOrDefault(newNumber, 0L);
-                processedRocks.put(newNumber, rockCountRight);
-
+                updateNumber(Long.parseLong(strNumberRight), rockCount, processedRocks);
             } else {
-                newNumber = number*2024L;
-                rockCount += processedRocks.getOrDefault(newNumber, 0L);
-                processedRocks.put(newNumber, rockCount);
+                updateNumber(number*2024L, rockCount, processedRocks);
             }
         }
 
         rocksPerNumber = processedRocks;
     }
 
-    private long countRocks() {
-        long result = 0;
-        for(Long number : rocksPerNumber.keySet()) {
-            result += rocksPerNumber.get(number);
-        }
-        return result;
+    private void updateNumber(long number, long rockCount, Map<Long,Long> processedRocks) {
+        rockCount += processedRocks.getOrDefault(number, 0L);
+        processedRocks.put(number, rockCount);
     }
 
 }
