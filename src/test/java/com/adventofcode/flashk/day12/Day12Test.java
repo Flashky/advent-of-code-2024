@@ -49,8 +49,8 @@ public class Day12Test extends PuzzleTest {
 
 		// Read input file
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
+
 		GardenGroups gardenGroups = new GardenGroups(inputs);
-		System.out.println("Solution: "+gardenGroups.solveA());
 		assertEquals(1424472L,gardenGroups.solveA());
 
 	}
@@ -65,7 +65,64 @@ public class Day12Test extends PuzzleTest {
 		// Read input file
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 		GardenGroups gardenGroups = new GardenGroups(inputs);
-		assertEquals(1206L,0L);
+
+		assertEquals(1206L,gardenGroups.solveB());
+	}
+
+	@Test
+	@Order(3)
+	@Tag(TestTag.PART_2)
+	@Tag(TestTag.SAMPLE)
+	@DisplayName(TestDisplayName.PART_2_SAMPLE)
+	public void testSolvePart2SingleSample() {
+
+		// Read input file
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SINGLE_SAMPLE);
+		GardenGroups gardenGroups = new GardenGroups(inputs);
+
+		assertEquals(80L,gardenGroups.solveB());
+	}
+
+	@Test
+	@Order(3)
+	@Tag(TestTag.PART_2)
+	@Tag(TestTag.SAMPLE)
+	@DisplayName(TestDisplayName.PART_2_SAMPLE_2)
+	public void testSolvePart2SingleSample2() {
+
+		// Read input file
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SINGLE_SAMPLE_2);
+		GardenGroups gardenGroups = new GardenGroups(inputs);
+
+		assertEquals(436L,gardenGroups.solveB());
+	}
+
+	@Test
+	@Order(3)
+	@Tag(TestTag.PART_2)
+	@Tag(TestTag.SAMPLE)
+	@DisplayName(TestDisplayName.PART_2_SAMPLE_3)
+	public void testSolvePart2SingleSample3() {
+
+		// Read input file
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SINGLE_SAMPLE_3);
+		GardenGroups gardenGroups = new GardenGroups(inputs);
+
+		assertEquals(236L,gardenGroups.solveB());
+	}
+
+	@Test
+	@Order(3)
+	@Tag(TestTag.PART_2)
+	@Tag(TestTag.SAMPLE)
+	@DisplayName(TestDisplayName.PART_2_SAMPLE_4)
+	public void testSolvePart2SingleSample4() {
+
+		// Read input file
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SINGLE_SAMPLE_4);
+		GardenGroups gardenGroups = new GardenGroups(inputs);
+
+		assertEquals(368L,gardenGroups.solveB());
 	}
 
 	@Test
@@ -78,7 +135,9 @@ public class Day12Test extends PuzzleTest {
 		// Read input file
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
 		GardenGroups gardenGroups = new GardenGroups(inputs);
-		System.out.println("Solution: ");
+		System.out.println("Solution: "+gardenGroups.solveB());
+
+		// 875718 -> Too high
 		assertEquals(0L,0L);
 
 	}
