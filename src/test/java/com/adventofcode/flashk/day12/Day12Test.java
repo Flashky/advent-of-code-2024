@@ -34,9 +34,10 @@ public class Day12Test extends PuzzleTest {
 	public void testSolvePart1Sample() {
 
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
-		assertEquals(0L,0L);
+		GardenGroups gardenGroups = new GardenGroups(inputs);
+		assertEquals(1930L, gardenGroups.solveA());
 	}
 
 	@Test
@@ -47,10 +48,10 @@ public class Day12Test extends PuzzleTest {
 	public void testSolvePart1Input() {
 
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-
-		System.out.println("Solution: ");
-		assertEquals(0L,0L);
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
+		GardenGroups gardenGroups = new GardenGroups(inputs);
+		System.out.println("Solution: "+gardenGroups.solveA());
+		assertEquals(1424472L,gardenGroups.solveA());
 
 	}
 
@@ -62,9 +63,9 @@ public class Day12Test extends PuzzleTest {
 	public void testSolvePart2Sample() {
 
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-
-		assertEquals(0L,0L);
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+		GardenGroups gardenGroups = new GardenGroups(inputs);
+		assertEquals(1206L,0L);
 	}
 
 	@Test
@@ -75,8 +76,8 @@ public class Day12Test extends PuzzleTest {
 	public void testSolvePart2Input() {
 
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
+		GardenGroups gardenGroups = new GardenGroups(inputs);
 		System.out.println("Solution: ");
 		assertEquals(0L,0L);
 
