@@ -45,7 +45,7 @@ public class GardenGroups {
             int sides = calculateRegionSides(gardenPlots);
             regionSides.put(gardenPlots.stream().findFirst().get().getRegionId(), sides);
             //price += regionAreas.get(gardenPlots.stream().findFirst().get().getRegionId()) * sides;
-            //System.out.println(gardenPlots.stream().findFirst().get().getPlant()+"     | "+sides);
+            System.out.println(gardenPlots.stream().findFirst().get().getPlant()+"     | "+sides);
         }
 
         // TODO calculate sides of each region
@@ -84,8 +84,14 @@ public class GardenGroups {
         int internalConvexAngles = 0;
 
         for(GardenPlot gardenPlot : gardenPlots) {
-            externalAngles += sumExternalAngles(gardenPlot);
-            internalAngles += sumInternalAngles(gardenPlot); // TODO descomenta esto para resultado final
+            int currentExternalAngles = sumExternalAngles(gardenPlot);
+            int currentInternalAngles = sumInternalAngles(gardenPlot); // Esto debería dar 1080 para el plot (2,2) ?
+            //if(currentExternalAngles != 360 && currentInternalAngles != 1080) {
+                externalAngles += currentExternalAngles;
+                internalAngles += currentInternalAngles;
+            //}
+
+
             internalConvexAngles += sumInternalConvexAngles(gardenPlot);
         }
 

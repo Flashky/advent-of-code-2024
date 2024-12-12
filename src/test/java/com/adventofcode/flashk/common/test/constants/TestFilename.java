@@ -12,7 +12,8 @@ public final class TestFilename {
 	public static final String INPUT_FILE_SINGLE_SAMPLE_2 = "single_sample_2.input";
 	public static final String INPUT_FILE_SINGLE_SAMPLE_3 = "single_sample_3.input";
 	public static final String INPUT_FILE_SINGLE_SAMPLE_4 = "single_sample_4.input";
-
+	public static final String INPUT_FILE_SINGLE_SAMPLE_5 = "single_sample_5.input";
+	public static final String INPUT_FILE_SINGLE_SAMPLE_6 = "single_sample_6.input";
 	// Other tests
 	public static final String ARRAY_JSON = "array.json";
 	public static final String INVALID_JSON = "invalid.json";
