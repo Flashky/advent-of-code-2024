@@ -89,14 +89,16 @@ public class GardenGroups {
             //if(currentExternalAngles != 360 && currentInternalAngles != 1080) {
                 externalAngles += currentExternalAngles;
                 internalAngles += currentInternalAngles;
+                System.out.print(gardenPlot.getPosition().getY() + ","+gardenPlot.getPosition().getX());
+                System.out.println(" - EXT: "+currentExternalAngles + " - INT: "+ currentInternalAngles);
             //}
 
 
             internalConvexAngles += sumInternalConvexAngles(gardenPlot);
         }
 
+        //angles = externalAngles + internalAngles + internalConvexAngles;
         angles = externalAngles + internalAngles + internalConvexAngles;
-
         // https://www.sciencing.com/how-to-find-the-number-of-sides-of-a-polygon-12751688/
         return (angles / 180) + 2;
     }
@@ -105,19 +107,19 @@ public class GardenGroups {
         int angles = 0;
 
         if(hasUpLeftInternalAngle(gardenPlot)) {
-            angles += 270;
+            angles += 90; // 270
         }
 
         if(hasUpRightInternalAngle(gardenPlot)) {
-            angles += 270;
+            angles += 90;
         }
 
         if(hasDownLeftInternalAngle(gardenPlot)) {
-            angles += 270;
+            angles += 90;
         }
 
         if(hasDownRightInternalAngle(gardenPlot)) {
-            angles += 270;
+            angles += 90;
         }
 
         return angles;
