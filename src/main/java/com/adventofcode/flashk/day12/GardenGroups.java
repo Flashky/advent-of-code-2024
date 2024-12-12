@@ -79,11 +79,17 @@ public class GardenGroups {
         // - En el resto de casos, no hay ángulos.
 
         int angles = 0;
+        int externalAngles = 0;
+        int internalAngles = 0;
+        int internalConvexAngles = 0;
 
         for(GardenPlot gardenPlot : gardenPlots) {
-            angles += sumExternalAngles(gardenPlot);
-            angles += sumInternalAngles(gardenPlot); // TODO descomenta esto para resultado final
+            externalAngles += sumExternalAngles(gardenPlot);
+            internalAngles += sumInternalAngles(gardenPlot); // TODO descomenta esto para resultado final
+            internalConvexAngles += sumInternalConvexAngles(gardenPlot);
         }
+
+        angles = externalAngles + internalAngles + internalConvexAngles;
 
         // https://www.sciencing.com/how-to-find-the-number-of-sides-of-a-polygon-12751688/
         return (angles / 180) + 2;
@@ -218,6 +224,121 @@ public class GardenGroups {
         // Garden plot is at any other position of the map
         return (map[rightPos.getY()][rightPos.getX()].getRegionId() == gardenPlot.getRegionId() &&
                 map[downPos.getY()][downPos.getX()].getRegionId() == gardenPlot.getRegionId());
+    }
+
+    private int sumInternalConvexAngles(GardenPlot gardenPlot) {
+        int angles = 0;
+
+        if(hasUpLeftInternalConvexAngle(gardenPlot)) {
+            angles -= 90;
+        }
+
+        if(hasUpRightInternalConvexAngle(gardenPlot)) {
+            angles -= 90;
+        }
+
+        if(hasDownLeftInternalConvexAngle(gardenPlot)) {
+            angles -= 90;
+        }
+
+        if(hasDownRightInternalConvexAngle(gardenPlot)) {
+            angles -= 90;
+        }
+
+        return angles;
+
+    }
+
+    private boolean hasUpLeftInternalConvexAngle(GardenPlot gardenPlot) {
+
+        // Solo puede haber ángulos convexos en el interior del mapa
+        if(isInBorder(gardenPlot.getPosition())) {
+            return false;
+        }
+
+        // Get adjacent up and left
+        Vector2 upPos = Vector2.transform(gardenPlot.getPosition(), Vector2.down());
+        if(map[upPos.getY()][upPos.getX()].getRegionId() == gardenPlot.getRegionId()) {
+            return false;
+        }
+
+        Vector2 leftPos = Vector2.transform(gardenPlot.getPosition(), Vector2.left());
+        if(map[leftPos.getY()][leftPos.getX()].getRegionId() == gardenPlot.getRegionId()) {
+            return false;
+        }
+
+        Vector2 diagonalPos = Vector2.transform(gardenPlot.getPosition(), Vector2.downLeft());
+        return map[diagonalPos.getY()][diagonalPos.getX()].getRegionId() == gardenPlot.getRegionId();
+    }
+
+    private boolean hasUpRightInternalConvexAngle(GardenPlot gardenPlot) {
+
+        // Solo puede haber ángulos convexos en el interior del mapa
+        if(isInBorder(gardenPlot.getPosition())) {
+            return false;
+        }
+
+        // Get adjacent up and left
+        Vector2 upPos = Vector2.transform(gardenPlot.getPosition(), Vector2.down());
+        if(map[upPos.getY()][upPos.getX()].getRegionId() == gardenPlot.getRegionId()) {
+            return false;
+        }
+
+        Vector2 rightPos = Vector2.transform(gardenPlot.getPosition(), Vector2.right());
+        if(map[rightPos.getY()][rightPos.getX()].getRegionId() == gardenPlot.getRegionId()) {
+            return false;
+        }
+
+        Vector2 diagonalPos = Vector2.transform(gardenPlot.getPosition(), Vector2.downRight());
+        return map[diagonalPos.getY()][diagonalPos.getX()].getRegionId() == gardenPlot.getRegionId();
+    }
+
+    private boolean hasDownLeftInternalConvexAngle(GardenPlot gardenPlot) {
+
+        // Solo puede haber ángulos convexos en el interior del mapa
+        if(isInBorder(gardenPlot.getPosition())) {
+            return false;
+        }
+
+        // Get adjacent up and left
+        Vector2 downPos = Vector2.transform(gardenPlot.getPosition(), Vector2.up());
+        if(map[downPos.getY()][downPos.getX()].getRegionId() == gardenPlot.getRegionId()) {
+            return false;
+        }
+
+        Vector2 leftPos = Vector2.transform(gardenPlot.getPosition(), Vector2.left());
+        if(map[leftPos.getY()][leftPos.getX()].getRegionId() == gardenPlot.getRegionId()) {
+            return false;
+        }
+
+        Vector2 diagonalPos = Vector2.transform(gardenPlot.getPosition(), Vector2.upLeft());
+        return map[diagonalPos.getY()][diagonalPos.getX()].getRegionId() == gardenPlot.getRegionId();
+    }
+
+    private boolean hasDownRightInternalConvexAngle(GardenPlot gardenPlot) {
+
+        // Solo puede haber ángulos convexos en el interior del mapa
+        if(isInBorder(gardenPlot.getPosition())) {
+            return false;
+        }
+
+        // Get adjacent up and left
+        Vector2 downPos = Vector2.transform(gardenPlot.getPosition(), Vector2.up());
+        if(map[downPos.getY()][downPos.getX()].getRegionId() == gardenPlot.getRegionId()) {
+            return false;
+        }
+
+        Vector2 rightPos = Vector2.transform(gardenPlot.getPosition(), Vector2.right());
+        if(map[rightPos.getY()][rightPos.getX()].getRegionId() == gardenPlot.getRegionId()) {
+            return false;
+        }
+
+        Vector2 diagonalPos = Vector2.transform(gardenPlot.getPosition(), Vector2.upRight());
+        return map[diagonalPos.getY()][diagonalPos.getX()].getRegionId() == gardenPlot.getRegionId();
+    }
+
+    private boolean isInBorder(Vector2 pos) {
+        return (pos.getY() == 0 || pos.getY() == rows - 1 || pos.getX() == 0 || pos.getX() == cols - 1);
     }
 
     private int sumExternalAngles(GardenPlot gardenPlot) {
