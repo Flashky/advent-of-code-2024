@@ -21,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName(TestDisplayName.DAY_13)
 @TestMethodOrder(OrderAnnotation.class)
-@Disabled // TODO Remove comment when implemented
 public class Day13Test extends PuzzleTest {
 
 	private static final String INPUT_FOLDER = TestFolder.DAY_13;
@@ -36,7 +35,9 @@ public class Day13Test extends PuzzleTest {
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
-		assertEquals(0L,0L);
+		ClawContraption clawContraption = new ClawContraption(inputs);
+
+		assertEquals(480L,clawContraption.solveA());
 	}
 
 	@Test
@@ -48,9 +49,9 @@ public class Day13Test extends PuzzleTest {
 
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
+		ClawContraption clawContraption = new ClawContraption(inputs);
 
-		System.out.println("Solution: ");
-		assertEquals(0L,0L);
+		assertEquals(29877L,clawContraption.solveA());
 
 	}
 
@@ -63,7 +64,9 @@ public class Day13Test extends PuzzleTest {
 
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+		ClawContraption clawContraption = new ClawContraption(inputs);
 
+		// There is no example for this part
 		assertEquals(0L,0L);
 	}
 
@@ -76,9 +79,9 @@ public class Day13Test extends PuzzleTest {
 
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
+		ClawContraption clawContraption = new ClawContraption(inputs);
 
-		System.out.println("Solution: ");
-		assertEquals(0L,0L);
+		assertEquals(99423413811305L,clawContraption.solveB());
 
 	}
 
