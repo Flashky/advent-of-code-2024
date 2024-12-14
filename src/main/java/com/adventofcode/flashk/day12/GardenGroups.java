@@ -5,6 +5,7 @@ import com.adventofcode.flashk.common.Vector2;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 
 public class GardenGroups {
@@ -15,6 +16,7 @@ public class GardenGroups {
     private final Map<Integer, Integer> regionAreas = new HashMap<>();
     private final Map<Integer, Integer> regionSides = new HashMap<>();
     private final Map<Integer, Set<GardenPlot>> regionPlots = new HashMap<>();
+    private GardenPlot noPlot;
 
     public GardenGroups(char[][] inputs) {
 
@@ -27,6 +29,9 @@ public class GardenGroups {
                 map[row][col] = new GardenPlot(inputs[row][col], new Vector2(col, row));
             }
         }
+
+        noPlot = new GardenPlot('.', new Vector2(-1,-1));
+        noPlot.setRegionId(-1);
 
     }
 
@@ -55,73 +60,156 @@ public class GardenGroups {
 
         // Posibles casos eje: la primera celda y la última de cada fila/columna, ¿cuántos lados hay que contar?
 
-        countHorizontalSides(); // TODO descomentar
+        countHorizontalSides();
         countVerticalSides();
+
+        return calculatePriceB();
+    }
+
+    private int calculatePriceB() {
+        int price = 0;
+        for(Map.Entry<Integer,Integer> regionArea : regionAreas.entrySet()) {
+            System.out.println("Region: " + regionArea.getKey() + " - Area: " + regionArea.getValue() + " - Sides: "+ regionSides.get(regionArea.getKey()));
+            price += regionArea.getValue() * regionSides.get(regionArea.getKey());
+        }
+
         return price;
     }
 
     private void countHorizontalSides() {
-        GardenPlot[] previousRow = null;
-       
+
         for(int row = 0; row < rows; row++) {
-            GardenPlot leftPlot = null;
             for(int col = 0; col < cols; col++) {
 
-                GardenPlot plot = map[row][col];
+                GardenPlot currentPlot = map[row][col];
+                GardenPlot leftPlot = getLeftPlot(row, col).orElse(noPlot());
 
-                if(leftPlot != null && leftPlot.getRegionId() == plot.getRegionId()) {
-                    // Left is same region
-                    continue;
+                // Search horizontal sides up
+                GardenPlot topPlot =  getUpPlot(row, col).orElse(noPlot());
+                GardenPlot topLeftPlot = getUpLeftPlot(row,col).orElse(noPlot());
+
+                if(checkAdjacents(leftPlot, topPlot, currentPlot)
+                        || checkAdjacentsAndDiagonal(leftPlot, topPlot, topLeftPlot, currentPlot)) {
+                    addSides(currentPlot);
                 }
 
-                GardenPlot topPlot = previousRow != null ? previousRow[col] : null;
+                // Search horizontal sides down
+                GardenPlot downPlot = getDownPlot(row,col).orElse(noPlot());
+                GardenPlot downLeftPlot = getDownLeftPlot(row, col).orElse(noPlot);
 
-                if(topPlot != null && topPlot.getRegionId() == plot.getRegionId()) {
-                    // Top is same region
-                    continue;
+                if(checkAdjacents(leftPlot, downPlot, currentPlot) ||
+                checkAdjacentsAndDiagonal(leftPlot, downPlot, downLeftPlot, currentPlot))  {
+                    addSides(currentPlot);
                 }
-
-                int sides = regionSides.getOrDefault(plot.getRegionId(),0);
-                regionSides.put(plot.getRegionId(), sides+1);
-
-                leftPlot = plot;
             }
-            previousRow = map[row];
         }
+    }
+
+    private boolean checkAdjacents(GardenPlot left, GardenPlot topDown, GardenPlot current) {
+
+        // Cases:
+        // XX    AX
+        // XA<   XA<
+
+        // XA<  XA<
+        // XX   AX
+
+        return (left.getRegionId() != current.getRegionId() && topDown.getRegionId() != current.getRegionId());
+    }
+
+    private boolean checkAdjacentsAndDiagonal(GardenPlot left, GardenPlot topDown, GardenPlot diagonal, GardenPlot current) {
+
+        // Cases:
+
+        // AX
+        //  -
+        // AA <
+
+        // AA<
+        //  -
+        // AX
+
+        return (left.getRegionId() == current.getRegionId() &&
+                topDown.getRegionId() != current.getRegionId() &&
+                diagonal.getRegionId() == current.getRegionId());
+    }
+
+    private boolean checkAdjacentsAndDiagonalV(GardenPlot top, GardenPlot left, GardenPlot upLeft, GardenPlot current) {
+        // Cases:
+
+        // A A
+        // X|A <
+
+        return top.getRegionId() == current.getRegionId() &&
+                left.getRegionId() != current.getRegionId() &&
+                upLeft.getRegionId() == current.getRegionId();
+
+    }
+
+    private void addSides(GardenPlot gardenPlot) {
+        int sides = regionSides.getOrDefault(gardenPlot.getRegionId(),0);
+        regionSides.put(gardenPlot.getRegionId(), sides+1);
+    }
+
+    private GardenPlot noPlot() {
+        return noPlot;
+    }
+
+    private Optional<GardenPlot> getLeftPlot(int row, int col) {
+        return (col > 0) ? Optional.of(map[row][col-1]) : Optional.empty();
+    }
+
+    private Optional<GardenPlot> getRightPlot(int row, int col) {
+        return (col+1 < cols) ? Optional.of(map[row][col+1]) : Optional.empty();
+    }
+
+    private Optional<GardenPlot> getUpPlot(int row, int col) {
+        return (row > 0) ? Optional.of(map[row-1][col]) : Optional.empty();
+    }
+
+    private Optional<GardenPlot> getDownPlot(int row, int col) {
+        return (row+1 < rows) ? Optional.of(map[row+1][col]) : Optional.empty();
+    }
+
+    private Optional<GardenPlot> getUpLeftPlot(int row, int col) {
+        return (row > 0 && col > 0) ? Optional.of(map[row-1][col-1]) : Optional.empty();
+    }
+
+    private Optional<GardenPlot> getUpRightPlot(int row, int col) {
+        return (row > 0 && col+1 < cols) ? Optional.of(map[row-1][col+1]) : Optional.empty();
+    }
+
+    private Optional<GardenPlot> getDownLeftPlot(int row, int col) {
+        return (row+1 < rows && col > 0) ? Optional.of(map[row+1][col-1]) : Optional.empty();
     }
 
 
     private void countVerticalSides() {
 
-        GardenPlot[] previousCol = null;
-
         for(int col = 0; col < cols; col++) {
-            GardenPlot topPlot = null;
-            GardenPlot[] currentCol = new GardenPlot[cols];
-
             for(int row = 0; row < rows; row++) {
 
-                GardenPlot plot = map[row][col];
-                currentCol[row] = plot;
+                GardenPlot currentPlot = map[row][col];
+                GardenPlot topPlot =  getUpPlot(row, col).orElse(noPlot());
 
-                if(topPlot != null && topPlot.getRegionId() == plot.getRegionId()) {
-                    // Top is same region
-                    continue;
+                // Search vertical sides right
+                GardenPlot rightPlot = getRightPlot(row, col).orElse(noPlot());
+                GardenPlot topRightPlot = getUpRightPlot(row,col).orElse(noPlot());
+
+                if(checkAdjacents(rightPlot, topPlot, currentPlot)
+                        || checkAdjacentsAndDiagonal(rightPlot, topPlot, topRightPlot, currentPlot)) {
+                    addSides(currentPlot);
                 }
 
-                GardenPlot leftPlot = previousCol != null ? previousCol[row] : null;
+                // Search vertical sides left
+                GardenPlot leftPlot = getLeftPlot(row,col).orElse(noPlot());
+                GardenPlot topLeftPlot = getUpLeftPlot(row, col).orElse(noPlot);
 
-                if(leftPlot != null && leftPlot.getRegionId() == plot.getRegionId()) {
-                    // Top is same region
-                    continue;
+                if(checkAdjacents(leftPlot, topPlot, currentPlot) ||
+                        checkAdjacentsAndDiagonalV(topPlot, leftPlot, topLeftPlot, currentPlot))  {
+                    addSides(currentPlot);
                 }
-
-                int sides = regionSides.getOrDefault(plot.getRegionId(),0);
-                regionSides.put(plot.getRegionId(), sides+1);
-
-                topPlot = plot;
             }
-            previousCol = currentCol;
         }
     }
 

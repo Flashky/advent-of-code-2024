@@ -67,6 +67,10 @@ public class Day12Test extends PuzzleTest {
 		GardenGroups gardenGroups = new GardenGroups(inputs);
 
 		assertEquals(1206L,gardenGroups.solveB());
+
+		// Falla en:
+		// Region C-3 (22, y sale 21 sides)
+		// Región V-5 (10 y sale 9 sides)
 	}
 
 	@Test
@@ -197,6 +201,7 @@ public class Day12Test extends PuzzleTest {
 
 		// 875718 -> Too high
 		// 871792 -> Too high (tras ajustar lógica para los convexos internos.
+		// 868050 -> Too low (con el nuevo algoritmo
 		assertEquals(0L,0L);
 
 	}
