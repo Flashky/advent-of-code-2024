@@ -42,34 +42,14 @@ public class GardenGroups {
 
     public long solveB() {
         findRegions();
-
-        long price = 0;
-
-        // Nueva idea:
-        // Esta idea se parece más a como se calculan las vallas en la primera fila.
-        // ¿cuál es la diferencia?
-        //
-        // supongamos una fila como ABAB, esto son 4 regiones diferentes, pero esto es lo de menos.
-        //
-        // En vez de centrarnos en una región para calcular su precio, recorreremos el array por filas:
-        // - Nos situamos en una celda del mapa.
-        // - Si esta celda NO pertenece a la misma región que a la anterior, le decimos a su región que tiene un lado más.
-        // - Si esta celda pertenece a la misma región que la celda anterior, entonces podemos obviarla.
-        //
-        // Una vez terminado el array por filas, hacemos el mismo proceso por columnas, para así contar los otros lados.
-
-        // Posibles casos eje: la primera celda y la última de cada fila/columna, ¿cuántos lados hay que contar?
-
         countHorizontalSides();
         countVerticalSides();
-
         return calculatePriceB();
     }
 
     private int calculatePriceB() {
         int price = 0;
         for(Map.Entry<Integer,Integer> regionArea : regionAreas.entrySet()) {
-            System.out.println("Region: " + regionArea.getKey() + " - Area: " + regionArea.getValue() + " - Sides: "+ regionSides.get(regionArea.getKey()));
             price += regionArea.getValue() * regionSides.get(regionArea.getKey());
         }
 
@@ -88,8 +68,8 @@ public class GardenGroups {
                 GardenPlot topPlot =  getUpPlot(row, col).orElse(noPlot());
                 GardenPlot topLeftPlot = getUpLeftPlot(row,col).orElse(noPlot());
 
-                if(checkAdjacents(leftPlot, topPlot, currentPlot)
-                        || checkAdjacentsAndDiagonal(leftPlot, topPlot, topLeftPlot, currentPlot)) {
+                if(checkAdjacents(leftPlot, topPlot, currentPlot) ||
+                        checkAdjacentsAndDiagonalH(leftPlot, topPlot, topLeftPlot, currentPlot)) {
                     addSides(currentPlot);
                 }
 
@@ -98,14 +78,14 @@ public class GardenGroups {
                 GardenPlot downLeftPlot = getDownLeftPlot(row, col).orElse(noPlot);
 
                 if(checkAdjacents(leftPlot, downPlot, currentPlot) ||
-                checkAdjacentsAndDiagonal(leftPlot, downPlot, downLeftPlot, currentPlot))  {
+                        checkAdjacentsAndDiagonalH(leftPlot, downPlot, downLeftPlot, currentPlot))  {
                     addSides(currentPlot);
                 }
             }
         }
     }
 
-    private boolean checkAdjacents(GardenPlot left, GardenPlot topDown, GardenPlot current) {
+    private boolean checkAdjacents(GardenPlot adjacentHorizontal, GardenPlot adjacentVertical, GardenPlot current) {
 
         // Cases:
         // XX    AX
@@ -114,10 +94,12 @@ public class GardenGroups {
         // XA<  XA<
         // XX   AX
 
-        return (left.getRegionId() != current.getRegionId() && topDown.getRegionId() != current.getRegionId());
+        return (adjacentHorizontal.getRegionId() != current.getRegionId() &&
+                adjacentVertical.getRegionId() != current.getRegionId());
     }
 
-    private boolean checkAdjacentsAndDiagonal(GardenPlot left, GardenPlot topDown, GardenPlot diagonal, GardenPlot current) {
+    private boolean checkAdjacentsAndDiagonalH(GardenPlot adjacentHorizontal, GardenPlot adjacentVertical,
+                                               GardenPlot diagonal, GardenPlot current) {
 
         // Cases:
 
@@ -129,20 +111,24 @@ public class GardenGroups {
         //  -
         // AX
 
-        return (left.getRegionId() == current.getRegionId() &&
-                topDown.getRegionId() != current.getRegionId() &&
+        return (adjacentHorizontal.getRegionId() == current.getRegionId() &&
+                adjacentVertical.getRegionId() != current.getRegionId() &&
                 diagonal.getRegionId() == current.getRegionId());
     }
 
-    private boolean checkAdjacentsAndDiagonalV(GardenPlot top, GardenPlot left, GardenPlot upLeft, GardenPlot current) {
+    private boolean checkAdjacentsAndDiagonalV(GardenPlot adjacentVertical, GardenPlot adjacentHorizontal,
+                                               GardenPlot diagonal, GardenPlot current) {
         // Cases:
 
         // A A
         // X|A <
 
-        return top.getRegionId() == current.getRegionId() &&
-                left.getRegionId() != current.getRegionId() &&
-                upLeft.getRegionId() == current.getRegionId();
+        // A A <
+        // X|A
+
+        return adjacentVertical.getRegionId() == current.getRegionId() &&
+                adjacentHorizontal.getRegionId() != current.getRegionId() &&
+                diagonal.getRegionId() == current.getRegionId();
 
     }
 
@@ -182,7 +168,6 @@ public class GardenGroups {
     private Optional<GardenPlot> getDownLeftPlot(int row, int col) {
         return (row+1 < rows && col > 0) ? Optional.of(map[row+1][col-1]) : Optional.empty();
     }
-
 
     private void countVerticalSides() {
 
