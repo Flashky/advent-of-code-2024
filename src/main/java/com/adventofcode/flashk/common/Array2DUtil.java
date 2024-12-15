@@ -21,19 +21,6 @@ public class Array2DUtil {
         return transposedArray;
     }
 
-    /*
-    public static <T> T[][] transpose(T[][] array) {
-        int rows = array.length;
-        int cols = array[0].length;
-        char[][] transposedArray = new char[cols][rows];
-        for(int row = 0; row < rows; row++) {
-            for(int col = 0; col < cols; col++) {
-                transposedArray[col][row] = array[row][col];
-            }
-        }
-        return transposedArray;
-    }*/
-
     /**
      * Paints the given array.
      * @param map the array to paint

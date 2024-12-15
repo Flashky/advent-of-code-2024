@@ -21,8 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName(TestDisplayName.DAY_12)
 @TestMethodOrder(OrderAnnotation.class)
-@Disabled // TODO Remove comment when implemented
-public class Day12Test extends PuzzleTest {
+class Day12Test extends PuzzleTest {
 
 	private static final String INPUT_FOLDER = TestFolder.DAY_12;
 
@@ -67,6 +66,10 @@ public class Day12Test extends PuzzleTest {
 		GardenGroups gardenGroups = new GardenGroups(inputs);
 
 		assertEquals(1206L,gardenGroups.solveB());
+
+		// Falla en:
+		// Region C-3 (22, y sale 21 sides)
+		// Región V-5 (10 y sale 9 sides)
 	}
 
 	@Test
@@ -193,11 +196,8 @@ public class Day12Test extends PuzzleTest {
 		// Read input file
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
 		GardenGroups gardenGroups = new GardenGroups(inputs);
-		System.out.println("Solution: "+gardenGroups.solveB());
 
-		// 875718 -> Too high
-		// 871792 -> Too high (tras ajustar lógica para los convexos internos.
-		assertEquals(0L,0L);
+		assertEquals(870202L,gardenGroups.solveB());
 
 	}
 
