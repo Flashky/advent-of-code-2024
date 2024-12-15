@@ -197,12 +197,8 @@ public class Day12Test extends PuzzleTest {
 		// Read input file
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
 		GardenGroups gardenGroups = new GardenGroups(inputs);
-		System.out.println("Solution: "+gardenGroups.solveB());
 
-		// 875718 -> Too high
-		// 871792 -> Too high (tras ajustar lógica para los convexos internos.
-		// 868050 -> Too low (con el nuevo algoritmo
-		assertEquals(0L,0L);
+		assertEquals(870202L,gardenGroups.solveB());
 
 	}
 

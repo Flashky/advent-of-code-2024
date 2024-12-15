@@ -197,7 +197,7 @@ public class GardenGroups {
                 GardenPlot topRightPlot = getUpRightPlot(row,col).orElse(noPlot());
 
                 if(checkAdjacents(rightPlot, topPlot, currentPlot)
-                        || checkAdjacentsAndDiagonal(rightPlot, topPlot, topRightPlot, currentPlot)) {
+                        || checkAdjacentsAndDiagonalV(topPlot, rightPlot, topRightPlot, currentPlot)) {
                     addSides(currentPlot);
                 }
 
