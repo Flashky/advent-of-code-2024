@@ -190,7 +190,7 @@ public class Day16Test extends PuzzleTest {
 		System.out.println("Solution: "+reindeerMaze.solveB());
 
 		// 512 -> too low
-		
+
 		assertEquals(0L,0L);
 
 	}

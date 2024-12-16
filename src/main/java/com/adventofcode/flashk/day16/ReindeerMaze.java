@@ -70,7 +70,9 @@ public class ReindeerMaze {
 
         // Initialize start tile
         start.setScore(0);
-        start.setDirection(Vector2.right());
+        if(start.getDirection() == null) {
+            start.setDirection(Vector2.right());
+        }
 
         // Execute dijkstra
         PriorityQueue<Tile> tiles = new PriorityQueue<>();
@@ -171,14 +173,14 @@ public class ReindeerMaze {
                 if(adjacentScore == score) {
                     fillPath(adjacent, endTile);
                     fillPath(adjacent, startTile);
-                    paint();
+
                     System.out.println();
                 }
             }
         }
         // Pasada 2, buscamos caminos alternativos en cada una de las intersecciones.
 
-        //paint();
+        paint();
         return countPathTiles();
     }
 
