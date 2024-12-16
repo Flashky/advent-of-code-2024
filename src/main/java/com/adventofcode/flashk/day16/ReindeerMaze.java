@@ -214,6 +214,8 @@ public class ReindeerMaze {
             current = current.getParent();
         } while(current != start);
 
+        start.setPath(true);
+
         return intersections;
     }
 
@@ -230,7 +232,7 @@ public class ReindeerMaze {
     }
 
     private void fillPath(Tile start, Tile end) {
-
+        
         Tile current = end;
         while(current != start) {
             current = current.getParent();
@@ -238,6 +240,7 @@ public class ReindeerMaze {
         }
 
         start.setPath(true);
+        end.setPath(true); // just in case
 
     }
 
