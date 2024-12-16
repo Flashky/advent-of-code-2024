@@ -61,18 +61,20 @@ public class ReindeerMaze {
      */
 
     public long solveA2() {
-        return dijkstra(startTile);
+        return dijkstra(startTile, Vector2.right());
     }
 
-    private long dijkstra(Tile start) {
+    // TODO add also start direction
+    private long dijkstra(Tile start, Vector2 direction) {
 
         reset();
 
         // Initialize start tile
         start.setScore(0);
-        if(start.getDirection() == null) {
-            start.setDirection(Vector2.right());
-        }
+        start.setDirection(direction);
+        //if(start.getDirection() == null) {
+        //    start.setDirection(Vector2.right());
+        //}
 
         // Execute dijkstra
         PriorityQueue<Tile> tiles = new PriorityQueue<>();
@@ -154,21 +156,26 @@ public class ReindeerMaze {
         // 2. Si la distancia del tile adyacente al inicio + la distancia del tile al final es igual que la distancia
         // del camino más corto, entonces estamos ante un camino alternativo.
 
-        long score = dijkstra(startTile);
+        long score = dijkstra(startTile, Vector2.right());
 
         // Parte 1, encontrar las intersecciones que hay en el camino más corto
 
         Set<Tile> intersections = findPathIntersections();
+        //Set<Tile> intersections = findPathSections();
 
         for(Tile intersection : intersections) {
-            //intersection.setPath(true);
-            // calcular dijkstra para adyacentes que no formen parte de path
+
+            // calcular dijkstra para adyacentes
             Set<Tile> adjacents = getAdjacentsIncludingVisited(intersection);
+            // Add also direction
+
             for(Tile adjacent : adjacents) {
-                if(adjacent.isPath()) {
-                    continue;
-                }
-                dijkstra(adjacent);
+                //if(adjacent.isPath()) {
+                //    continue;
+                //}
+                //Vector2 direction = Vector2.substract(intersection.getPosition(), adjacent.getPosition());
+                Vector2 direction = Vector2.substract(adjacent.getPosition(),intersection.getPosition());
+                dijkstra(adjacent, direction);
                 long adjacentScore = endTile.getScore() + startTile.getScore();
                 if(adjacentScore == score) {
                     fillPath(adjacent, endTile);
@@ -198,7 +205,27 @@ public class ReindeerMaze {
         }
         return count;
     }
+    private Set<Tile> findPathSections() {
+        Set<Tile> intersections = new HashSet<>();
 
+        Tile end = map[endPos.getY()][endPos.getX()];
+        Tile start = map[startPos.getY()][startPos.getX()];
+
+        Tile current = end;
+        do {
+            current.setPath(true);
+            //if(getAdjacentsIncludingVisited(current).size() > 2) {
+                intersections.add(current);
+            //}
+
+            current = current.getParent();
+        } while(current != start);
+
+        start.setPath(true);
+
+        return intersections;
+
+    }
     private Set<Tile> findPathIntersections() {
         Set<Tile> intersections = new HashSet<>();
 
