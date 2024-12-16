@@ -54,7 +54,7 @@ public class Day16Test extends PuzzleTest {
 	}
 
 	@Test
-	@Order(2)
+		@Order(2)
 	@Tag(TestTag.PART_1)
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_1_INPUT)
@@ -68,6 +68,86 @@ public class Day16Test extends PuzzleTest {
 
 	}
 
+	/*
+	Hay varios mejores caminos (el mejor camino no es único).
+	Por lo tanto, se trata de encontrar todos los posibles mejores caminos diferentes y contar
+	cuantas celdas diferentes hay en todos esos caminos solapados entre si.
+
+	Por ejemplo, en el primer caso de ejemplo hay 3 posibles caminos con la misma puntuación:
+
+	Camino 1:
+	###############
+	#.......#....E#
+	#.#.###.#.###^#
+	#.....#.#...#^#
+	#.###.#####.#^#
+	#.#.#.......#^#
+	#.#.#####.###^#
+	#..>>>>>>>>v#^#
+	###^#.#####v#^#
+	#>>^#.....#v#^#
+	#^#.#.###.#v#^#
+	#^....#...#v#^#
+	#^###.#.#.#v#^#
+	#S..#.....#>>^#
+	###############
+
+	Camino 2:
+	###############
+	#.......#....E#
+	#.#.###.#.###^#
+	#.....#.#...#^#
+	#.###.#####.#^#
+	#.#.#.......#^#
+	#.#.#####.###^#
+	#..>>>>>>>>v#^#
+	###^#.#####v#^#
+	#..^#.....#v#^#
+	#.#^#.###.#v#^#
+	#>>^..#...#v#^#
+	#^###.#.#.#v#^#
+	#S..#.....#>>^#
+	###############
+
+	Camino 3:
+	###############
+	#.......#....E#
+	#.#.###.#.###^#
+	#.....#.#...#^#
+	#.###.#####.#^#
+	#.#.#.......#^#
+	#.#.#####.###^#
+	#....>>>>>>v#^#
+	###.#^#####v#^#
+	#...#^....#v#^#
+	#.#.#^###.#v#^#
+	#>>>>^#...#v#^#
+	#^###.#.#.#v#^#
+	#S..#.....#>>^#
+	###############
+
+	Si nos fijamos en el punto en el cuál todos estos caminos coinciden,
+	para llegar a dicho punto, todos los caminos hacen:
+	- 4 giros
+	- 7 avances
+
+	###############
+	#.......#....O#
+	#.#.###.#.###O#
+	#.....#.#...#O#
+	#.###.#####.#O#
+	#.#.#.......#O#
+	#.#.#####.###O#
+	#..OOOOOOOOO#O#
+	###O#O#####O#O#
+	#OOO#O....#O#O#
+	#O#O#O###.#O#O#
+	#OOOOO#...#O#O#
+	#O###.#.#.#O#O#
+	#O..#.....#OOO#
+	###############
+
+	 */
 	@Test
 	@Order(3)
 	@Tag(TestTag.PART_2)
@@ -77,12 +157,28 @@ public class Day16Test extends PuzzleTest {
 
 		// Read input file
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+		ReindeerMaze reindeerMaze = new ReindeerMaze(inputs);
 
-		assertEquals(0L,0L);
+		// Me da
+		assertEquals(45L, reindeerMaze.solveB());
 	}
 
 	@Test
 	@Order(4)
+	@Tag(TestTag.PART_2)
+	@Tag(TestTag.SAMPLE)
+	@DisplayName(TestDisplayName.PART_2_SAMPLE)
+	public void testSolvePart2Sample2() {
+
+		// Read input file
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SINGLE_SAMPLE_2);
+		ReindeerMaze reindeerMaze = new ReindeerMaze(inputs);
+		// Me da
+		assertEquals(64L, reindeerMaze.solveB());
+	}
+
+	@Test
+	@Order(5)
 	@Tag(TestTag.PART_2)
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_2_INPUT)
@@ -90,8 +186,11 @@ public class Day16Test extends PuzzleTest {
 
 		// Read input file
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
+		ReindeerMaze reindeerMaze = new ReindeerMaze(inputs);
+		System.out.println("Solution: "+reindeerMaze.solveB());
 
-		System.out.println("Solution: ");
+		// 512 -> too low
+		
 		assertEquals(0L,0L);
 
 	}

@@ -19,6 +19,7 @@ public class Tile implements Comparable<Tile>{
     private final char value;
 
     private long score = Long.MAX_VALUE;
+    private long partialScore;
     private Tile parent;
     private boolean visited = false;
     private Vector2 direction;
