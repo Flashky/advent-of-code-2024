@@ -38,81 +38,85 @@ public class ReindeerMaze {
 
     }
 
-    // Rehacer con cola de prioridad
+    /*
+       DIJKSTRA (Grafo G, nodo_fuente s)
+       para u ∈ V[G] hacer
+           distancia[u] = INFINITO
+           padre[u] = NULL
+           visto[u] = false
+       distancia[s] = 0
+       adicionar (cola, (s, distancia[s]))
+       mientras que cola no es vacía hacer
+           u = extraer_mínimo(cola)
+           visto[u] = true
+           para todos v ∈ adyacencia[u] hacer
+               si ¬ visto[v]
+                   si distancia[v] > distancia[u] + peso (u, v) hacer
+                       distancia[v] = distancia[u] + peso (u, v)
+                       padre[v] = u
+                       adicionar(cola,(v, distancia[v]))
+     */
 
     public long solveA2() {
-        PriorityQueue<Tile> tiles = new PriorityQueue<>();
 
-
-        // inicio
+        // Initialize start tile
         startTile.setScore(0);
+        startTile.setDirection(Vector2.right());
+
+        // Execute dijkstra
+        PriorityQueue<Tile> tiles = new PriorityQueue<>();
         tiles.add(startTile);
+
         while(!tiles.isEmpty()) {
-            Tile nextTile = tiles.poll();
-            nextTile.setVisited(true);
+            Tile tile = tiles.poll();
+            tile.setVisited(true);
 
             // Calcular adyacentes.
-            Set<Tile> adjacentTiles = getAdjacents(nextTile);
-        }
-    }
+            Set<Tile> adjacentTiles = getAdjacents(tile);
+            for(Tile adjacentTile : adjacentTiles) {
 
-    private Set<Tile> getAdjacents(Tile nextTile) {
+                Vector2 newDirection = Vector2.substract(adjacentTile.getPosition(), tile.getPosition());
+                long scoreIncrementer = newDirection.equals(tile.getDirection()) ? 1 : 1001;
+                if(adjacentTile.getScore() > tile.getScore() + scoreIncrementer) {
+                    adjacentTile.setScore(tile.getScore() + scoreIncrementer);
+                    adjacentTile.setParent(tile);
+                    adjacentTile.setDirection(newDirection);
+                    tiles.add(adjacentTile);
+                }
 
-    }
-
-    public long solveA() {
-        long result = findPath(new Vector2(startPos), Vector2.right(), 0, Long.MAX_VALUE);
-
-        //paint();
-        return result;
-    }
-
-    // Casos base
-    // - Llegar a E
-    // - Llegar a un wall
-
-    private long findPath(Vector2 position, Vector2 direction, long score, long bestScore) {
-        if(map[position.getY()][position.getX()].isWall()) {
-            return Long.MAX_VALUE;
-        } else if(map[position.getY()][position.getX()].isVisited()) {
-            return Long.MAX_VALUE; // o puede que score, pero no queremos bucles infinitos
-        } else if(map[position.getY()][position.getX()].isEnd()) {
-            /*if(score < bestScore) {
-                System.out.println("Result: "+score);
-                paint();
-            }*/
-            return Math.min(score, bestScore);
-        }
-
-        // Calcular adyacentes
-        // - 4 posibles movimientos horizontales
-        // - 2 posibles giros: izquierda, derecha, no tiene sentido girar 180º
-        map[position.getY()][position.getX()].setVisited(true);
-
-        long newBestScore = bestScore;
-        for(Vector2 newDir :directions) {
-
-            long additionalScore = direction.equals(newDir) ? 1 : 1001;
-            Vector2 newPos = Vector2.transform(position, newDir);
-
-
-            if(!map[newPos.getY()][newPos.getX()].isVisited()) {
-                long newScore = findPath(newPos, newDir, score + additionalScore, bestScore);
-                newBestScore = Math.min(newScore, newBestScore);
             }
         }
+        //paint();
+        return map[endPos.getY()][endPos.getX()].getScore();
+    }
 
-        map[position.getY()][position.getX()].setVisited(false);
-
-        return newBestScore;
+    private void fillPath() {
+        Tile end = map[endPos.getY()][endPos.getX()];
+        Tile start = map[startPos.getY()][startPos.getX()];
+        Tile current = end;
+        while(current != start) {
+            current = current.getParent();
+            current.setPath(true);
+        }
+    }
+    private Set<Tile> getAdjacents(Tile parent) {
+        Set<Tile> adjacents = new HashSet<>();
+        for(Vector2 dir : directions) {
+            Vector2 newPos = Vector2.transform(parent.getPosition(), dir);
+            Tile newTile = map[newPos.getY()][newPos.getX()];
+            if(!newTile.isWall() & !newTile.isVisited()) {
+                adjacents.add(newTile);
+            }
+        }
+        return adjacents;
 
     }
 
-
     private void paint(){
+        fillPath();
         for(int row = 0; row < rows; row++) {
             for(int col = 0; col < cols; col++) {
-                if(map[row][col].isVisited()) {
+                if(map[row][col].isPath()) {
                     System.out.print('O');
                 } else {
                     System.out.print(map[row][col].getValue());
@@ -121,4 +125,6 @@ public class ReindeerMaze {
             System.out.println();
         }
     }
+
+
 }

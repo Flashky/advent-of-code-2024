@@ -1,11 +1,14 @@
 package com.adventofcode.flashk.day16;
 
 import com.adventofcode.flashk.common.Vector2;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.jetbrains.annotations.NotNull;
 
 @Getter
+@Setter
+@EqualsAndHashCode
 public class Tile implements Comparable<Tile>{
 
     private static final char WALL = '#';
@@ -15,15 +18,19 @@ public class Tile implements Comparable<Tile>{
     private final Vector2 position;
     private final char value;
 
-    @Setter
-    private boolean visited = false;
-    @Setter
     private long score = Long.MAX_VALUE;
-
+    private Tile parent;
+    private boolean visited = false;
+    private Vector2 direction;
+    private boolean path = false;
 
     public Tile(Vector2 position, char value) {
         this.position = position;
         this.value = value;
+    }
+
+    public Vector2 getPosition() {
+        return new Vector2(position);
     }
 
     public boolean isWall() {

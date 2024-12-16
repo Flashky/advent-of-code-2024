@@ -1,6 +1,5 @@
 package com.adventofcode.flashk.day16;
 
-import java.util.List;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -37,7 +36,7 @@ public class Day16Test extends PuzzleTest {
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 		ReindeerMaze reindeerMaze = new ReindeerMaze(inputs);
 
-		assertEquals(7036L,reindeerMaze.solveA());
+		assertEquals(7036L,reindeerMaze.solveA2());
 	}
 
 	@Test
@@ -51,7 +50,7 @@ public class Day16Test extends PuzzleTest {
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SINGLE_SAMPLE_2);
 		ReindeerMaze reindeerMaze = new ReindeerMaze(inputs);
 
-		assertEquals(11048L,reindeerMaze.solveA());
+		assertEquals(11048L,reindeerMaze.solveA2());
 	}
 
 	@Test
@@ -65,8 +64,7 @@ public class Day16Test extends PuzzleTest {
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
 		ReindeerMaze reindeerMaze = new ReindeerMaze(inputs);
 
-		System.out.println("Solution: "+reindeerMaze.solveA());
-		assertEquals(0L,0L);
+		assertEquals(103512L,reindeerMaze.solveA2());
 
 	}
 
