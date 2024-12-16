@@ -34,9 +34,24 @@ public class Day16Test extends PuzzleTest {
 	public void testSolvePart1Sample() {
 
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+		ReindeerMaze reindeerMaze = new ReindeerMaze(inputs);
 
-		assertEquals(0L,0L);
+		assertEquals(7036L,reindeerMaze.solveA());
+	}
+
+	@Test
+	@Order(1)
+	@Tag(TestTag.PART_1)
+	@Tag(TestTag.SAMPLE)
+	@DisplayName(TestDisplayName.PART_1_SAMPLE)
+	public void testSolvePart1Sample2() {
+
+		// Read input file
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SINGLE_SAMPLE_2);
+		ReindeerMaze reindeerMaze = new ReindeerMaze(inputs);
+
+		assertEquals(11048L,reindeerMaze.solveA());
 	}
 
 	@Test
@@ -47,9 +62,10 @@ public class Day16Test extends PuzzleTest {
 	public void testSolvePart1Input() {
 
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
+		ReindeerMaze reindeerMaze = new ReindeerMaze(inputs);
 
-		System.out.println("Solution: ");
+		System.out.println("Solution: "+reindeerMaze.solveA());
 		assertEquals(0L,0L);
 
 	}
@@ -62,7 +78,7 @@ public class Day16Test extends PuzzleTest {
 	public void testSolvePart2Sample() {
 
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
 		assertEquals(0L,0L);
 	}
@@ -75,7 +91,7 @@ public class Day16Test extends PuzzleTest {
 	public void testSolvePart2Input() {
 
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
 		System.out.println("Solution: ");
 		assertEquals(0L,0L);
