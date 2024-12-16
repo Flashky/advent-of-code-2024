@@ -190,9 +190,45 @@ public class Day16Test extends PuzzleTest {
 		System.out.println("Solution: "+reindeerMaze.solveB());
 
 		// 512 -> too low
+		// 513 -> That's not the right answer; your answer is too low.
+		// Curiously, it's the right answer for someone else;
+		// you might be logged in to the wrong account or just unlucky.
+		// 514 -> too low
 
 		assertEquals(0L,0L);
 
 	}
 
+	// Alternate test cases:
+	// https://www.reddit.com/r/adventofcode/comments/1hfhgl1/2024_day_16_part_1_alternate_test_case/
+
+	@Test
+	@Order(6)
+	@Tag(TestTag.PART_2)
+	@Tag(TestTag.INPUT)
+	@DisplayName(TestDisplayName.PART_2_DEBUG)
+	public void testSolvePart2Debug() {
+
+		// Read input file
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, "debug_edge_1.input");
+		ReindeerMaze reindeerMaze = new ReindeerMaze(inputs);
+
+		assertEquals(149L,reindeerMaze.solveB());
+
+	}
+
+	@Test
+	@Order(6)
+	@Tag(TestTag.PART_2)
+	@Tag(TestTag.INPUT)
+	@DisplayName(TestDisplayName.PART_2_DEBUG_2)
+	public void testSolvePart2Debug2() {
+
+		// Read input file
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, "debug_edge_2.input");
+		ReindeerMaze reindeerMaze = new ReindeerMaze(inputs);
+
+		assertEquals(264L,reindeerMaze.solveB());
+
+	}
 }

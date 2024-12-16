@@ -180,6 +180,9 @@ public class ReindeerMaze {
         }
         // Pasada 2, buscamos caminos alternativos en cada una de las intersecciones.
 
+        startTile.setPath(true);
+        endTile.setPath(true);
+
         paint();
         return countPathTiles();
     }
@@ -226,19 +229,7 @@ public class ReindeerMaze {
         }
     }
 
-    private void fillPath() {
-        Tile end = map[endPos.getY()][endPos.getX()];
-        Tile start = map[startPos.getY()][startPos.getX()];
-        Tile current = end;
-        while(current != start) {
-            current = current.getParent();
-            current.setPath(true);
-        }
-    }
-
     private void fillPath(Tile start, Tile end) {
-        //Tile start = map[startPos.getY()][startPos.getX()];
-        //Tile end = map[endPos.getY()][endPos.getX()];
 
         Tile current = end;
         while(current != start) {
@@ -246,7 +237,8 @@ public class ReindeerMaze {
             current.setPath(true);
         }
 
-        end.setPath(true);
+        start.setPath(true);
+
     }
 
     private Set<Tile> getAdjacents(Tile parent) {

@@ -43,6 +43,7 @@ public final class TestDisplayName {
 	public static final String PART_2_SAMPLE_5 = "Part 2 - Sample 5";
 	public static final String PART_2_SAMPLE_6 = "Part 2 - Sample 6";
 	public static final String PART_2_DEBUG = "Part 2 - Debug";
+	public static final String PART_2_DEBUG_2 = "Part 2 - Debug 2";
 
 	public static final String PART_ONE_SINGLE_SAMPLE = "Part 1 - Single sample data";
 }
