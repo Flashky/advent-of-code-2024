@@ -34,7 +34,11 @@ public final class TestDisplayName {
 	// Test part display names
 	public static final String PART_1_SAMPLE = "Part 1 - Sample data";
 	public static final String PART_1_INPUT = "Part 1 - Input data";
-	public static final String PART_1_DEBUG = "Part 1 - Debug";
+	public static final String PART_1_DEBUG_1 = "Part 1 - Debug 1";
+	public static final String PART_1_DEBUG_2 = "Part 1 - Debug 2";
+	public static final String PART_1_DEBUG_3 = "Part 1 - Debug 3";
+	public static final String PART_1_DEBUG_4 = "Part 1 - Debug 4";
+	public static final String PART_1_DEBUG_5 = "Part 1 - Debug 5";
 	public static final String PART_2_SAMPLE = "Part 2 - Sample data";
 	public static final String PART_2_INPUT = "Part 2 - Input data";
 	public static final String PART_2_SAMPLE_2 = "Part 2 - Sample 2";

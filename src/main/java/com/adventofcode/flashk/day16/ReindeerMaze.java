@@ -157,7 +157,7 @@ public class ReindeerMaze {
         // del camino más corto, entonces estamos ante un camino alternativo.
 
         long score = dijkstra(startTile, Vector2.right());
-
+        paint();
         // Parte 1, encontrar las intersecciones que hay en el camino más corto
 
         Set<Tile> intersections = findPathIntersections();
@@ -180,7 +180,7 @@ public class ReindeerMaze {
                 if(adjacentScore == score) {
                     fillPath(adjacent, endTile);
                     fillPath(adjacent, startTile);
-
+                    paint();
                     System.out.println();
                 }
             }

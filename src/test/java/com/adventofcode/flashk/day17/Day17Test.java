@@ -21,10 +21,25 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName(TestDisplayName.DAY_17)
 @TestMethodOrder(OrderAnnotation.class)
-@Disabled // TODO Remove comment when implemented
 public class Day17Test extends PuzzleTest {
 
 	private static final String INPUT_FOLDER = TestFolder.DAY_17;
+
+	@Test
+	@Order(1)
+	@Tag(TestTag.PART_1)
+	@Tag(TestTag.SAMPLE)
+	@DisplayName(TestDisplayName.PART_1_DEBUG_1)
+	public void testSolvePart1Debug1() {
+
+		// Read input file
+		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SINGLE_SAMPLE);
+
+		ChronospatialComputer chronospatialComputer = new ChronospatialComputer(inputs);
+		chronospatialComputer.solveA();
+
+		assertEquals(1, chronospatialComputer.getB());
+	}
 
 	@Test
 	@Order(1)
@@ -36,7 +51,9 @@ public class Day17Test extends PuzzleTest {
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
-		assertEquals(0L,0L);
+		ChronospatialComputer chronospatialComputer = new ChronospatialComputer(inputs);
+
+		assertEquals("4,6,3,5,6,3,5,2,1,0", chronospatialComputer.solveA());
 	}
 
 	@Test
@@ -48,8 +65,8 @@ public class Day17Test extends PuzzleTest {
 
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-
-		System.out.println("Solution: ");
+		ChronospatialComputer chronospatialComputer = new ChronospatialComputer(inputs);
+		System.out.println("Solution: "+chronospatialComputer.solveA());
 		assertEquals(0L,0L);
 
 	}
