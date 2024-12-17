@@ -20,7 +20,6 @@ public class ChronospatialComputer {
     private int[] program;
     private int instructionPointer;
     private StringJoiner outJoiner;
-    private boolean allowReservedOperand;
 
     public ChronospatialComputer(List<String> inputs) {
         a = Integer.parseInt(inputs.get(0).substring(12));
@@ -32,11 +31,10 @@ public class ChronospatialComputer {
 
     }
 
-    public String solveA(boolean allowReservedOperand) {
+    public String solveA() {
 
         instructionPointer = 0;
         outJoiner = new StringJoiner(",");
-        this.allowReservedOperand  = allowReservedOperand;
 
         int opcode;
         int operator;
@@ -83,9 +81,6 @@ public class ChronospatialComputer {
             case 6:
                 return c;
             default:
-                if (allowReservedOperand) {
-                    return operator;
-                }
                 throw new IllegalArgumentException("Invalid operator: "+operator);
         }
     }
@@ -94,8 +89,6 @@ public class ChronospatialComputer {
         int comboOperand = getComboOperand(operand);
         int power = (int) Math.pow(2, comboOperand);
         a = a / power;
-
-        // TODO es posible que haya que truncar.
     }
 
     private void bxl(int operand) {

@@ -2,7 +2,6 @@ package com.adventofcode.flashk.day17;
 
 import java.util.List;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -36,7 +35,7 @@ public class Day17Test extends PuzzleTest {
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SINGLE_SAMPLE);
 
 		ChronospatialComputer chronospatialComputer = new ChronospatialComputer(inputs);
-		chronospatialComputer.solveA(false);
+		chronospatialComputer.solveA();
 
 		assertEquals(1, chronospatialComputer.getB());
 	}
@@ -53,7 +52,7 @@ public class Day17Test extends PuzzleTest {
 
 		ChronospatialComputer chronospatialComputer = new ChronospatialComputer(inputs);
 
-		assertEquals("0,1,2", chronospatialComputer.solveA(false));
+		assertEquals("0,1,2", chronospatialComputer.solveA());
 	}
 
 	@Test
@@ -76,7 +75,7 @@ public class Day17Test extends PuzzleTest {
 
 		// Program: 0,1,5,4,3,0
 
-		assertEquals("4,2,5,6,7,7,7,7,3,1,0", chronospatialComputer.solveA(false));
+		assertEquals("4,2,5,6,7,7,7,7,3,1,0", chronospatialComputer.solveA());
 		assertEquals(0, chronospatialComputer.getA());
 	}
 
@@ -91,7 +90,7 @@ public class Day17Test extends PuzzleTest {
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SINGLE_SAMPLE_4);
 
 		ChronospatialComputer chronospatialComputer = new ChronospatialComputer(inputs);
-		chronospatialComputer.solveA(true);
+		chronospatialComputer.solveA();
 
 		// Se permite el operador reservado porque en este caso, el input tiene un operator 7 que hay que debuggear.
 
@@ -109,7 +108,7 @@ public class Day17Test extends PuzzleTest {
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SINGLE_SAMPLE_5);
 
 		ChronospatialComputer chronospatialComputer = new ChronospatialComputer(inputs);
-		chronospatialComputer.solveA(false);
+		chronospatialComputer.solveA();
 
 		assertEquals(44354, chronospatialComputer.getB());
 	}
@@ -126,7 +125,7 @@ public class Day17Test extends PuzzleTest {
 
 		ChronospatialComputer chronospatialComputer = new ChronospatialComputer(inputs);
 
-		assertEquals("4,6,3,5,6,3,5,2,1,0", chronospatialComputer.solveA(false));
+		assertEquals("4,6,3,5,6,3,5,2,1,0", chronospatialComputer.solveA());
 	}
 
 	@Test
@@ -138,11 +137,10 @@ public class Day17Test extends PuzzleTest {
 
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
-		ChronospatialComputer chronospatialComputer = new ChronospatialComputer(inputs);
-		System.out.println("Solution: "+chronospatialComputer.solveA(false));
 
-		// 3,4,5,0,5,4,1,5,0 -> Not valid
-		assertEquals("6,7,5,2,1,3,5,1,7",chronospatialComputer.solveA(false));
+		ChronospatialComputer chronospatialComputer = new ChronospatialComputer(inputs);
+
+		assertEquals("6,7,5,2,1,3,5,1,7",chronospatialComputer.solveA());
 
 	}
 
