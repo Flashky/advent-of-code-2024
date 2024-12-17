@@ -2,6 +2,7 @@ package com.adventofcode.flashk.day17;
 
 import java.util.List;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -66,8 +67,6 @@ public class Day17Test extends PuzzleTest {
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SINGLE_SAMPLE_3);
 
 		ChronospatialComputer chronospatialComputer = new ChronospatialComputer(inputs);
-
-		// TODO único test que se queda pillado.
 
 		// Register A: 2024
 		// Register B: 0
@@ -152,9 +151,12 @@ public class Day17Test extends PuzzleTest {
 	public void testSolvePart2Sample() {
 
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE_PART_2);
 
-		assertEquals(0L,0L);
+		ChronospatialComputer chronospatialComputer = new ChronospatialComputer(inputs);
+
+		assertEquals(117440L ,chronospatialComputer.solveB());
+
 	}
 
 	@Test
@@ -162,12 +164,22 @@ public class Day17Test extends PuzzleTest {
 	@Tag(TestTag.PART_2)
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_2_INPUT)
+	@Disabled
 	public void testSolvePart2Input() {
 
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
-		System.out.println("Solution: ");
+		ChronospatialComputer chronospatialComputer = new ChronospatialComputer(inputs);
+
+		// Algunas consideraciones:
+		// La primera operación con los datos reales es 2,4
+		// Esto es, opcode 2, operator 4:
+		// - opcode 2 implica BST, esto es b = comboOperand % 8;
+		// - operator 4 implica que el valor de comboOperand va a ser el registro A
+		// Por lo tanto, valga lo que valga A, b adquirirá el valor de A % 8
+
+		System.out.println("Solution: "+chronospatialComputer.solveB());
 		assertEquals(0L,0L);
 
 	}
