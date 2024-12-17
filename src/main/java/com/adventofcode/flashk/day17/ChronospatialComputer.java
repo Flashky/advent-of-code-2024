@@ -13,28 +13,30 @@ public class ChronospatialComputer {
 
     private static final Pattern NUMBER_PATTERN = Pattern.compile("(\\d*)*");
 
-    private int A;
-    private int B;
-    private int C;
+    private int a;
+    private int b;
+    private int c;
 
     private int[] program;
     private int instructionPointer;
     private StringJoiner outJoiner;
+    private boolean allowReservedOperand;
 
     public ChronospatialComputer(List<String> inputs) {
-        A = Integer.parseInt(inputs.get(0).substring(12));
-        B = Integer.parseInt(inputs.get(1).substring(12));
-        C = Integer.parseInt(inputs.get(2).substring(12));
+        a = Integer.parseInt(inputs.get(0).substring(12));
+        b = Integer.parseInt(inputs.get(1).substring(12));
+        c = Integer.parseInt(inputs.get(2).substring(12));
 
         String programValues = inputs.get(4).replace("Program: ", "");
         program = Arrays.stream(programValues.split(",")).mapToInt(Integer::valueOf).toArray();
 
     }
 
-    public String solveA() {
+    public String solveA(boolean allowReservedOperand) {
 
         instructionPointer = 0;
         outJoiner = new StringJoiner(",");
+        this.allowReservedOperand  = allowReservedOperand;
 
         int opcode;
         int operator;
@@ -56,88 +58,82 @@ public class ChronospatialComputer {
     }
 
     private void execute(int opcode, int operator) {
-        int operand = getOperand(operator);
+
         switch(opcode) {
-            case 0: adv(operand); break;
-            case 1: bxl(operand); break;
-            case 2: bst(operand); break;
-            case 3: jnz(operand); break;
-            case 4: bxc(operand); break;
-            case 5: out(operand); break;
-            case 6: bdv(operand); break;
-            case 7: cdv(operand); break;
+            case 0: adv(operator); break;
+            case 1: bxl(operator); break;
+            case 2: bst(operator); break;
+            case 3: jnz(operator); break;
+            case 4: bxc(operator); break;
+            case 5: out(operator); break;
+            case 6: bdv(operator); break;
+            case 7: cdv(operator); break;
             default: throw new IllegalArgumentException("Invalid opcode: "+opcode);
         }
     }
 
-    private int getOperand(int operator) {
+    private int getComboOperand(int operator) {
         switch(operator) {
             case 0,1,2,3:
                 return operator;
             case 4:
-                return A;
+                return a;
             case 5:
-                return B;
+                return b;
             case 6:
-                return C;
+                return c;
             default:
-                throw new IllegalArgumentException("Operand 7 is not a valid value");
+                if (allowReservedOperand) {
+                    return operator;
+                }
+                throw new IllegalArgumentException("Invalid operator: "+operator);
         }
     }
 
-    private void adv(int operator) {
-        int power = (int) Math.pow(2, operator);
-        A = A / power;
+    private void adv(int operand) {
+        int comboOperand = getComboOperand(operand);
+        int power = (int) Math.pow(2, comboOperand);
+        a = a / power;
 
         // TODO es posible que haya que truncar.
     }
 
-    private void bxl(int operator) {
-        // TODO B = B XOR combo operator
-        // https://en.wikipedia.org/wiki/Bitwise_operation#XOR
-
-        // Steps:
-        // Convertir B de octal a binario.
-        // Convertir operator de octal a binario
-        // Hacer  (B binario) XOR (operator binario) para cada bit.
-        // Reconvertir de binario a octal.
-
-        B = xor(B, operator);
-
+    private void bxl(int operand) {
+        b = xor(b, operand);
     }
 
-    private void bst(int operator) {
-        B = operator % 8;
+    private void bst(int operand) {
+        int comboOperand = getComboOperand(operand);
+        b = comboOperand % 8;
     }
 
     private void jnz(int operator) {
-        if(A != 0) {
+        if(a != 0) {
             instructionPointer = operator;
+        } else {
+            instructionPointer += 2;
         }
     }
 
-    private void bxc(int operator) {
-        // TODO B = B XOR C
+    private void bxc(int operand) {
         // https://en.wikipedia.org/wiki/Bitwise_operation#XOR
-
-        B = xor(B, C);
+        b = xor(b, c);
     }
 
-    private void out(int operator) {
-        int mod = operator % 8;
+    private void out(int operand) {
+        int comboOperand = getComboOperand(operand);
+        int mod = comboOperand % 8;
         outJoiner.add(String.valueOf(mod));
     }
 
-    private void bdv(int operator) {
-        B = A / (int) Math.pow(2, operator);
-
-        // TODO es posible que haya que truncar.
+    private void bdv(int operand) {
+        int comboOperand = getComboOperand(operand);
+        b = a / (int) Math.pow(2, comboOperand);
     }
 
     private void cdv(int operand) {
-        C = A / (int) Math.pow(2, operand);
-
-        // TODO es posible que haya que truncar.
+        int comboOperand = getComboOperand(operand);
+        c = a / (int) Math.pow(2, comboOperand);
     }
 
     private int xor(int a, int b) {
