@@ -2,7 +2,6 @@ package com.adventofcode.flashk.day18;
 
 import java.util.List;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -21,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName(TestDisplayName.DAY_18)
 @TestMethodOrder(OrderAnnotation.class)
-@Disabled // TODO Remove comment when implemented
 public class Day18Test extends PuzzleTest {
 
 	private static final String INPUT_FOLDER = TestFolder.DAY_18;
@@ -36,7 +34,9 @@ public class Day18Test extends PuzzleTest {
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
-		assertEquals(0L,0L);
+		RamRun ramRun = new RamRun(inputs, 6);
+
+		assertEquals(22L, ramRun.solveA(12));
 	}
 
 	@Test
@@ -49,8 +49,9 @@ public class Day18Test extends PuzzleTest {
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
-		System.out.println("Solution: ");
-		assertEquals(0L,0L);
+		RamRun ramRun = new RamRun(inputs, 70);
+
+		assertEquals(282L,ramRun.solveA(1024));
 
 	}
 
@@ -63,8 +64,9 @@ public class Day18Test extends PuzzleTest {
 
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+		RamRun ramRun = new RamRun(inputs, 6);
 
-		assertEquals(0L,0L);
+		assertEquals("6,1", ramRun.solveB());
 	}
 
 	@Test
@@ -76,9 +78,9 @@ public class Day18Test extends PuzzleTest {
 
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
+		RamRun ramRun = new RamRun(inputs, 70);
 
-		System.out.println("Solution: ");
-		assertEquals(0L,0L);
+		assertEquals("64,29", ramRun.solveB());
 
 	}
 
