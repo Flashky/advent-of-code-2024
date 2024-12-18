@@ -227,7 +227,25 @@ public class Day16Test extends PuzzleTest {
 		// Read input file
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, "debug_edge_2.input");
 
-		// Situación esperada
+		// Source: https://www.reddit.com/r/adventofcode/comments/1hfhgl1/2024_day_16_part_1_alternate_test_case/
+
+		// ########################################################
+		// #.........#.........#.........#.........#.........#...O#
+		// #...OOOOOO#...OOOOOO#...OOOOOO#...OOOOOO#...OOOOOO#...O#
+		// #...O#...O#...O#...O#...O#...O#...O#...O#...O#...O#...O#
+		// #...O#...O#...O#...O#...O#...O#...O#...O#...O#...O#...O#
+		// #...O#...O#...O#...O#...O#...O#...O#...O#...O#...O#...O#
+		// #...O#...O#...O#...O#...O#...O#...O#...O#...O#...O#...O#
+		// #...O#...OOOOOO#...OOOOOO#...OOOOOO#...OOOOOO#...OOOOOO#
+		// #OOOO#.........#.........#.........#.........#.........#
+		// ########################################################
+		//
+		// Camino inicial:
+		// 21 giros
+		// 110 pasos
+		// Coste total = 21100
+
+		// Tras ejecutar el algoritmo de la parte 2 debería quedarse así:
 		// ########################################################
 		// #.........#.........#.........#.........#.........#...O#
 		// #OOOOOOOOO#OOOOOOOOO#OOOOOOOOO#OOOOOOOOO#OOOOOOOOO#...O#
@@ -245,6 +263,7 @@ public class Day16Test extends PuzzleTest {
 		//	10 círculos en la última caja
 		//
 		// Total = 264
+		// Cualquiera de los caminos óptimos tendría un coste de: 21110
 
 		ReindeerMaze reindeerMaze = new ReindeerMaze(inputs);
 
