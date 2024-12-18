@@ -226,6 +226,26 @@ public class Day16Test extends PuzzleTest {
 
 		// Read input file
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, "debug_edge_2.input");
+
+		// Situación esperada
+		// ########################################################
+		// #.........#.........#.........#.........#.........#...O#
+		// #OOOOOOOOO#OOOOOOOOO#OOOOOOOOO#OOOOOOOOO#OOOOOOOOO#...O#
+		// #OOOO#OOOO#OOOO#OOOO#OOOO#OOOO#OOOO#OOOO#OOOO#OOOO#...O#
+		// #OOOO#OOOO#OOOO#OOOO#OOOO#OOOO#OOOO#OOOO#OOOO#OOOO#...O#
+		// #OOOO#OOOO#OOOO#OOOO#OOOO#OOOO#OOOO#OOOO#OOOO#OOOO#...O#
+		// #OOOO#OOOO#OOOO#OOOO#OOOO#OOOO#OOOO#OOOO#OOOO#OOOO#...O#
+		// #OOOO#OOOOOOOOO#OOOOOOOOO#OOOOOOOOO#OOOOOOOOO#OOOOOOOOO#
+		// #OOOO#.........#.........#.........#.........#.........#
+		// ########################################################
+		//
+		//  28 círculos caja izquierda
+		// 216 círculos caja centrales
+		//  10 círculos verticales
+		//	10 círculos en la última caja
+		//
+		// Total = 264
+
 		ReindeerMaze reindeerMaze = new ReindeerMaze(inputs);
 
 		assertEquals(264L,reindeerMaze.solveB());
