@@ -62,7 +62,8 @@ public class RestroomRedoubt {
             }
         } while (count != robots.size()) ;
 
-        paint();
+        // Uncomment for seeing the tree:
+        //paint();
 
         return seconds;
 

@@ -100,11 +100,8 @@ public class ScaledWarehouseWoes {
 
     public long solveB() {
         int movementIndex = 0;
-        Array2DUtil.paint(map);
         while(movementIndex < movements.length) {
-            System.out.print("Move: "+ String.valueOf(movements[movementIndex]));
             move(movements[movementIndex]);
-            Array2DUtil.paint(map);
             movementIndex++;
         }
 

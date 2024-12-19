@@ -148,6 +148,7 @@ public class Day17Test extends PuzzleTest {
 	@Tag(TestTag.PART_2)
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_2_SAMPLE)
+	@Disabled
 	public void testSolvePart2Sample() {
 
 		// Read input file

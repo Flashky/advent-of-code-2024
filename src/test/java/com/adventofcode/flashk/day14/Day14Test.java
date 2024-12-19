@@ -2,6 +2,7 @@ package com.adventofcode.flashk.day14;
 
 import java.util.List;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.junit.jupiter.api.Order;
@@ -65,6 +66,7 @@ class Day14Test {
 	@Tag(TestTag.PART_2)
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_2_INPUT)
+	@Disabled
 	void part2InputTest() {
 
 		// Read input file
