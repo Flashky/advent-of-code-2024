@@ -13,12 +13,11 @@ public class LinenLayout {
     private List<String> designs;
 
     private Map<String,Boolean> memo = new HashMap<>();
-    private Map<String,Integer> memo2 = new HashMap<>();
 
     public LinenLayout(List<String> inputs) {
         patterns = Arrays.stream(inputs.getFirst().replace(StringUtils.SPACE, StringUtils.EMPTY).split(","))
-                .sorted(new PatternComparator())
-                .toList().reversed();
+                         .sorted(new PatternComparator())
+                         .toList();
         inputs.removeFirst();
         inputs.removeFirst();
         designs = inputs;
@@ -33,7 +32,7 @@ public class LinenLayout {
         }
         return result;
     }
-    
+
     private boolean isPossible(String design){
 
         if(memo.containsKey(design)) {
