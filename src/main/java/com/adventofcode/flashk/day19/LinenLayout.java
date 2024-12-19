@@ -15,9 +15,7 @@ public class LinenLayout {
     private final Map<String,Boolean> memo = new HashMap<>();
 
     public LinenLayout(List<String> inputs) {
-        patterns = Arrays.stream(inputs.getFirst().replace(StringUtils.SPACE, StringUtils.EMPTY).split(","))
-                         .sorted(new PatternComparator())
-                         .toList();
+        patterns = Arrays.stream(inputs.getFirst().replace(StringUtils.SPACE, StringUtils.EMPTY).split(",")).toList();
         inputs.removeFirst();
         inputs.removeFirst();
         designs = inputs;
