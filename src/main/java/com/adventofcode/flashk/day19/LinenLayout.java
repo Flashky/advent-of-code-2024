@@ -9,10 +9,10 @@ import java.util.Map;
 
 public class LinenLayout {
 
-    private List<String> patterns;
-    private List<String> designs;
+    private final List<String> patterns;
+    private final List<String> designs;
 
-    private Map<String,Boolean> memo = new HashMap<>();
+    private final Map<String,Boolean> memo = new HashMap<>();
 
     public LinenLayout(List<String> inputs) {
         patterns = Arrays.stream(inputs.getFirst().replace(StringUtils.SPACE, StringUtils.EMPTY).split(","))

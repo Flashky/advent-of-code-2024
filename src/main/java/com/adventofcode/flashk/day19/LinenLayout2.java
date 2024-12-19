@@ -9,10 +9,10 @@ import java.util.Map;
 
 public class LinenLayout2 {
 
-    private List<String> patterns;
-    private List<String> designs;
+    private final List<String> patterns;
+    private final List<String> designs;
 
-    private Map<MemoState,Long> memo = new HashMap<>();
+    private final Map<MemoState,Long> memo = new HashMap<>();
 
     public LinenLayout2(List<String> inputs) {
         patterns = Arrays.stream(inputs.getFirst().replace(StringUtils.SPACE, StringUtils.EMPTY).split(","))
@@ -27,7 +27,6 @@ public class LinenLayout2 {
         long result = 0;
         for(String design : designs) {
             result += count(design, StringUtils.EMPTY);
-            memo.clear();
         }
         return result;
     }
