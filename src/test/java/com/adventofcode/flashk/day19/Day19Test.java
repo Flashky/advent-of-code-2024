@@ -36,7 +36,9 @@ public class Day19Test extends PuzzleTest {
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
-		assertEquals(0L,0L);
+		LinenLayout linenLayout = new LinenLayout(inputs);
+
+		assertEquals(6, linenLayout.solveA());
 	}
 
 	@Test
@@ -48,8 +50,9 @@ public class Day19Test extends PuzzleTest {
 
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
+		LinenLayout linenLayout = new LinenLayout(inputs);
 
-		System.out.println("Solution: ");
+		System.out.println("Solution: "+linenLayout.solveA());
 		assertEquals(0L,0L);
 
 	}
