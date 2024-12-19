@@ -115,7 +115,7 @@ public class ChronospatialComputer {
         //debug(46, 846, originalB, originalC);
 
         int index = 0;
-        List<Long> numberValues = new ArrayList<>();
+
         long realNumber = 0;
         long previousNumber = 0;
         for(int i = 0; i < 16; i++) {
@@ -210,7 +210,7 @@ public class ChronospatialComputer {
             case 1: bxl(operator); break;
             case 2: bst(operator); break;
             case 3: jnz(operator); break;
-            case 4: bxc(operator); break;
+            case 4: bxc(); break;
             case 5: out(operator); break;
             case 6: bdv(operator); break;
             case 7: cdv(operator); break;
@@ -256,7 +256,7 @@ public class ChronospatialComputer {
         }
     }
 
-    private void bxc(long operand) {
+    private void bxc() {
         // https://en.wikipedia.org/wiki/Bitwise_operation#XOR
         b = xor(b, c);
     }

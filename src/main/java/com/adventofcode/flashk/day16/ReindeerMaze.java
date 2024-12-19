@@ -1,16 +1,12 @@
 package com.adventofcode.flashk.day16;
 
 import com.adventofcode.flashk.common.Vector2;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
 import java.util.PriorityQueue;
 import java.util.Set;
 
 public class ReindeerMaze {
-
-    private static final char WALL = '#';
-
     private Tile[][] map;
     private int rows;
     private int cols;
@@ -205,27 +201,7 @@ public class ReindeerMaze {
         }
         return count;
     }
-    private Set<Tile> findPathSections() {
-        Set<Tile> intersections = new HashSet<>();
 
-        Tile end = map[endPos.getY()][endPos.getX()];
-        Tile start = map[startPos.getY()][startPos.getX()];
-
-        Tile current = end;
-        do {
-            current.setPath(true);
-            //if(getAdjacentsIncludingVisited(current).size() > 2) {
-                intersections.add(current);
-            //}
-
-            current = current.getParent();
-        } while(current != start);
-
-        start.setPath(true);
-
-        return intersections;
-
-    }
     private Set<Tile> findPathIntersections() {
         Set<Tile> intersections = new HashSet<>();
 
