@@ -57,8 +57,8 @@ public class PlutonianPebbles {
     }
 
     private void updateNumber(long number, long rockCount, Map<Long,Long> processedRocks) {
-        rockCount += processedRocks.getOrDefault(number, 0L);
-        processedRocks.put(number, rockCount);
+        long oldRockCount = processedRocks.getOrDefault(number, 0L);
+        processedRocks.put(number, oldRockCount+rockCount);
     }
 
 }
