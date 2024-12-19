@@ -79,8 +79,7 @@ public class Day19Test extends PuzzleTest {
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
 		LinenLayout2 linenLayout = new LinenLayout2(inputs);
-		System.out.println("Solution: "+linenLayout.solveB());
-		assertEquals(0L,0L);
+		assertEquals(619970556776002L,linenLayout.solveB());
 
 	}
 

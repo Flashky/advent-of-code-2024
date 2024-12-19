@@ -12,7 +12,7 @@ public class LinenLayout2 {
     private List<String> patterns;
     private List<String> designs;
 
-    private Map<String,Boolean> memo = new HashMap<>();
+    private Map<MemoState,Long> memo = new HashMap<>();
 
     public LinenLayout2(List<String> inputs) {
         patterns = Arrays.stream(inputs.getFirst().replace(StringUtils.SPACE, StringUtils.EMPTY).split(","))
@@ -23,29 +23,41 @@ public class LinenLayout2 {
         designs = inputs;
     }
 
-    public int solveB() {
-        int result = 0;
+    public long solveB() {
+        long result = 0;
         for(String design : designs) {
             result += count(design, StringUtils.EMPTY);
+            memo.clear();
         }
         return result;
     }
 
-    private int count(String design, String pattern){
+    private long count(String design, String pattern){
 
         if(design.equals(pattern)) {
-            return 1;
+            return 1L;
         }
 
         if(!design.startsWith(pattern)) {
             return 0;
         }
 
-        int count = 0;
+        long count = 0;
         String rightSide = design.replaceFirst(pattern, StringUtils.EMPTY);
 
         for(String newPattern : patterns) {
-            count += count(rightSide, newPattern);
+
+            MemoState newState = new MemoState(rightSide, newPattern);
+
+            long partialCount;
+            if(memo.containsKey(newState)) {
+                partialCount = memo.get(newState);
+            } else {
+                partialCount = count(rightSide, newPattern);
+                memo.put(new MemoState(rightSide, newPattern), partialCount);
+            }
+
+            count += partialCount;
         }
 
         return count;
