@@ -67,20 +67,12 @@ public class RaceCondition {
             }
         }
 
-        // Apply dijkstra to obtain distance to any tile from the start
-        // This allows to obtain distance from start node (S) to any node (X): d(S,X)
-        // and also allows to calculate distance from start node (S) to end node (E): d(S,E)
-        dijkstra(start);
+    }
 
-        // Now add to every node (X) the relative distance from that node to the end node (E):
-        // d(X,E) = d(S,E) - d(S,X)
-        for(int row = 0; row < rows; row++) {
-            for (int col = 0; col < cols; col++) {
-                RaceTile tile = map[row][col];
-                if(!tile.isWall()) {
-                    tile.setDistanceToEnd(end.getDistance() - tile.getDistance());
-                }
-            }
+    public void runRaces(int cheatTime) {
+
+        if(cheatTime < 2) {
+            throw new IllegalArgumentException("Cheat time must be at least 2");
         }
 
         // The idea of the algorithm for both part 1 and 2 is that total distance when cheating on any node will be:
@@ -102,16 +94,26 @@ public class RaceCondition {
         // d(B, E) = 0
         // So the total distance will from S to E will be X.
         // Keep in mind that distance will be lower than the normal d(S, E) distance.
-    }
 
-    public void runRaces(int cheatTime) {
 
-        if(cheatTime < 2) {
-            throw new IllegalArgumentException("Cheat time must be at least 2");
+        // Apply dijkstra to obtain distance to any tile from the start
+        // This allows to obtain distance from start node (S) to any node (X): d(S,X)
+        // and also allows to calculate distance from start node (S) to end node (E): d(S,E)
+        dijkstra(start);
+
+        // Now add to every node (X) the relative distance from that node to the end node (E):
+        // d(X,E) = d(S,E) - d(S,X)
+        for(int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                RaceTile tile = map[row][col];
+                if(tile.isEmpty()) {
+                    tile.setDistanceToEnd(end.getDistance() - tile.getDistance());
+                }
+            }
         }
 
+        // Now calculate the costs when cheating
         Set<Vector2> movements = movements(cheatTime);
-
         for(RaceTile tile : pathTiles) {
             cheat(tile, movements);
         }
@@ -204,7 +206,7 @@ public class RaceCondition {
             if(isInbounds(newPos.getY(), newPos.getX())) {
                 RaceTile newCell = map[newPos.getY()][newPos.getX()];
 
-                if (!newCell.isWall() && !newCell.isVisited()) {
+                if (newCell.isEmpty() && !newCell.isVisited()) {
                     adjacents.add(newCell);
                 }
             }
