@@ -56,6 +56,37 @@ public class Day20Test extends PuzzleTest {
 	}
 
 	@Test
+	@Order(1)
+	@Tag(TestTag.PART_1)
+	@Tag(TestTag.SAMPLE)
+	@DisplayName(TestDisplayName.PART_1_SAMPLE)
+	public void testSolvePart1SampleRefactor() {
+
+		// Read input file
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+
+		RaceCondition2 raceCondition = new RaceCondition2(inputs);
+		raceCondition.solveA(2,100);
+
+		//raceCondition.runRaces();
+		/*assertEquals(0L,raceCondition.solveA(100));
+		assertEquals(1L,raceCondition.solveA(64));
+		assertEquals(2L,raceCondition.solveA(40));
+		assertEquals(3L,raceCondition.solveA(38));
+		assertEquals(4L,raceCondition.solveA(36));
+		assertEquals(5L,raceCondition.solveA(20));
+		assertEquals(8L,raceCondition.solveA(12));
+		assertEquals(10L,raceCondition.solveA(10));
+		assertEquals(14L,raceCondition.solveA(8));
+		assertEquals(16,raceCondition.solveA(6));
+		assertEquals(30,raceCondition.solveA(4));
+		assertEquals(44,raceCondition.solveA(2));
+*/
+		// TODO cuidado, que igual si ejecuto dijkstra cada vez entonces el mapa se modifique
+		//...
+	}
+
+	@Test
 	@Order(2)
 	@Tag(TestTag.PART_1)
 	@Tag(TestTag.INPUT)
@@ -68,6 +99,23 @@ public class Day20Test extends PuzzleTest {
 		raceCondition.runRaces();
 		
 		assertEquals(1463L,raceCondition.solveA(100));
+
+	}
+
+	@Test
+	@Order(2)
+	@Tag(TestTag.PART_1)
+	@Tag(TestTag.INPUT)
+	@DisplayName(TestDisplayName.PART_1_INPUT)
+	public void testSolvePart1InputRefactor() {
+
+		// Read input file
+		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
+		RaceCondition2 raceCondition = new RaceCondition2(inputs);
+		raceCondition.solveA(2,100);
+		//raceCondition.runRaces();
+
+		//assertEquals(1463L,raceCondition.solveA(100));
 
 	}
 

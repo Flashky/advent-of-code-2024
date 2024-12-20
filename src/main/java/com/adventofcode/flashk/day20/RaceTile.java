@@ -21,6 +21,7 @@ public class RaceTile implements Comparable<RaceTile> {
 
     private boolean visited = false;
     private long distance = Long.MAX_VALUE;
+    private long distanceToEnd = Long.MAX_VALUE;
     private boolean cheat = false;
     private RaceTile parent;
 
