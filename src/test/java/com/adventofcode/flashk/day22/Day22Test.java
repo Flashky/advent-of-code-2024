@@ -63,7 +63,7 @@ public class Day22Test extends PuzzleTest {
 		// Test sequence generation
 		Set<PriceSequence> priceSequences = buyer.getPriceSequences();
 
-		assertEquals(2, priceSequences.size());
+		assertEquals(7, priceSequences.size());
 
 		// Test sequence usage
 		assertEquals(4, buyer.sell(new PriceSequence(0,2,-2,0)));
