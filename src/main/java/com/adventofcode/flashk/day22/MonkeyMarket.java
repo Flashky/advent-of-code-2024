@@ -1,54 +1,50 @@
 package com.adventofcode.flashk.day22;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class MonkeyMarket {
 
-    private List<Long> initialSecretNumbers;
+    public static final int NUMBERS_TO_GENERATE = 2000;
+
+    private final List<Buyer> buyers;
+
+    public MonkeyMarket(List<Integer> inputs, int numbersToGenerate) {
+        buyers = inputs.stream().map(v -> new Buyer(v, numbersToGenerate)).toList();
+    }
 
     public MonkeyMarket(List<Integer> inputs) {
-        initialSecretNumbers = inputs.stream().map(v -> (long) v).toList();
+        buyers = inputs.stream().map(v -> new Buyer(v, NUMBERS_TO_GENERATE)).toList();
     }
 
-    public long solveA(int numbersToGenerate) {
-        long result = 0;
+    public long solveA() {
+        return buyers.stream().mapToLong(Buyer::getLastSecretNumber).sum();
+    }
 
-        for(long secretNumber : initialSecretNumbers) {
-            result += calculateSecretNumber(secretNumber,numbersToGenerate);
+    public long solveB() {
+        // 802 price sequences en list
+        // 688 price sequences en set. Comprobado en excel, esto es ok.
+        Set<PriceSequence> priceSequences = new HashSet<>();
+        for(Buyer buyer : buyers) {
+            priceSequences.addAll(buyer.getPriceSequences());
         }
 
-        return result;
-    }
+        long bestResult = Long.MIN_VALUE;
 
-    private long calculateSecretNumber(long secretNumber, int numbersToGenerate) {
-        long modifiedSecretNumber = secretNumber;
-        for(long i = 0; i < numbersToGenerate; i++) {
-            modifiedSecretNumber = calculateSecretNumber(modifiedSecretNumber);
+        // Cross all price sequence against all buyers
+        for(PriceSequence priceSequence: priceSequences) {
+            long currentResult = 0;
+            for(Buyer buyer : buyers) {
+                currentResult += buyer.sell(priceSequence);
+            }
+
+            bestResult = Math.max(bestResult, currentResult);
         }
-        return modifiedSecretNumber;
+
+        return bestResult;
     }
 
-    private long calculateSecretNumber(long secretNumber) {
-
-        long modifiedSecretNumber = secretNumber;
-
-        // Step 1
-        long mulNumber = modifiedSecretNumber * 64;
-        modifiedSecretNumber ^= mulNumber;
-        modifiedSecretNumber %= 16777216;
-
-        // Step 2
-        long divNumber = Math.floorDiv(modifiedSecretNumber, 32);
-        modifiedSecretNumber ^= divNumber;
-        modifiedSecretNumber %= 16777216;
-
-        // Step 3
-        mulNumber = modifiedSecretNumber * 2048;
-        modifiedSecretNumber ^= mulNumber;
-        modifiedSecretNumber %= 16777216;
-
-        return modifiedSecretNumber;
-    }
 
 
 }
