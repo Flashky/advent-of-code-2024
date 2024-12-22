@@ -141,7 +141,6 @@ public class Day22Test extends PuzzleTest {
 		MonkeyMarket monkeyMarket = new MonkeyMarket(inputs);
 
 		// Brute forced
-		System.out.println("Solution: "+ monkeyMarket.solveB());
 		assertEquals(1735L,monkeyMarket.solveB());
 
 	}
