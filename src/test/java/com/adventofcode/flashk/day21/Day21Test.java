@@ -36,7 +36,10 @@ public class Day21Test extends PuzzleTest {
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
-		assertEquals(0L,0L);
+		KeypadConundrum keypadConundrum = new KeypadConundrum(inputs);
+
+		assertEquals(126384L, keypadConundrum.solveA());
+		//assertEquals(0L,keypadConundrum.solveA());
 	}
 
 	@Test
@@ -49,7 +52,8 @@ public class Day21Test extends PuzzleTest {
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
-		System.out.println("Solution: ");
+		KeypadConundrum keypadConundrum = new KeypadConundrum(inputs);
+		System.out.println("Solution: "+keypadConundrum.solveA());
 		assertEquals(0L,0L);
 
 	}
