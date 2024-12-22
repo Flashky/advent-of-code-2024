@@ -27,6 +27,21 @@ public class Day22Test extends PuzzleTest {
 	private static final String INPUT_FOLDER = TestFolder.DAY_22;
 
 	@Test
+	@Order(0)
+	@Tag(TestTag.PART_1)
+	@Tag(TestTag.SAMPLE)
+	@DisplayName(TestDisplayName.PART_1_SAMPLE)
+	public void singleSampleTest() {
+
+		// Read input file
+		List<Integer> inputs = Input.readIntegerLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+
+		MonkeyMarket monkeyMarket = new MonkeyMarket(List.of(123));
+
+		assertEquals(5908254L, monkeyMarket.solveA(10));
+	}
+
+	@Test
 	@Order(1)
 	@Tag(TestTag.PART_1)
 	@Tag(TestTag.SAMPLE)
@@ -34,9 +49,11 @@ public class Day22Test extends PuzzleTest {
 	public void testSolvePart1Sample() {
 
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+		List<Integer> inputs = Input.readIntegerLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
-		assertEquals(0L,0L);
+		MonkeyMarket monkeyMarket = new MonkeyMarket(inputs);
+
+		assertEquals(37327623L,monkeyMarket.solveA(2000));
 	}
 
 	@Test
@@ -47,10 +64,10 @@ public class Day22Test extends PuzzleTest {
 	public void testSolvePart1Input() {
 
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
+		List<Integer> inputs = Input.readIntegerLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
+		MonkeyMarket monkeyMarket = new MonkeyMarket(inputs);
 
-		System.out.println("Solution: ");
-		assertEquals(0L,0L);
+		assertEquals(14622549304L,monkeyMarket.solveA(2000));
 
 	}
 
@@ -62,7 +79,7 @@ public class Day22Test extends PuzzleTest {
 	public void testSolvePart2Sample() {
 
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+		List<Integer> inputs = Input.readIntegerLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
 		assertEquals(0L,0L);
 	}
@@ -75,7 +92,7 @@ public class Day22Test extends PuzzleTest {
 	public void testSolvePart2Input() {
 
 		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
+		List<Integer> inputs = Input.readIntegerLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
 		System.out.println("Solution: ");
 		assertEquals(0L,0L);
