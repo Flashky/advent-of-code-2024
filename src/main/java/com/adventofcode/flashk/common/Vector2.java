@@ -64,7 +64,11 @@ public class Vector2 {
 		
 		return new Vector2(x,y);
 	}
-	
+
+	public static Vector2 multiply(Vector2 vector, int scalar) {
+		return new Vector2(vector.x * scalar, vector.y * scalar);
+	}
+
 	/**
 	 * Substracts the right operand vector to the left operand vector, applying absolute value to the result.
 	 *  

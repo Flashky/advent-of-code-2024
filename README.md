@@ -18,7 +18,7 @@
 - [Day 13 - Claw Contraption](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day13)
 - [Day 14 - Restroom Redoubt](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day14)
 - [Day 15 - Warehouse Woes](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day15)
-- [Day 16](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day16)
+- [Day 16 - Reindeer Maze](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day16)
 - [Day 17](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day17)
 - [Day 18 - RAM Run](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day18)
 - [Day 19 - Linen Layout](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day19)
