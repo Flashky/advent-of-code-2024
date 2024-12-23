@@ -6,19 +6,21 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashSet;
 import java.util.PriorityQueue;
-import java.util.Queue;
 import java.util.Set;
 
 public class ReindeerMaze {
-    private Tile[][] map;
-    private int rows;
-    private int cols;
-    private Vector2 startPos;
-    private Vector2 endPos;
+
+    private static final boolean DEBUG = false;
+
+    private final Set<Vector2> directions = Set.of(Vector2.right(), Vector2.left(), Vector2.up(), Vector2.down());
+
+    private final Tile[][] map;
+    private final int rows;
+    private final int cols;
     private Tile startTile;
     private Tile endTile;
 
-    private Set<Vector2> directions = Set.of(Vector2.right(), Vector2.left(), Vector2.up(), Vector2.down());
+
 
     public ReindeerMaze(char[][] inputs) {
         rows = inputs.length;
@@ -29,35 +31,14 @@ public class ReindeerMaze {
             for(int col = 0; col < cols; col++) {
                 map[row][col] = new Tile(new Vector2(col, row), inputs[row][col]);
                 if(map[row][col].isStart()) {
-                    startPos = map[row][col].getPosition();
                     startTile = map[row][col];
                 } else if(map[row][col].isEnd()) {
-                    endPos = map[row][col].getPosition();
                     endTile = map[row][col];
                 }
             }
         }
 
     }
-
-    /*
-       DIJKSTRA (Grafo G, nodo_fuente s)
-       para u ∈ V[G] hacer
-           distancia[u] = INFINITO
-           padre[u] = NULL
-           visto[u] = false
-       distancia[s] = 0
-       adicionar (cola, (s, distancia[s]))
-       mientras que cola no es vacía hacer
-           u = extraer_mínimo(cola)
-           visto[u] = true
-           para todos v ∈ adyacencia[u] hacer
-               si ¬ visto[v]
-                   si distancia[v] > distancia[u] + peso (u, v) hacer
-                       distancia[v] = distancia[u] + peso (u, v)
-                       padre[v] = u
-                       adicionar(cola,(v, distancia[v]))
-     */
 
     public long solveA2() {
         return dijkstra(startTile, Vector2.right());
@@ -95,51 +76,9 @@ public class ReindeerMaze {
 
             }
         }
-        //paint();
-        return map[endPos.getY()][endPos.getX()].getScore();
+
+        return endTile.getScore();
     }
-
-    /*
-    Subproblem for part 2
-
-    Looking at the first example there are certain intersections that allow alternative shortest paths:
-    #.#.###
-    #..OOOO
-    ###O#O#
-    #OOO#O.
-    #O#O#O#
-    #OOOOO#
-    #O###.#
-    #O..#..
-    #######
-
-    Filling with walls to analyze the smaller problem:
-
-    ########
-    #.....S#
-    ###.#.##
-    #...#..#
-    #.#.#.##
-    #.....##
-    #.###.##
-    #E..#..#
-    ########
-
-    Path 1:       Path 2:	    Path 3:
-    ########      ########      ########
-    #....11#      #..2222#      #..3333#
-    ###.#1##      ###2#.##      ###3#.##
-    #...#1.#      #..2#..#      #333#..#
-    #.#.#1##      #.#2#.##      #3#.#.##
-    #11111##      #222..##      #3....##
-    #1###.##      #2###.##      #3###.##
-    #1..#..#      #2..#..#      #3..#..#
-    ########      ########      ########
-
-    - 3 turns     - 3 turns     - 3 turns
-    - 11 steps    - 11 steps    - 11 steps
-
-     */
 
     public long solveB2() {
         long result = 0;
@@ -151,6 +90,10 @@ public class ReindeerMaze {
                     result++;
                 }
             }
+        }
+
+        if(DEBUG) {
+            paint();
         }
 
         return result;
@@ -202,7 +145,7 @@ public class ReindeerMaze {
                 long scoreAdjacentTile = calculateAdjacentTileScore(adjacentTile, newDirection);
 
                 // d(A,B)
-                long scoreAdjacentToTile = calculateAdjacentTileToTileScore(adjacentTile, tile, newDirection);
+                long scoreAdjacentToTile = calculateAdjacentTileToTileScore(tile, newDirection);
 
                 // d(B,E)
                 long scoreTileToEnd = tile.getScoreToEnd();
@@ -222,7 +165,6 @@ public class ReindeerMaze {
 
             }
         }
-        //paint();
 
     }
 
@@ -239,7 +181,7 @@ public class ReindeerMaze {
         return scoreAdjacentTile;
     }
 
-    private long calculateAdjacentTileToTileScore(Tile adjacentTile, Tile tile, Vector2 newDirection) {
+    private long calculateAdjacentTileToTileScore(Tile tile, Vector2 newDirection) {
         long scoreAdjacentToTile;
         if(tile == endTile) {
             scoreAdjacentToTile = 1;
@@ -286,7 +228,6 @@ public class ReindeerMaze {
     }
 
     private void paint(){
-        //fillPath();
         for(int row = 0; row < rows; row++) {
             for(int col = 0; col < cols; col++) {
                 if(map[row][col].isPath()) {
@@ -298,6 +239,5 @@ public class ReindeerMaze {
             System.out.println();
         }
     }
-
 
 }
