@@ -2,8 +2,11 @@ package com.adventofcode.flashk.day16;
 
 import com.adventofcode.flashk.common.Vector2;
 
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.HashSet;
 import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.Set;
 
 public class ReindeerMaze {
@@ -141,7 +144,25 @@ public class ReindeerMaze {
     - 11 steps    - 11 steps    - 11 steps
 
      */
+
+    public long solveB2() {
+        long result = 0;
+        dijkstra(startTile, Vector2.right());
+        reverseDijkstra();
+        for(int row = 0; row < rows; row++) {
+            for(int col = 0; col < cols; col++) {
+                if(map[row][col].isPath()) {
+                    result++;
+                }
+            }
+        }
+
+        return result;
+    }
+
     public long solveB(){
+
+
         // Idea:
 
         // 1. Primero aplicamos un dijkstra normal para encontrar el camino más corto.
@@ -188,6 +209,114 @@ public class ReindeerMaze {
 
         paint();
         return countPathTiles();
+    }
+
+    private void reverseDijkstra() {
+
+        // Initialize start tile
+        endTile.setScoreToEnd(0);
+
+        //end.setDirection(direction);
+
+        //if(start.getDirection() == null) {
+        //    start.setDirection(Vector2.right());
+        //}
+
+        // Execute reverse dijkstra
+
+        // This implementation must be executed after dijkstra.
+
+        // Initialization:
+        // - The starting tile must be the end tile.
+        // - Sets the score to the end to 0.
+        // - Add the ending tile to the queue.
+
+        // While the queue is not empty:
+        // - Take a tile from the queue
+        // - Check it as visited reversed.
+        // - Obtain adjacents.
+
+        // Now for the adjacents:
+        // - Calculate the adjacent direction
+
+        Deque<Tile> tiles = new ArrayDeque<>();
+        tiles.add(endTile);
+
+        while(!tiles.isEmpty()) {
+
+            Tile tile = tiles.poll();
+            tile.setVisitedReverse(true);
+            tile.setPath(true);
+
+            // Calcular adyacentes.
+            Set<Tile> adjacentTiles = getAdjacentsReverse(tile);
+            for(Tile adjacentTile : adjacentTiles) {
+
+                // TODO Old code - compare the position to the tile to obtain a direction and then compare directions
+
+                //long scoreAdjacentToTile = newDirection.equals(tile.getDirection()) ? 1 : 1001;
+                // TODO or maybe compare directions directly.
+
+                // Tiles should be added to the queue only if they can meet the following formula:
+                // d(S,E) = d(S,A) + d(A,B) + d(B,E)
+
+                // Where:
+                // S: Starting tile
+                // E: Ending tile
+                // A: Adjacent tile
+                // B: Tile
+
+                // Known parameters:
+                // d(S,E): endTile.getScore()
+                // d(S,A): adjacentTile.getScore()
+                // d(A,B): 1 if A and B directions are the same, 1001 if A and B directions is different.
+                // d(B,E): tile.getScoreToEnd()
+
+                // d(S,A)
+                long scoreAdjacentTile = adjacentTile.getScore();
+
+                // d(A,B)
+                Vector2 newDirection = Vector2.substract(tile.getPosition(), adjacentTile.getPosition());
+                long scoreAdjacentToTile = 1;
+                if(tile != endTile && !newDirection.equals(tile.getDirectionReverse())) {
+                    scoreAdjacentToTile += 1000;
+                } /*else if(tile != endTile && !newDirection.equals(adjacentTile.getDirection())) {
+                    scoreAdjacentToTile += 1000;
+                }*/
+                if(adjacentTile.getDirection().equals(newDirection) && !adjacentTile.getParent().getDirection().equals(newDirection)) {
+                    scoreAdjacentToTile += 1000;
+                }
+
+
+                // Comparar dirección de adjacentTile con Tile.
+
+                // d(B,E)
+                long scoreTileToEnd = tile.getScoreToEnd();
+
+                //long scoreAdjacentToTile =  tile.getScore() - adjacentTile.getScore();
+
+                // TODO Revisar testSolvePart2Sample2
+                // El nodo de arriba a la izquierda, con un score de 11048 no debería ser capaz de llegar a end
+                // porque lo máximo que podría sumar es un punto, y no 1001.
+                // Por lo tanto, esta lógica de 1,1001,-999 no es del todo correcta.
+
+                //if(scoreAdjacentToTile == 1 || scoreAdjacentToTile == 1001 || scoreAdjacentToTile == -999){
+                long estimatedScore = scoreAdjacentTile + scoreAdjacentToTile + scoreTileToEnd;
+                if(estimatedScore == endTile.getScore()) {
+                    // Adjacent tile has a path that is the same as the best score
+
+                    // d(A,E) = d(A,B) + d(B,E)
+                    adjacentTile.setScoreToEnd(scoreAdjacentToTile+scoreTileToEnd);
+                    adjacentTile.setDirectionReverse(newDirection);
+
+                    tiles.add(adjacentTile);
+
+                }
+
+            }
+        }
+        paint();
+
     }
 
     private long countPathTiles() {
@@ -253,6 +382,18 @@ public class ReindeerMaze {
             Vector2 newPos = Vector2.transform(parent.getPosition(), dir);
             Tile newTile = map[newPos.getY()][newPos.getX()];
             if(!newTile.isWall() && !newTile.isVisited()) {
+                adjacents.add(newTile);
+            }
+        }
+        return adjacents;
+    }
+
+    private Set<Tile> getAdjacentsReverse(Tile parent) {
+        Set<Tile> adjacents = new HashSet<>();
+        for(Vector2 dir : directions) {
+            Vector2 newPos = Vector2.transform(parent.getPosition(), dir);
+            Tile newTile = map[newPos.getY()][newPos.getX()];
+            if(!newTile.isWall() && !newTile.isVisitedReverse()) {
                 adjacents.add(newTile);
             }
         }

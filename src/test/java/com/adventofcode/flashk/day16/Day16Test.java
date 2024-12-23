@@ -160,7 +160,7 @@ public class Day16Test extends PuzzleTest {
 		ReindeerMaze reindeerMaze = new ReindeerMaze(inputs);
 
 		// Me da
-		assertEquals(45L, reindeerMaze.solveB());
+		assertEquals(45L, reindeerMaze.solveB2());
 	}
 
 	@Test
@@ -174,7 +174,7 @@ public class Day16Test extends PuzzleTest {
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SINGLE_SAMPLE_2);
 		ReindeerMaze reindeerMaze = new ReindeerMaze(inputs);
 		// Me da
-		assertEquals(64L, reindeerMaze.solveB());
+		assertEquals(64L, reindeerMaze.solveB2());
 	}
 
 	@Test
@@ -187,13 +187,14 @@ public class Day16Test extends PuzzleTest {
 		// Read input file
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
 		ReindeerMaze reindeerMaze = new ReindeerMaze(inputs);
-		System.out.println("Solution: "+reindeerMaze.solveB());
+		System.out.println("Solution: "+reindeerMaze.solveB2());
 
 		// 512 -> too low
 		// 513 -> That's not the right answer; your answer is too low.
 		// Curiously, it's the right answer for someone else;
 		// you might be logged in to the wrong account or just unlucky.
 		// 514 -> too low
+		// 573 -> That's not the right answer.
 
 		assertEquals(0L,0L);
 
@@ -213,7 +214,7 @@ public class Day16Test extends PuzzleTest {
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, "debug_edge_1.input");
 		ReindeerMaze reindeerMaze = new ReindeerMaze(inputs);
 
-		assertEquals(149L,reindeerMaze.solveB());
+		assertEquals(149L,reindeerMaze.solveB2());
 
 	}
 
@@ -267,7 +268,7 @@ public class Day16Test extends PuzzleTest {
 
 		ReindeerMaze reindeerMaze = new ReindeerMaze(inputs);
 
-		assertEquals(264L,reindeerMaze.solveB());
+		assertEquals(264L,reindeerMaze.solveB2());
 
 	}
 }
