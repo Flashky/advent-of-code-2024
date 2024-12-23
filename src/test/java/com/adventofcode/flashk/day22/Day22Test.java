@@ -132,7 +132,7 @@ public class Day22Test extends PuzzleTest {
 	@Tag(TestTag.PART_2)
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_2_INPUT)
-	@Disabled
+	@Disabled("[Disabled] Day 22 - testSolvePart2Input: Takes around 3-4 minutes to execute, must be optimized.")
 	public void testSolvePart2Input() {
 
 		// Read input file

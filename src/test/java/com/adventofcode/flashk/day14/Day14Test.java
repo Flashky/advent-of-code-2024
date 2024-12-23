@@ -66,7 +66,7 @@ class Day14Test {
 	@Tag(TestTag.PART_2)
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_2_INPUT)
-	@Disabled
+	@Disabled("[Disabled] Day 14 - part2InputTest: Takes a long time to execute, must be optimized.")
 	void part2InputTest() {
 
 		// Read input file

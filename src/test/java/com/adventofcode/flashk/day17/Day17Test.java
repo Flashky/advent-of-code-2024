@@ -148,7 +148,7 @@ public class Day17Test extends PuzzleTest {
 	@Tag(TestTag.PART_2)
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_2_SAMPLE)
-	@Disabled
+	@Disabled("[Disabled] Day 17 - testSolvePart2Sample: Work in Progress")
 	public void testSolvePart2Sample() {
 
 		// Read input file
@@ -165,7 +165,7 @@ public class Day17Test extends PuzzleTest {
 	@Tag(TestTag.PART_2)
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_2_INPUT)
-	@Disabled
+	@Disabled("[Disabled] Day 17 - testSolvePart2Input: Work in Progress")
 	public void testSolvePart2Input() {
 
 		// Read input file

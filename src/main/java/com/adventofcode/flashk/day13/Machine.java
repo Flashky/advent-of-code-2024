@@ -48,15 +48,6 @@ public class Machine {
         throw new IllegalArgumentException("Invalid entry");
     }
 
-    public void testMovement() {
-        Vector2 initialPosition = new Vector2(0, 0);
-        Vector2 finalPositionA = new Vector2(80 * buttonA.getX(), 80 * buttonA.getY());
-        Vector2 finalPositionB = new Vector2(40 * buttonB.getX(), 40 * buttonB.getY());
-
-        initialPosition.transform(finalPositionA);
-        initialPosition.transform(finalPositionB);
-    }
-
     public long optimize() {
 
         int minTokens = Integer.MAX_VALUE;

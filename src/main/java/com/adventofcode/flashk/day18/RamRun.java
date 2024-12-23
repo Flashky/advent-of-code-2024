@@ -11,11 +11,14 @@ import java.util.Set;
 
 public class RamRun {
 
-    private int rows;
-    private int cols;
-    private ByteCell[][] map;
-    private List<Vector2> corruptedCells;
-    private Set<Vector2> directions = Set.of(Vector2.right(), Vector2.left(), Vector2.up(), Vector2.down());
+    private static final boolean DEBUG = false;
+
+    private final ByteCell[][] map;
+    private final int rows;
+    private final int cols;
+
+    private final List<Vector2> corruptedCells;
+    private final Set<Vector2> directions = Set.of(Vector2.right(), Vector2.left(), Vector2.up(), Vector2.down());
 
     public RamRun(List<String> inputs, int size) {
         // Si size es 6, entonces hay números que van del 0..6 -> size = 7
@@ -36,23 +39,6 @@ public class RamRun {
 
     }
 
-    //    **DIJKSTRA** (Grafo _G_, nodo_fuente _s_)
-    //       **para** _u_ ∈ _V[G]_ **hacer**
-    //           distancia[_u_] = INFINITO
-    //           padre[_u_] = NULL
-    //           visto[_u_] = **false**
-    //       distancia[_s_] = 0
-    //       adicionar (cola, (s, distancia[_s_]))
-    //       **mientras que** cola no es vacía **hacer**
-    //           _u_ = extraer_mínimo(cola)
-    //           visto[_u_] = **true**
-    //           **para** todos _v_ ∈ adyacencia[_u_] **hacer**
-    //               **si** ¬ visto[_v_]
-    //                   **si** distancia[_v_] > distancia[_u_] + peso (_u_, _v_) **hacer**
-    //                       distancia[_v_] = distancia[_u_] + peso (_u_, _v_)
-    //                       padre[_v_] = _u_
-    //                       adicionar(cola,(_v_, distancia[_v_]))
-
     public long solveA(int numberOfBytes) {
 
         corrupt(numberOfBytes);
@@ -72,7 +58,6 @@ public class RamRun {
             reset();
             lastCorruptedCell = corruptionIterator.next();
             map[lastCorruptedCell.getY()][lastCorruptedCell.getX()].corrupt();
-            //paint();
             dijkstra(map[0][0]);
         } while(map[rows-1][cols-1].isReachable());
 
@@ -138,12 +123,14 @@ public class RamRun {
     }
 
     private void paint() {
-        System.out.println();
-        for(int row = 0; row < rows; row++) {
-            for(int col = 0; col < cols; col++) {
-                map[row][col].paint();
-            }
+        if(DEBUG) {
             System.out.println();
+            for (int row = 0; row < rows; row++) {
+                for (int col = 0; col < cols; col++) {
+                    map[row][col].paint();
+                }
+                System.out.println();
+            }
         }
     }
 }

@@ -243,7 +243,7 @@ class Day16Test extends PuzzleTest {
 	@Tag(TestTag.PART_2)
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_2_DEBUG_2)
-	@Disabled
+	@Disabled("[Disabled] Day 16 - testSolvePart2Debug: Debug test case that takes 4s, enable it only for debugging.")
 	void testSolvePart2Debug2() {
 
 		// DISCLAIMER: This test is disabled as it takes 3 seconds to finish, enable it only for debugging purposes
