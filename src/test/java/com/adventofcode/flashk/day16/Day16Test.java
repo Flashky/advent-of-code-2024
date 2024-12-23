@@ -20,8 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName(TestDisplayName.DAY_16)
 @TestMethodOrder(OrderAnnotation.class)
-@Disabled // TODO Remove comment when implemented
-public class Day16Test extends PuzzleTest {
+class Day16Test extends PuzzleTest {
 
 	private static final String INPUT_FOLDER = TestFolder.DAY_16;
 
@@ -168,12 +167,12 @@ public class Day16Test extends PuzzleTest {
 	@Tag(TestTag.PART_2)
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_2_SAMPLE)
-	public void testSolvePart2Sample2() {
+	void testSolvePart2Sample2() {
 
 		// Read input file
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE_SINGLE_SAMPLE_2);
 		ReindeerMaze reindeerMaze = new ReindeerMaze(inputs);
-		// Me da
+
 		assertEquals(64L, reindeerMaze.solveB2());
 	}
 
@@ -187,32 +186,53 @@ public class Day16Test extends PuzzleTest {
 		// Read input file
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, TestFilename.INPUT_FILE);
 		ReindeerMaze reindeerMaze = new ReindeerMaze(inputs);
-		System.out.println("Solution: "+reindeerMaze.solveB2());
 
-		// 512 -> too low
-		// 513 -> That's not the right answer; your answer is too low.
-		// Curiously, it's the right answer for someone else;
-		// you might be logged in to the wrong account or just unlucky.
-		// 514 -> too low
-		// 573 -> That's not the right answer.
-
-		assertEquals(0L,0L);
+		assertEquals(554L,reindeerMaze.solveB2());
 
 	}
 
-	// Alternate test cases:
-	// https://www.reddit.com/r/adventofcode/comments/1hfhgl1/2024_day_16_part_1_alternate_test_case/
 
 	@Test
 	@Order(6)
 	@Tag(TestTag.PART_2)
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_2_DEBUG)
-	public void testSolvePart2Debug() {
+	void testSolvePart2Debug() {
 
 		// Read input file
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, "debug_edge_1.input");
 		ReindeerMaze reindeerMaze = new ReindeerMaze(inputs);
+
+		// Source: https://www.reddit.com/r/adventofcode/comments/1hfhgl1/2024_day_16_part_1_alternate_test_case/
+
+		// Should fill:
+		// ###########################
+		// #######################..O#
+		// ######################..#O#
+		// #####################..##O#
+		// ####################..###O#
+		// ###################..##OOO#
+		// ##################..###O###
+		// #################..####OOO#
+		// ################..#######O#
+		// ###############..##OOOOOOO#
+		// ##############..###O#######
+		// #############..####OOOOOOO#
+		// ############..###########O#
+		// ###########..##OOOOOOOOOOO#
+		// ##########..###O###########
+		// #########..####OOOOOOOOOOO#
+		// ########..###############O#
+		// #######..##OOOOOOOOOOOOOOO#
+		// ######..###O###############
+		// #####..####OOOOOOOOOOOOOOO#
+		// ####..###################O#
+		// ###..##OOOOOOOOOOOOOOOOOOO#
+		// ##..###O###################
+		// #..####OOOOOOOOOOOOOOOOOOO#
+		// #.#######################O#
+		// #OOOOOOOOOOOOOOOOOOOOOOOOO#
+		// ###########################
 
 		assertEquals(149L,reindeerMaze.solveB2());
 
@@ -223,7 +243,10 @@ public class Day16Test extends PuzzleTest {
 	@Tag(TestTag.PART_2)
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_2_DEBUG_2)
-	public void testSolvePart2Debug2() {
+	@Disabled
+	void testSolvePart2Debug2() {
+
+		// DISCLAIMER: This test is disabled as it takes 3 seconds to finish, enable it only for debugging purposes
 
 		// Read input file
 		char[][] inputs = Input.read2DCharArray(INPUT_FOLDER, "debug_edge_2.input");
@@ -240,7 +263,7 @@ public class Day16Test extends PuzzleTest {
 		// #...O#...OOOOOO#...OOOOOO#...OOOOOO#...OOOOOO#...OOOOOO#
 		// #OOOO#.........#.........#.........#.........#.........#
 		// ########################################################
-		//
+
 		// Camino inicial:
 		// 21 giros
 		// 110 pasos
