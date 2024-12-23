@@ -25,7 +25,7 @@
 - [Day 20 - Race Condition](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day20)
 - [Day 21](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day21)
 - [Day 22 - Monkey Market](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day22)
-- [Day 23](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day23)
+- [Day 23 - LAN Party](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day23)
 - [Day 24](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day24)
 - [Day 25](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day25)
 
