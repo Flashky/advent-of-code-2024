@@ -14,17 +14,13 @@ public class CrossedWiresBF {
 
     private static final Pattern GATE_PATTERN = Pattern.compile("(\\w*) (AND|XOR|OR) (\\w*) -> (\\w*)");
 
-    private Map<String,Integer> wires = new HashMap<>();
-    private List<GateBF> gates = new ArrayList<>();
+    private final Map<String,Integer> wires = new HashMap<>();
+    private final List<GateBF> gates = new ArrayList<>();
     private List<String> endWires;
 
     public CrossedWiresBF(List<String> inputs) {
-
         initializeWires(inputs);
         initializeGates(inputs);
-
-        // TODO Now connect all the gates
-
     }
 
     private void initializeGates(List<String> inputs) {
@@ -76,7 +72,7 @@ public class CrossedWiresBF {
 
         int i = 0;
         do {
-            GateBF gate = gates.get(i);
+            GateBF gate = gates.get(i++);
 
             if(!gate.isVisited()) {
                 int input1 = wires.get(gate.getInput1());
@@ -85,13 +81,8 @@ public class CrossedWiresBF {
                 if (input1 != -1 && input2 != -1) {
                     wires.put(gate.getOutput(), gate.operate(input1, input2));
                     gate.setVisited(true);
-
                     i = 0;
-                } else {
-                    i++;
                 }
-            } else {
-                i++;
             }
 
         } while(i < gates.size());
