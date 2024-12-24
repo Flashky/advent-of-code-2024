@@ -36,7 +36,25 @@ public class Day24Test extends PuzzleTest {
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
-		assertEquals(0L,0L);
+		CrossedWiresBF crossedWires = new CrossedWiresBF(inputs);
+
+		assertEquals(4L, crossedWires.solveA());
+	}
+
+
+	@Test
+	@Order(1)
+	@Tag(TestTag.PART_1)
+	@Tag(TestTag.SAMPLE)
+	@DisplayName(TestDisplayName.PART_1_SAMPLE_2)
+	public void testSolvePart1Sample2() {
+
+		// Read input file
+		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE_2);
+
+		CrossedWiresBF crossedWires = new CrossedWiresBF(inputs);
+
+		assertEquals(2024L,crossedWires.solveA());
 	}
 
 	@Test
@@ -49,8 +67,9 @@ public class Day24Test extends PuzzleTest {
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
-		System.out.println("Solution: ");
-		assertEquals(0L,0L);
+		CrossedWiresBF crossedWires = new CrossedWiresBF(inputs);
+
+		assertEquals(53190357879014L,crossedWires.solveA());
 
 	}
 

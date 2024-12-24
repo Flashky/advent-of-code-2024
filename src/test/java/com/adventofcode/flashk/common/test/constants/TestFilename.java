@@ -7,6 +7,7 @@ public final class TestFilename {
 	// Common filenames used by all tests
 	public static final String INPUT_FILE = "data.input";
 	public static final String INPUT_FILE_SAMPLE = "sample.input";
+	public static final String INPUT_FILE_SAMPLE_2 = "sample_2.input";
 	public static final String INPUT_FILE_SAMPLE_PART_2 = "sample_part_2.input";
 	public static final String INPUT_FILE_SINGLE_SAMPLE = "single_sample.input";
 	public static final String INPUT_FILE_SINGLE_SAMPLE_2 = "single_sample_2.input";
