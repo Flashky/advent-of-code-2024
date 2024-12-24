@@ -144,6 +144,14 @@ public class Day17Test extends PuzzleTest {
 	}
 
 	@Test
+	void programInputTest() {
+		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
+
+		Program program = new Program(inputs);
+		assertEquals("6,7,5,2,1,3,5,1,7", program.execute());
+	}
+
+	@Test
 	@Order(3)
 	@Tag(TestTag.PART_2)
 	@Tag(TestTag.SAMPLE)
