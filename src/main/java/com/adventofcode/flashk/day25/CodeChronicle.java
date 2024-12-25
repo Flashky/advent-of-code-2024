@@ -1,6 +1,6 @@
 package com.adventofcode.flashk.day25;
 
-import java.util.ArrayList;
+
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -9,16 +9,12 @@ public class CodeChronicle {
 
     private Set<Lock> locks = new HashSet<>();
     private Set<Key> keys = new HashSet<>();
-    //private List<Lock> locks = new ArrayList<>();
-    //private List<Key> keys = new ArrayList<>();
 
     public CodeChronicle(List<String> inputs) {
-        // Recorre la lista cogiendo elementos de 7 en 7, los convierte a char[][] y crea un lock o una llave
 
         int i = 0;
         char[][] map = new char[7][5];
         boolean isLock = false;
-
 
         for(String row : inputs) {
 
