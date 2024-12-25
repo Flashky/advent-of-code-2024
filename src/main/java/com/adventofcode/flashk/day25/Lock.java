@@ -5,14 +5,14 @@ import org.apache.commons.lang3.StringUtils;
 
 public class Lock {
 
-    private int[] pins = new int[5];
+    private final int[] pins = new int[5];
 
     public Lock(char[][] lockMap) {
 
-        char[][] trasposedMap = Array2DUtil.transpose(lockMap);
+        char[][] transposedMap = Array2DUtil.transpose(lockMap);
 
-        for(int i = 0; i < trasposedMap.length; i++) {
-            String rowValue = new String(trasposedMap[i]);
+        for(int i = 0; i < transposedMap.length; i++) {
+            String rowValue = new String(transposedMap[i]);
             pins[i] = StringUtils.countMatches(rowValue, "#")-1;
         }
     }
