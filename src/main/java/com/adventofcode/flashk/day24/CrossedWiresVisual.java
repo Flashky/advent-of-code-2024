@@ -25,7 +25,6 @@ public class CrossedWiresVisual {
     private final Map<String,GateVisual> gatesPerOutput = new HashMap<>();
     private final Map<String,Integer> wires = new HashMap<>();
     private final List<GateVisual> gates = new ArrayList<>();
-    private List<String> endWires;
 
     public CrossedWiresVisual(List<String> inputs) {
         initializeWires(inputs);
@@ -104,8 +103,6 @@ public class CrossedWiresVisual {
                 }
             }
         }
-
-        endWires = wires.keySet().stream().filter(w -> w.startsWith("z")).sorted().toList().reversed();
     }
 
 
