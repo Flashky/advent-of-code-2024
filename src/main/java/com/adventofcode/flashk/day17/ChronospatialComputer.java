@@ -4,17 +4,12 @@ import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.StringJoiner;
 
-import java.util.regex.Pattern;
 
 @Getter
 public class ChronospatialComputer {
-
-    private static final Pattern NUMBER_PATTERN = Pattern.compile("(\\d*)*");
 
     private long a;
     private long b;
@@ -53,7 +48,6 @@ public class ChronospatialComputer {
                 instructionPointer += 2;
             }
 
-
         }
 
         return outJoiner.toString();
@@ -63,23 +57,18 @@ public class ChronospatialComputer {
 
         // https://www.reddit.com/r/adventofcode/comments/1hn01ke/2024_day_17_part_2_code_works_until_certain/
 
-        return findRegistryA2(0, StringUtils.EMPTY, StringUtils.EMPTY);
+        return findRegistryA(0, StringUtils.EMPTY, StringUtils.EMPTY);
 
     }
 
-    private long findRegistryA2(int digit, String currentOctalNumber, String output) {
-
-        /*
-        if(digit == 11) {
-            System.out.printf("oct: %s -> %s", currentOctalNumber, output);
-            System.out.println();
-        }*/
+    private long findRegistryA(int digit, String currentOctalNumber, String output) {
 
         if(!expectedProgram.endsWith(output)) {
             return -1;
-        } else if(digit == program.length) {
-            long result = Long.parseLong(currentOctalNumber, 8);
-            return expectedProgram.equals(output) ? result : -1;
+        } else if(expectedProgram.equals(output)){
+            return Long.parseLong(currentOctalNumber, 8);
+        } else if(currentOctalNumber.length() == 16) {
+            return -1;
         }
 
         for(int octalDigit = 0; octalDigit < 8; octalDigit++) {
@@ -87,7 +76,7 @@ public class ChronospatialComputer {
             this.b = 0;
             this.c = 0;
             String partialOutput = solveA();
-            long result = findRegistryA2(digit+1, currentOctalNumber+octalDigit, partialOutput);
+            long result = findRegistryA(digit+1, currentOctalNumber+octalDigit, partialOutput);
             if(result != -1) {
                 return result;
             }
@@ -156,12 +145,12 @@ public class ChronospatialComputer {
 
     private void bdv(int operand) {
         long comboOperand = getComboOperand(operand);
-        b = a / (int) Math.pow(2, comboOperand);
+        b = a / (long) Math.pow(2, comboOperand);
     }
 
     private void cdv(int operand) {
         long comboOperand = getComboOperand(operand);
-        c = a / (int) Math.pow(2, comboOperand);
+        c = a / (long) Math.pow(2, comboOperand);
     }
 
     private long xor(long a, long b) {

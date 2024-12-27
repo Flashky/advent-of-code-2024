@@ -173,7 +173,7 @@ class Day17Test extends PuzzleTest {
 	@Tag(TestTag.PART_2)
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_2_INPUT)
-	@Disabled("[Disabled] Day 17 - testSolvePart2Input: Work in Progress")
+	@Disabled("Day 17 - Doesn't give the expected output")
 	public void testSolvePart2Input() {
 
 		// Read input file
@@ -189,8 +189,8 @@ class Day17Test extends PuzzleTest {
 	@Order(4)
 	@Tag(TestTag.PART_2)
 	@Tag(TestTag.INPUT)
-	@DisplayName(TestDisplayName.PART_2_INPUT)
-	public void part2InputWithProgramTest() {
+	@DisplayName(TestDisplayName.PART_2_INPUT + " - Program")
+	void part2InputWithProgramTest() {
 
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
