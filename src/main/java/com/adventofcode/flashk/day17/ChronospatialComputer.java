@@ -3,7 +3,6 @@ package com.adventofcode.flashk.day17;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -25,8 +24,6 @@ public class ChronospatialComputer {
     private int instructionPointer;
     private StringJoiner outJoiner;
     private final String expectedProgram;
-
-    private List<ProgramState> programStates = new ArrayList<>();
 
     public ChronospatialComputer(List<String> inputs) {
         a = Long.parseLong(inputs.get(0).substring(12));
@@ -64,26 +61,9 @@ public class ChronospatialComputer {
 
     public long solveB() {
 
-        // TODO
         // https://www.reddit.com/r/adventofcode/comments/1hn01ke/2024_day_17_part_2_code_works_until_certain/
 
-        // Aparentemente no basta con quedarse con el primer octal que verifique la condición.
-        // Puede haber más de un octal válido.
-        // Posible algoritmo recursivo con backtracking.
-        // Podría hacer el algoritmo como una mezcla recursiva e iterativa:
-        // - Recursivamente vamos bajando por dígitos (0 al 15)
-        // - Iterativamente, en cada llamda recursiva:
-        //   - Generamos en un bucle los 8 posibles valores octales, llamamos a solveA para ver si es solución parcial.
-        //   - Si es solución parcial, hacemos llamada recursiva, si no, iteramos al siguiente valor.
-        // Casos base:
-        // - Happy Path: dígito 16, y para el dígito octal elegido,la cadena generada es exactamente igual que la esperada
-
-        // Parámetros recursivos:
-        // - octal string: currentOctalDigit + octalDigit
-
-
         return findRegistryA2(0, StringUtils.EMPTY, StringUtils.EMPTY);
-
 
     }
 
@@ -116,49 +96,6 @@ public class ChronospatialComputer {
         return -1;
     }
 
-    private long findRegistryA(int digit, String currentOctalNumber, String output) {
-
-        // CB
-        if(digit == program.length) {
-            long result = Long.parseLong(currentOctalNumber, 8);
-            return expectedProgram.equals(output) ? result : -1;
-            // TODO probablemente pueda devolver directamente el número octal en decimal
-        }
-
-        // Caso recursivo
-        Map<Long,String> octalDigits = getOctalDigitCandidates(currentOctalNumber);
-
-        for(Map.Entry<Long,String> octalDigit : octalDigits.entrySet()) {
-            long result = findRegistryA(digit+1, currentOctalNumber+octalDigit.getKey(), octalDigit.getValue());
-
-            if(result != -1) {
-                return result;
-            }
-        }
-
-        return -1;
-    }
-
-    private Map<Long,String> getOctalDigitCandidates(String currentOctalNumber) {
-
-        Map<Long,String> validOctalDigits = new HashMap<>();
-
-        for(long octalDigit = 0; octalDigit < 8; octalDigit++) {
-
-            this.a = Long.parseLong(currentOctalNumber + octalDigit, 8);
-            this.b = 0;
-            this.c = 0;
-
-            String result = solveA();
-
-            if(expectedProgram.endsWith(result)) {
-                validOctalDigits.put(octalDigit, result);
-            }
-        }
-
-        return validOctalDigits;
-    }
-
     private void execute(int opcode, int operator) {
 
         switch(opcode) {
@@ -175,18 +112,13 @@ public class ChronospatialComputer {
     }
 
     private long getComboOperand(int operator) {
-        switch(operator) {
-            case 0,1,2,3:
-                return operator;
-            case 4:
-                return a;
-            case 5:
-                return b;
-            case 6:
-                return c;
-            default:
-                throw new IllegalArgumentException("Invalid operator: "+operator);
-        }
+        return switch (operator) {
+            case 0, 1, 2, 3 -> operator;
+            case 4 -> a;
+            case 5 -> b;
+            case 6 -> c;
+            default -> throw new IllegalArgumentException("Invalid operator: " + operator);
+        };
     }
 
     private void adv(int operand) {

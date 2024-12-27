@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName(TestDisplayName.DAY_17)
 @TestMethodOrder(OrderAnnotation.class)
-public class Day17Test extends PuzzleTest {
+class Day17Test extends PuzzleTest {
 
 	private static final String INPUT_FOLDER = TestFolder.DAY_17;
 
@@ -181,15 +181,7 @@ public class Day17Test extends PuzzleTest {
 
 		ChronospatialComputer chronospatialComputer = new ChronospatialComputer(inputs);
 
-		// Algunas consideraciones:
-		// La primera operación con los datos reales es 2,4
-		// Esto es, opcode 2, operator 4:
-		// - opcode 2 implica BST, esto es b = comboOperand % 8;
-		// - operator 4 implica que el valor de comboOperand va a ser el registro A
-		// Por lo tanto, valga lo que valga A, b adquirirá el valor de A % 8
-
-		System.out.println("Solution: "+chronospatialComputer.solveB());
-		assertEquals(0L,0L);
+		assertEquals(216549846240877L,chronospatialComputer.solveB());
 
 	}
 
@@ -198,20 +190,12 @@ public class Day17Test extends PuzzleTest {
 	@Tag(TestTag.PART_2)
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_2_INPUT)
-	@Disabled("[Disabled] Day 17 - testSolvePart2Input: Work in Progress")
 	public void part2InputWithProgramTest() {
 
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
 		Program program = new Program(inputs);
-
-		// Algunas consideraciones:
-		// La primera operación con los datos reales es 2,4
-		// Esto es, opcode 2, operator 4:
-		// - opcode 2 implica BST, esto es b = comboOperand % 8;
-		// - operator 4 implica que el valor de comboOperand va a ser el registro A
-		// Por lo tanto, valga lo que valga A, b adquirirá el valor de A % 8
 
 		// Help: https://www.reddit.com/r/adventofcode/comments/1hn01ke/2024_day_17_part_2_code_works_until_certain/
 		assertEquals(216549846240877L, program.solveB());
