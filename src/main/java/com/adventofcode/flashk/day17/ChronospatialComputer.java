@@ -6,10 +6,8 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.StringJoiner;
 
 import java.util.regex.Pattern;
@@ -31,9 +29,9 @@ public class ChronospatialComputer {
     private List<ProgramState> programStates = new ArrayList<>();
 
     public ChronospatialComputer(List<String> inputs) {
-        a = Integer.parseInt(inputs.get(0).substring(12));
-        b = Integer.parseInt(inputs.get(1).substring(12));
-        c = Integer.parseInt(inputs.get(2).substring(12));
+        a = Long.parseLong(inputs.get(0).substring(12));
+        b = Long.parseLong(inputs.get(1).substring(12));
+        c = Long.parseLong(inputs.get(2).substring(12));
 
         expectedProgram = inputs.get(4).replace("Program: ", "");
         program = Arrays.stream(expectedProgram.split(",")).mapToInt(Integer::valueOf).toArray();
@@ -83,28 +81,6 @@ public class ChronospatialComputer {
         // Parámetros recursivos:
         // - octal string: currentOctalDigit + octalDigit
 
-        /*
-        String result;
-
-
-        StringBuilder octalBuilder = new StringBuilder();
-        for(int digit = 0; digit < 16; digit++) {
-            String currentOctalDigit = octalBuilder.toString();
-            for(int octalDigit = 0; octalDigit < 8; octalDigit++) {
-
-                this.a = Long.parseLong(currentOctalDigit + octalDigit, 8);
-                this.b = 0;
-                this.c = 0;
-
-                result = solveA();
-
-                if(expectedProgram.endsWith(result)) {
-                    octalBuilder.append(octalDigit);
-                    break;
-                }
-            }
-
-        }*/
 
         return findRegistryA2(0, StringUtils.EMPTY, StringUtils.EMPTY);
 
@@ -113,10 +89,11 @@ public class ChronospatialComputer {
 
     private long findRegistryA2(int digit, String currentOctalNumber, String output) {
 
+        /*
         if(digit == 11) {
             System.out.printf("oct: %s -> %s", currentOctalNumber, output);
             System.out.println();
-        }
+        }*/
 
         if(!expectedProgram.endsWith(output)) {
             return -1;
