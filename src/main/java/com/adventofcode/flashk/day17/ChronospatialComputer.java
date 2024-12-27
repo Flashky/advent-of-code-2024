@@ -5,7 +5,11 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.StringJoiner;
 
 import java.util.regex.Pattern;
@@ -62,7 +66,24 @@ public class ChronospatialComputer {
 
     public long solveB() {
 
+        // TODO
+        // https://www.reddit.com/r/adventofcode/comments/1hn01ke/2024_day_17_part_2_code_works_until_certain/
 
+        // Aparentemente no basta con quedarse con el primer octal que verifique la condición.
+        // Puede haber más de un octal válido.
+        // Posible algoritmo recursivo con backtracking.
+        // Podría hacer el algoritmo como una mezcla recursiva e iterativa:
+        // - Recursivamente vamos bajando por dígitos (0 al 15)
+        // - Iterativamente, en cada llamda recursiva:
+        //   - Generamos en un bucle los 8 posibles valores octales, llamamos a solveA para ver si es solución parcial.
+        //   - Si es solución parcial, hacemos llamada recursiva, si no, iteramos al siguiente valor.
+        // Casos base:
+        // - Happy Path: dígito 16, y para el dígito octal elegido,la cadena generada es exactamente igual que la esperada
+
+        // Parámetros recursivos:
+        // - octal string: currentOctalDigit + octalDigit
+
+        /*
         String result;
 
 
@@ -83,13 +104,84 @@ public class ChronospatialComputer {
                 }
             }
 
-        }
+        }*/
 
+        return findRegistryA2(0, StringUtils.EMPTY, StringUtils.EMPTY);
 
-        return -1; // TODO convert octal number to decimal and return it
 
     }
-    
+
+    private long findRegistryA2(int digit, String currentOctalNumber, String output) {
+
+        if(digit == 11) {
+            System.out.printf("oct: %s -> %s", currentOctalNumber, output);
+            System.out.println();
+        }
+
+        if(!expectedProgram.endsWith(output)) {
+            return -1;
+        } else if(digit == program.length) {
+            long result = Long.parseLong(currentOctalNumber, 8);
+            return expectedProgram.equals(output) ? result : -1;
+        }
+
+        for(int octalDigit = 0; octalDigit < 8; octalDigit++) {
+            this.a = Long.parseLong(currentOctalNumber + octalDigit, 8);
+            this.b = 0;
+            this.c = 0;
+            String partialOutput = solveA();
+            long result = findRegistryA2(digit+1, currentOctalNumber+octalDigit, partialOutput);
+            if(result != -1) {
+                return result;
+            }
+        }
+
+        return -1;
+    }
+
+    private long findRegistryA(int digit, String currentOctalNumber, String output) {
+
+        // CB
+        if(digit == program.length) {
+            long result = Long.parseLong(currentOctalNumber, 8);
+            return expectedProgram.equals(output) ? result : -1;
+            // TODO probablemente pueda devolver directamente el número octal en decimal
+        }
+
+        // Caso recursivo
+        Map<Long,String> octalDigits = getOctalDigitCandidates(currentOctalNumber);
+
+        for(Map.Entry<Long,String> octalDigit : octalDigits.entrySet()) {
+            long result = findRegistryA(digit+1, currentOctalNumber+octalDigit.getKey(), octalDigit.getValue());
+
+            if(result != -1) {
+                return result;
+            }
+        }
+
+        return -1;
+    }
+
+    private Map<Long,String> getOctalDigitCandidates(String currentOctalNumber) {
+
+        Map<Long,String> validOctalDigits = new HashMap<>();
+
+        for(long octalDigit = 0; octalDigit < 8; octalDigit++) {
+
+            this.a = Long.parseLong(currentOctalNumber + octalDigit, 8);
+            this.b = 0;
+            this.c = 0;
+
+            String result = solveA();
+
+            if(expectedProgram.endsWith(result)) {
+                validOctalDigits.put(octalDigit, result);
+            }
+        }
+
+        return validOctalDigits;
+    }
+
     private void execute(int opcode, int operator) {
 
         switch(opcode) {
