@@ -5,6 +5,8 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.List;
 import java.util.StringJoiner;
 
+/// Represents the input.data program.
+/// Important: it can only represent that program.
 public class Program {
 
     private long a;
@@ -21,15 +23,13 @@ public class Program {
     }
 
     public long solveB() {
-        return findRegistryA2(StringUtils.EMPTY, StringUtils.EMPTY);
+        return findRegistryA(StringUtils.EMPTY, StringUtils.EMPTY);
     }
 
     public String execute() {
         return run();
     }
 
-    // Importante: este programa solo representa el programa de input.data
-    // Cualquier otro programa tendría un set de instrucciones diferente.
     private String execute(long a) {
         this.a = a;
         this.b = 0;
@@ -54,7 +54,7 @@ public class Program {
         return joiner.toString();
     }
 
-    private long findRegistryA2(String currentOctalNumber, String output) {
+    private long findRegistryA(String currentOctalNumber, String output) {
 
         if(!expectedProgram.endsWith(output)) {
             return -1;
@@ -68,7 +68,7 @@ public class Program {
             long numberA = Long.parseLong(currentOctalNumber + octalDigit, 8);
 
             String partialOutput = execute(numberA);
-            long result = findRegistryA2(currentOctalNumber+octalDigit, partialOutput);
+            long result = findRegistryA(currentOctalNumber+octalDigit, partialOutput);
             if(result != -1) {
                 return result;
             }

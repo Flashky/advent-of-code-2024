@@ -54,11 +54,7 @@ public class ChronospatialComputer {
     }
 
     public long solveB() {
-
-        // https://www.reddit.com/r/adventofcode/comments/1hn01ke/2024_day_17_part_2_code_works_until_certain/
-
         return findRegistryA(0, StringUtils.EMPTY, StringUtils.EMPTY);
-
     }
 
     private long findRegistryA(int digit, String currentOctalNumber, String output) {
