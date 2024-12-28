@@ -2,6 +2,7 @@ package com.adventofcode.flashk.day21;
 
 import java.util.List;
 
+import com.adventofcode.flashk.day21.redesign.KeypadConundrum2;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -22,7 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @DisplayName(TestDisplayName.DAY_21)
 @TestMethodOrder(OrderAnnotation.class)
 @Disabled("[Disabled] Day 21 - Work in Progress")
-public class Day21Test extends PuzzleTest {
+public class Day21Test {
 
 	private static final String INPUT_FOLDER = TestFolder.DAY_21;
 
@@ -36,7 +37,7 @@ public class Day21Test extends PuzzleTest {
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
-		KeypadConundrum keypadConundrum = new KeypadConundrum(inputs);
+		KeypadConundrum2 keypadConundrum = new KeypadConundrum2(inputs, 2);
 
 		assertEquals(126384L, keypadConundrum.solveA());
 		//assertEquals(0L,keypadConundrum.solveA());
@@ -52,23 +53,10 @@ public class Day21Test extends PuzzleTest {
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
-		KeypadConundrum keypadConundrum = new KeypadConundrum(inputs);
-		System.out.println("Solution: "+keypadConundrum.solveA());
-		assertEquals(0L,0L);
+		KeypadConundrum2 keypadConundrum = new KeypadConundrum2(inputs, 2);
 
-	}
+		assertEquals(206798L,keypadConundrum.solveA());
 
-	@Test
-	@Order(3)
-	@Tag(TestTag.PART_2)
-	@Tag(TestTag.SAMPLE)
-	@DisplayName(TestDisplayName.PART_2_SAMPLE)
-	public void testSolvePart2Sample() {
-
-		// Read input file
-		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
-
-		assertEquals(0L,0L);
 	}
 
 	@Test
@@ -81,7 +69,9 @@ public class Day21Test extends PuzzleTest {
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
-		System.out.println("Solution: ");
+		KeypadConundrum2 keypadConundrum = new KeypadConundrum2(inputs, 25);
+
+		System.out.println("Solution: "+ keypadConundrum.solveA());
 		assertEquals(0L,0L);
 
 	}
