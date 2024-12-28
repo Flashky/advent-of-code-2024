@@ -18,11 +18,18 @@ public class Tile implements Comparable<Tile>{
     private final Vector2 position;
     private final char value;
 
+    // Dijkstra values
     private long score = Long.MAX_VALUE;
     private long partialScore;
-    private Tile parent;
     private boolean visited = false;
     private Vector2 direction;
+    private Tile parent;
+
+    // Reversed Dijkstra values
+    private long scoreToEnd = Long.MAX_VALUE;
+    private boolean visitedReverse = false;
+    private Vector2 directionReverse;
+
     private boolean path = false;
 
     public Tile(Vector2 position, char value) {

@@ -21,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName(TestDisplayName.DAY_23)
 @TestMethodOrder(OrderAnnotation.class)
-@Disabled // TODO Remove comment when implemented
 public class Day23Test extends PuzzleTest {
 
 	private static final String INPUT_FOLDER = TestFolder.DAY_23;
@@ -35,8 +34,9 @@ public class Day23Test extends PuzzleTest {
 
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+		LANParty lanParty = new LANParty(inputs);
 
-		assertEquals(0L,0L);
+		assertEquals(7L,lanParty.solveA());
 	}
 
 	@Test
@@ -48,9 +48,9 @@ public class Day23Test extends PuzzleTest {
 
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
+		LANParty lanParty = new LANParty(inputs);
 
-		System.out.println("Solution: ");
-		assertEquals(0L,0L);
+		assertEquals(1467L,lanParty.solveA());
 
 	}
 
@@ -63,8 +63,9 @@ public class Day23Test extends PuzzleTest {
 
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+		LANParty2 lanParty = new LANParty2(inputs);
 
-		assertEquals(0L,0L);
+		assertEquals("co,de,ka,ta",lanParty.solveB());
 	}
 
 	@Test
@@ -76,9 +77,9 @@ public class Day23Test extends PuzzleTest {
 
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
+		LANParty2 lanParty = new LANParty2(inputs);
 
-		System.out.println("Solution: ");
-		assertEquals(0L,0L);
+		assertEquals("di,gs,jw,kz,md,nc,qp,rp,sa,ss,uk,xk,yn",lanParty.solveB());
 
 	}
 

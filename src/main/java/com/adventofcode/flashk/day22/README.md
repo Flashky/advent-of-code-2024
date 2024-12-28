@@ -1,3 +1,3 @@
-# Day 22: 
+# Day 22: Monkey Market
 
 [https://adventofcode.com/2024/day/22](https://adventofcode.com/2024/day/22)

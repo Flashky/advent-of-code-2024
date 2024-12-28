@@ -8,6 +8,8 @@ import java.util.Optional;
 
 public class RestroomRedoubt {
 
+    private static final boolean DEBUG = false;
+
     private final int rows;
     private final int cols;
 
@@ -63,7 +65,9 @@ public class RestroomRedoubt {
         } while (count != robots.size()) ;
 
         // Uncomment for seeing the tree:
-        //paint();
+        if(DEBUG) {
+            paint();
+        }
 
         return seconds;
 

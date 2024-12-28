@@ -14,15 +14,13 @@ import com.adventofcode.flashk.common.test.constants.TestDisplayName;
 import com.adventofcode.flashk.common.test.constants.TestFilename;
 import com.adventofcode.flashk.common.test.constants.TestFolder;
 import com.adventofcode.flashk.common.test.constants.TestTag;
-import com.adventofcode.flashk.common.test.utils.PuzzleTest;
 import com.adventofcode.flashk.common.test.utils.Input;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName(TestDisplayName.DAY_24)
 @TestMethodOrder(OrderAnnotation.class)
-@Disabled // TODO Remove comment when implemented
-public class Day24Test extends PuzzleTest {
+class Day24Test {
 
 	private static final String INPUT_FOLDER = TestFolder.DAY_24;
 
@@ -31,12 +29,30 @@ public class Day24Test extends PuzzleTest {
 	@Tag(TestTag.PART_1)
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_1_SAMPLE)
-	public void testSolvePart1Sample() {
+	void part1SampleTest() {
 
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
-		assertEquals(0L,0L);
+		CrossedWiresBF crossedWires = new CrossedWiresBF(inputs);
+
+		assertEquals(4L, crossedWires.solveA());
+	}
+
+
+	@Test
+	@Order(1)
+	@Tag(TestTag.PART_1)
+	@Tag(TestTag.SAMPLE)
+	@DisplayName(TestDisplayName.PART_1_SAMPLE_2)
+	void part1Sample2Test() {
+
+		// Read input file
+		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE_2);
+
+		CrossedWiresBF crossedWires = new CrossedWiresBF(inputs);
+
+		assertEquals(2024L,crossedWires.solveA());
 	}
 
 	@Test
@@ -44,13 +60,14 @@ public class Day24Test extends PuzzleTest {
 	@Tag(TestTag.PART_1)
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_1_INPUT)
-	public void testSolvePart1Input() {
+	void part1InputTest() {
 
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
-		System.out.println("Solution: ");
-		assertEquals(0L,0L);
+		CrossedWiresBF crossedWires = new CrossedWiresBF(inputs);
+
+		assertEquals(53190357879014L,crossedWires.solveA());
 
 	}
 
@@ -59,11 +76,28 @@ public class Day24Test extends PuzzleTest {
 	@Tag(TestTag.PART_2)
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_2_SAMPLE)
-	public void testSolvePart2Sample() {
+	void part2SampleTest() {
 
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+		CrossedWiresVisual crossedWires = new CrossedWiresVisual(inputs);
 
+		crossedWires.solveB();
+		assertEquals(0L,0L);
+	}
+
+	@Test
+	@Order(3)
+	@Tag(TestTag.PART_2)
+	@Tag(TestTag.SAMPLE)
+	@DisplayName(TestDisplayName.PART_2_SAMPLE)
+	void part2Sample3Test() {
+
+		// Read input file
+		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE_3);
+		CrossedWiresVisual crossedWires = new CrossedWiresVisual(inputs);
+
+		crossedWires.solveB();
 		assertEquals(0L,0L);
 	}
 
@@ -72,13 +106,13 @@ public class Day24Test extends PuzzleTest {
 	@Tag(TestTag.PART_2)
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_2_INPUT)
-	public void testSolvePart2Input() {
+	void part2InputTest() {
 
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
+		CrossedWiresVisual crossedWires = new CrossedWiresVisual(inputs);
 
-		System.out.println("Solution: ");
-		assertEquals(0L,0L);
+		assertEquals("bks,hnd,nrn,tdv,tjp,z09,z16,z23", crossedWires.solveB());
 
 	}
 

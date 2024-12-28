@@ -18,16 +18,16 @@
 - [Day 13 - Claw Contraption](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day13)
 - [Day 14 - Restroom Redoubt](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day14)
 - [Day 15 - Warehouse Woes](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day15)
-- [Day 16](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day16)
-- [Day 17](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day17)
+- [Day 16 - Reindeer Maze](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day16)
+- [Day 17 - Chronospatial Computer](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day17)
 - [Day 18 - RAM Run](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day18)
 - [Day 19 - Linen Layout](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day19)
 - [Day 20 - Race Condition](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day20)
 - [Day 21](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day21)
-- [Day 22](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day22)
-- [Day 23](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day23)
-- [Day 24](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day24)
-- [Day 25](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day25)
+- [Day 22 - Monkey Market](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day22)
+- [Day 23 - LAN Party](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day23)
+- [Day 24 - Crossed Wires](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day24)
+- [Day 25 - Code Chronicle](https://github.com/Flashky/advent-of-code-2024/tree/master/src/main/java/com/adventofcode/flashk/day25)
 
 ## Cloning this repository
 
