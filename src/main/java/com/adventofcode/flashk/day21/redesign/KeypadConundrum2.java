@@ -5,7 +5,6 @@ package com.adventofcode.flashk.day21.redesign;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
-import java.util.Set;
 
 public class KeypadConundrum2 {
 
@@ -47,26 +46,5 @@ public class KeypadConundrum2 {
         return shortestSequenceLength * numericValue;
     }
 
-    /*
-    private long pressCode(String code) {
-
-        if(keypads.isEmpty()) {
-            return code.length();
-        }
-
-        long shortestSequence = Long.MAX_VALUE;
-
-        Keypad nextKeypad = keypads.pollFirst();
-
-        Set<String> keyPressesList = nextKeypad.press(code);
-        for(String keyPresses : keyPressesList) {
-            long sequence = pressCode(keyPresses);
-            shortestSequence = Math.min(shortestSequence, sequence);
-        }
-
-        keypads.addFirst(nextKeypad);
-
-        return shortestSequence;
-    }*/
 
 }

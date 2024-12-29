@@ -28,12 +28,10 @@ public class Keypad {
 
     private final Graph<String, LabeledEdge> graph = new DirectedMultigraph<>(LabeledEdge.class);
     private final boolean directional;
+
+    // Memoization maps
     private static final Map<CharacterPress,Set<String>> memoGetPaths = new HashMap<>();
-    private static final Map<Set<String>,Long> memoShortestPath = new HashMap<>();
-
-    // TODO opción 2: caché a nivel de code en lugar de button
-
-    //private String currentButton = "A";
+    private final Map<CharacterPress,Long> memoMinButtonLength = new HashMap<>();
 
     @Setter
     private Keypad nextKeypad;
@@ -99,17 +97,16 @@ public class Keypad {
 
         }
 
-        /*
-        long updateLength = memoCode.getOrDefault(code, minimumLength);
-        if(minimumLength < updateLength) {
-            memoCode.put(code, minimumLength);
-        }
-        */
-
         return minimumLength;
     }
 
     private long getMinimumButtonLength(char previousButton, char button) {
+
+        // Memoization
+        CharacterPress state = new CharacterPress(previousButton, button);
+        if(memoMinButtonLength.containsKey(state)) {
+            return memoMinButtonLength.get(state);
+        }
 
         // Obtain from memo or compute. Add it to memoization if it didn't exist.
         Set<String> buttonPaths = getPaths(previousButton, button);
@@ -120,6 +117,10 @@ public class Keypad {
             long buttonLength = nextKeypad != null ? nextKeypad.press(buttonPath) : buttonPath.length();
             minimumButtonLength = Math.min(buttonLength, minimumButtonLength);
         }
+
+        // Memoization
+        memoMinButtonLength.put(state, minimumButtonLength);
+
         return minimumButtonLength;
     }
 

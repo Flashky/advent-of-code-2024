@@ -70,9 +70,8 @@ public class Day21Test {
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
 		KeypadConundrum2 keypadConundrum = new KeypadConundrum2(inputs, 25);
-
-		System.out.println("Solution: "+ keypadConundrum.solveA());
-		assertEquals(0L,0L);
+		
+		assertEquals(251508572750680L,keypadConundrum.solveA());
 
 	}
 
