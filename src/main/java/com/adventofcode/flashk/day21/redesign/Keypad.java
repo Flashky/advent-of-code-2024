@@ -15,7 +15,6 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -28,8 +27,8 @@ public class Keypad {
 
     private final Graph<String, LabeledEdge> graph = new DirectedMultigraph<>(LabeledEdge.class);
     private final boolean directional;
-    private static final Map<CharacterPress,List<String>> memo = new HashMap<>();
-    private static final Map<CodePress,Long> memoCode = new HashMap<>();
+    private static final Map<CharacterPress,Set<String>> memoGetPaths = new HashMap<>();
+    private static final Map<Set<String>,Long> memoShortestPath = new HashMap<>();
 
     // TODO opción 2: caché a nivel de code en lugar de button
 
@@ -83,6 +82,11 @@ public class Keypad {
     /// @return A list of possible instructions to be executed by the next robot
     public long press(String code) {
 
+/*
+        if(memoCode.containsKey(code)) {
+            return memoCode.get(code);
+        }
+*/
         char[] buttons = code.toCharArray();
 
         long minimumLength = 0;
@@ -94,35 +98,26 @@ public class Keypad {
             CharacterPress state = new CharacterPress(currentButton, button);
 
             // Obtain from memo or compute. Add it to memoization if it didn't exist.
-            List<String> buttonPaths = memo.getOrDefault(state, press(button));
-            memo.putIfAbsent(state, buttonPaths);
+            Set<String> buttonPaths = memoGetPaths.getOrDefault(state, getPaths(button));
+            memoGetPaths.putIfAbsent(state, buttonPaths);
 
             long minimumButtonLength = Long.MAX_VALUE;
-            for(String buttonPath : buttonPaths) {
-                if(nextKeypad != null) {
-                    long buttonLength = nextKeypad.press(buttonPath);
-                    minimumButtonLength = Math.min(buttonLength, minimumButtonLength);
-                } else {
-                    long buttonLength = buttonPath.length();
-                    minimumButtonLength = Math.min(buttonLength, minimumButtonLength);
-                }
 
+            for (String buttonPath : buttonPaths) {
+                long buttonLength = nextKeypad != null ? nextKeypad.press(buttonPath) : buttonPath.length();
+                minimumButtonLength = Math.min(buttonLength, minimumButtonLength);
             }
 
             minimumLength += minimumButtonLength;
+
         }
 
-        // Create all the possible path combinations
-
-        // TODO java.lang.IllegalArgumentException: Cartesian product too large; must have size at most Integer.MAX_VALUE
-        // TODO con 33 elementos en la lista con tamaño mínimo 2 se intenta generar una lista con 2^3 = 8589934592 items
-
-
-        /*List<List<String>> cartesianList = Lists.cartesianProduct(allButtonPaths);
-        Set<String> paths = new HashSet<>();
-        for(List<String> possiblePaths : cartesianList) {
-            paths.add(String.join(StringUtils.EMPTY, possiblePaths));
-        }*/
+        /*
+        long updateLength = memoCode.getOrDefault(code, minimumLength);
+        if(minimumLength < updateLength) {
+            memoCode.put(code, minimumLength);
+        }
+        */
 
         return minimumLength;
     }
@@ -146,7 +141,7 @@ public class Keypad {
     ///
     /// @param button the button to press.
     /// @return a list of different paths as String to achieve that key press from the current button position.
-    public List<String> press(char button) {
+    public Set<String> getPaths(char button) {
         AllDirectedPaths<String, LabeledEdge> adp = new AllDirectedPaths<>(graph);
 
         List<GraphPath<String, LabeledEdge>> graphPaths = adp.getAllPaths(currentButton, String.valueOf(button),
@@ -163,7 +158,7 @@ public class Keypad {
 
         this.currentButton = String.valueOf(button);
         int finalShortestPathSize = shortestPathSize;
-        return paths.stream().filter(p -> p.length() == finalShortestPathSize).toList();
+        return paths.stream().filter(p -> p.length() == finalShortestPathSize).collect(Collectors.toSet());
     }
 
     public void paint() {
