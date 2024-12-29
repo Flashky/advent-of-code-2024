@@ -3,6 +3,7 @@ package com.adventofcode.flashk.day21.redesign;
 import com.adventofcode.flashk.common.Input;
 import com.adventofcode.flashk.common.jgrapht.LabeledEdge;
 import com.google.common.collect.Lists;
+import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 import org.jgrapht.Graph;
 import org.jgrapht.GraphPath;
@@ -28,12 +29,14 @@ public class Keypad {
     private final Graph<String, LabeledEdge> graph = new DirectedMultigraph<>(LabeledEdge.class);
     private final boolean directional;
     private static final Map<CharacterPress,List<String>> memo = new HashMap<>();
-    private static final Map<CodePress,Set<String>> memoCode = new HashMap<>();
+    private static final Map<CodePress,Long> memoCode = new HashMap<>();
 
     // TODO opción 2: caché a nivel de code en lugar de button
 
     private String currentButton = "A";
 
+    @Setter
+    private Keypad nextKeypad;
 
     public Keypad(boolean isDirectional) {
 
@@ -78,11 +81,11 @@ public class Keypad {
     ///
     /// @param code the code to enter.
     /// @return A list of possible instructions to be executed by the next robot
-    public Set<String> press(String code) {
+    public long press(String code) {
 
         char[] buttons = code.toCharArray();
 
-        List<List<String>> allButtonPaths = new ArrayList<>();
+        long minimumLength = 0;
         for(char button : buttons) {
 
             button = mapDirectionalButton(button);
@@ -94,8 +97,19 @@ public class Keypad {
             List<String> buttonPaths = memo.getOrDefault(state, press(button));
             memo.putIfAbsent(state, buttonPaths);
 
-            //
-            allButtonPaths.add(buttonPaths);
+            long minimumButtonLength = Long.MAX_VALUE;
+            for(String buttonPath : buttonPaths) {
+                if(nextKeypad != null) {
+                    long buttonLength = nextKeypad.press(buttonPath);
+                    minimumButtonLength = Math.min(buttonLength, minimumButtonLength);
+                } else {
+                    long buttonLength = buttonPath.length();
+                    minimumButtonLength = Math.min(buttonLength, minimumButtonLength);
+                }
+
+            }
+
+            minimumLength += minimumButtonLength;
         }
 
         // Create all the possible path combinations
@@ -104,13 +118,13 @@ public class Keypad {
         // TODO con 33 elementos en la lista con tamaño mínimo 2 se intenta generar una lista con 2^3 = 8589934592 items
 
 
-        List<List<String>> cartesianList = Lists.cartesianProduct(allButtonPaths);
+        /*List<List<String>> cartesianList = Lists.cartesianProduct(allButtonPaths);
         Set<String> paths = new HashSet<>();
         for(List<String> possiblePaths : cartesianList) {
             paths.add(String.join(StringUtils.EMPTY, possiblePaths));
-        }
+        }*/
 
-        return paths;
+        return minimumLength;
     }
 
     private char mapDirectionalButton(char button) {
