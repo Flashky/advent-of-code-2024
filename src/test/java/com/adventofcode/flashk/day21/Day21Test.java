@@ -2,7 +2,6 @@ package com.adventofcode.flashk.day21;
 
 import java.util.List;
 
-import com.adventofcode.flashk.day21.redesign.KeypadConundrum2;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -15,7 +14,6 @@ import com.adventofcode.flashk.common.test.constants.TestDisplayName;
 import com.adventofcode.flashk.common.test.constants.TestFilename;
 import com.adventofcode.flashk.common.test.constants.TestFolder;
 import com.adventofcode.flashk.common.test.constants.TestTag;
-import com.adventofcode.flashk.common.test.utils.PuzzleTest;
 import com.adventofcode.flashk.common.test.utils.Input;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -37,7 +35,7 @@ public class Day21Test {
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
 
-		KeypadConundrum2 keypadConundrum = new KeypadConundrum2(inputs, 2);
+		KeypadConundrum keypadConundrum = new KeypadConundrum(inputs, 2);
 
 		assertEquals(126384L, keypadConundrum.solveA());
 		//assertEquals(0L,keypadConundrum.solveA());
@@ -53,7 +51,7 @@ public class Day21Test {
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
-		KeypadConundrum2 keypadConundrum = new KeypadConundrum2(inputs, 2);
+		KeypadConundrum keypadConundrum = new KeypadConundrum(inputs, 2);
 
 		assertEquals(206798L,keypadConundrum.solveA());
 
@@ -69,8 +67,8 @@ public class Day21Test {
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
 
-		KeypadConundrum2 keypadConundrum = new KeypadConundrum2(inputs, 25);
-		
+		KeypadConundrum keypadConundrum = new KeypadConundrum(inputs, 25);
+
 		assertEquals(251508572750680L,keypadConundrum.solveA());
 
 	}

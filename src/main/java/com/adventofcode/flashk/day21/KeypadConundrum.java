@@ -1,29 +1,38 @@
 package com.adventofcode.flashk.day21;
 
 
+
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class KeypadConundrum {
 
-    private Numpad numpadRobot = new Numpad();
-    private List<DirectionalKeypad> directionalKeypads = new ArrayList<>();
+    private final List<String> codes;
 
-    private List<String> codes;
+    private final Keypad numpad;
 
-    public KeypadConundrum(List<String> inputs) {
+    public KeypadConundrum(List<String> inputs, int keypadsNumber) {
         codes = inputs;
+
+        // Create all keypad robots and link between them
+        Keypad previousRobot = null;
+
+        for(int i = 0; i < keypadsNumber; i++) {
+            Keypad currentRobot = new Keypad(true);
+            if(previousRobot != null) {
+                currentRobot.setNextKeypad(previousRobot);
+            }
+            previousRobot = currentRobot;
+        }
+
+        numpad = new Keypad(false);
+        numpad.setNextKeypad(previousRobot);
     }
 
     public long solveA() {
 
         long result = 0;
-        directionalKeypads.add(new DirectionalKeypad());
-        directionalKeypads.add(new DirectionalKeypad());
-
-
         for(String code : codes) {
             result += press(code);
         }
@@ -32,18 +41,10 @@ public class KeypadConundrum {
     }
 
     private long press(String code) {
-        String movements = numpadRobot.press(code);
-        String directionalMovements = StringUtils.EMPTY;
-
-        for(DirectionalKeypad directionalKeypad : directionalKeypads) {
-
-            directionalMovements = directionalKeypad.press(movements);
-            movements = directionalMovements;
-        }
-
-        long shortestSequenceLength = directionalMovements.length();
+        long shortestSequenceLength = numpad.press(code);
         long numericValue = Long.parseLong(code.replace("A", StringUtils.EMPTY));
-
         return shortestSequenceLength * numericValue;
     }
+
+
 }

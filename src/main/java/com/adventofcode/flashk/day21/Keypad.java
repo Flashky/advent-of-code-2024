@@ -1,10 +1,8 @@
-package com.adventofcode.flashk.day21.redesign;
+package com.adventofcode.flashk.day21;
 
 import com.adventofcode.flashk.common.Input;
 import com.adventofcode.flashk.common.jgrapht.LabeledEdge;
-import com.google.common.collect.Lists;
 import lombok.Setter;
-import org.apache.commons.lang3.StringUtils;
 import org.jgrapht.Graph;
 import org.jgrapht.GraphPath;
 import org.jgrapht.alg.shortestpath.AllDirectedPaths;
@@ -13,7 +11,6 @@ import org.jgrapht.nio.dot.DOTExporter;
 
 import java.io.StringWriter;
 import java.io.Writer;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
