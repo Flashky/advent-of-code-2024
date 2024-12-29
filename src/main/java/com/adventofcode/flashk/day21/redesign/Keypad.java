@@ -82,31 +82,13 @@ public class Keypad {
     /// @return A list of possible instructions to be executed by the next robot
     public long press(String code) {
 
-/*
-        if(memoCode.containsKey(code)) {
-            return memoCode.get(code);
-        }
-*/
         char[] buttons = code.toCharArray();
 
         long minimumLength = 0;
         for(char button : buttons) {
 
             button = mapDirectionalButton(button);
-
-            // Generate a memoization status for this key press
-            CharacterPress state = new CharacterPress(currentButton, button);
-
-            // Obtain from memo or compute. Add it to memoization if it didn't exist.
-            Set<String> buttonPaths = memoGetPaths.getOrDefault(state, getPaths(button));
-            memoGetPaths.putIfAbsent(state, buttonPaths);
-
-            long minimumButtonLength = Long.MAX_VALUE;
-
-            for (String buttonPath : buttonPaths) {
-                long buttonLength = nextKeypad != null ? nextKeypad.press(buttonPath) : buttonPath.length();
-                minimumButtonLength = Math.min(buttonLength, minimumButtonLength);
-            }
+            long minimumButtonLength = getMinimumButtonLength(button);
 
             minimumLength += minimumButtonLength;
 
@@ -120,6 +102,24 @@ public class Keypad {
         */
 
         return minimumLength;
+    }
+
+    private long getMinimumButtonLength(char button) {
+
+        // Generate a memoization status for this key press
+        CharacterPress state = new CharacterPress(currentButton, button);
+
+        // Obtain from memo or compute. Add it to memoization if it didn't exist.
+        Set<String> buttonPaths = memoGetPaths.getOrDefault(state, getPaths(button));
+        memoGetPaths.putIfAbsent(state, buttonPaths);
+
+        long minimumButtonLength = Long.MAX_VALUE;
+
+        for (String buttonPath : buttonPaths) {
+            long buttonLength = nextKeypad != null ? nextKeypad.press(buttonPath) : buttonPath.length();
+            minimumButtonLength = Math.min(buttonLength, minimumButtonLength);
+        }
+        return minimumButtonLength;
     }
 
     private char mapDirectionalButton(char button) {
