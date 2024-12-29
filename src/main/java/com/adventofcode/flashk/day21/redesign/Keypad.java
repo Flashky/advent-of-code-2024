@@ -32,7 +32,7 @@ public class Keypad {
 
     // TODO opción 2: caché a nivel de code en lugar de button
 
-    private String currentButton = "A";
+    //private String currentButton = "A";
 
     @Setter
     private Keypad nextKeypad;
@@ -85,11 +85,15 @@ public class Keypad {
         char[] buttons = code.toCharArray();
 
         long minimumLength = 0;
+
+        char previousButton = 'A';
+
         for(char button : buttons) {
 
             button = mapDirectionalButton(button);
-            long minimumButtonLength = getMinimumButtonLength(button);
-
+            long minimumButtonLength = getMinimumButtonLength(previousButton, button);
+            previousButton = button;
+            
             minimumLength += minimumButtonLength;
 
         }
@@ -104,13 +108,13 @@ public class Keypad {
         return minimumLength;
     }
 
-    private long getMinimumButtonLength(char button) {
+    private long getMinimumButtonLength(char previousButton, char button) {
 
         // Generate a memoization status for this key press
-        CharacterPress state = new CharacterPress(currentButton, button);
+        CharacterPress state = new CharacterPress(previousButton, button);
 
         // Obtain from memo or compute. Add it to memoization if it didn't exist.
-        Set<String> buttonPaths = memoGetPaths.getOrDefault(state, getPaths(button));
+        Set<String> buttonPaths = memoGetPaths.getOrDefault(state, getPaths(previousButton, button));
         memoGetPaths.putIfAbsent(state, buttonPaths);
 
         long minimumButtonLength = Long.MAX_VALUE;
@@ -137,14 +141,10 @@ public class Keypad {
         return button;
     }
 
-    /// Presses the specified button retrieving a list of minimum cost directional key presses to achieve that key press.
-    ///
-    /// @param button the button to press.
-    /// @return a list of different paths as String to achieve that key press from the current button position.
-    public Set<String> getPaths(char button) {
+    public Set<String> getPaths(char origin, char destination) {
         AllDirectedPaths<String, LabeledEdge> adp = new AllDirectedPaths<>(graph);
 
-        List<GraphPath<String, LabeledEdge>> graphPaths = adp.getAllPaths(currentButton, String.valueOf(button),
+        List<GraphPath<String, LabeledEdge>> graphPaths = adp.getAllPaths(String.valueOf(origin), String.valueOf(destination),
                                                                 true,4);
 
         int shortestPathSize = Integer.MAX_VALUE;
@@ -156,7 +156,7 @@ public class Keypad {
             paths.add(path);
         }
 
-        this.currentButton = String.valueOf(button);
+        //this.currentButton = String.valueOf(button);
         int finalShortestPathSize = shortestPathSize;
         return paths.stream().filter(p -> p.length() == finalShortestPathSize).collect(Collectors.toSet());
     }
