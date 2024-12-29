@@ -15,6 +15,7 @@ import java.io.StringWriter;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -93,7 +94,7 @@ public class Keypad {
             button = mapDirectionalButton(button);
             long minimumButtonLength = getMinimumButtonLength(previousButton, button);
             previousButton = button;
-            
+
             minimumLength += minimumButtonLength;
 
         }
@@ -110,12 +111,8 @@ public class Keypad {
 
     private long getMinimumButtonLength(char previousButton, char button) {
 
-        // Generate a memoization status for this key press
-        CharacterPress state = new CharacterPress(previousButton, button);
-
         // Obtain from memo or compute. Add it to memoization if it didn't exist.
-        Set<String> buttonPaths = memoGetPaths.getOrDefault(state, getPaths(previousButton, button));
-        memoGetPaths.putIfAbsent(state, buttonPaths);
+        Set<String> buttonPaths = getPaths(previousButton, button);
 
         long minimumButtonLength = Long.MAX_VALUE;
 
@@ -142,6 +139,13 @@ public class Keypad {
     }
 
     public Set<String> getPaths(char origin, char destination) {
+
+        // Use cache first
+        CharacterPress state = new CharacterPress(origin, destination);
+        if(memoGetPaths.containsKey(state)) {
+            return memoGetPaths.get(state);
+        }
+
         AllDirectedPaths<String, LabeledEdge> adp = new AllDirectedPaths<>(graph);
 
         List<GraphPath<String, LabeledEdge>> graphPaths = adp.getAllPaths(String.valueOf(origin), String.valueOf(destination),
@@ -149,7 +153,7 @@ public class Keypad {
 
         int shortestPathSize = Integer.MAX_VALUE;
 
-        List<String> paths = new ArrayList<>();
+        Set<String> paths = new HashSet<>();
         for(GraphPath<String, LabeledEdge> graphPath : graphPaths) {
             String path = graphPath.getEdgeList().stream().map(LabeledEdge::getValue).collect(Collectors.joining()) + "A";
             shortestPathSize = Math.min(path.length(), shortestPathSize);
@@ -158,7 +162,12 @@ public class Keypad {
 
         //this.currentButton = String.valueOf(button);
         int finalShortestPathSize = shortestPathSize;
-        return paths.stream().filter(p -> p.length() == finalShortestPathSize).collect(Collectors.toSet());
+        paths = paths.stream().filter(p -> p.length() == finalShortestPathSize).collect(Collectors.toSet());
+
+        // Memoize paths
+        memoGetPaths.put(state, paths);
+
+        return paths;
     }
 
     public void paint() {
