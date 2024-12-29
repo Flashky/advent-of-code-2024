@@ -2,7 +2,6 @@ package com.adventofcode.flashk.day21.redesign;
 
 import com.adventofcode.flashk.common.Input;
 import com.adventofcode.flashk.common.jgrapht.LabeledEdge;
-import com.adventofcode.flashk.day25.Key;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
 import org.jgrapht.Graph;
@@ -28,7 +27,8 @@ public class Keypad {
 
     private final Graph<String, LabeledEdge> graph = new DirectedMultigraph<>(LabeledEdge.class);
     private final boolean directional;
-    private static final Map<KeypadPress,List<String>> memo = new HashMap<>();
+    private static final Map<CharacterPress,List<String>> memo = new HashMap<>();
+    private static final Map<CodePress,Set<String>> memoCode = new HashMap<>();
 
     // TODO opción 2: caché a nivel de code en lugar de button
 
@@ -79,24 +79,16 @@ public class Keypad {
     /// @param code the code to enter.
     /// @return A list of possible instructions to be executed by the next robot
     public Set<String> press(String code) {
+
         char[] buttons = code.toCharArray();
 
         List<List<String>> allButtonPaths = new ArrayList<>();
         for(char button : buttons) {
 
-            if(directional) {
-                button = switch(button) {
-                    case '<' -> 'L';
-                    case '>' -> 'R';
-                    case '^' -> 'U';
-                    case 'v' -> 'D';
-                    case 'A' -> 'A';
-                    default -> throw new IllegalStateException("Unexpected button value: " + button);
-                };
-            }
+            button = mapDirectionalButton(button);
 
             // Generate a memoization status for this key press
-            KeypadPress state = new KeypadPress(currentButton, button);
+            CharacterPress state = new CharacterPress(currentButton, button);
 
             // Obtain from memo or compute. Add it to memoization if it didn't exist.
             List<String> buttonPaths = memo.getOrDefault(state, press(button));
@@ -107,6 +99,11 @@ public class Keypad {
         }
 
         // Create all the possible path combinations
+
+        // TODO java.lang.IllegalArgumentException: Cartesian product too large; must have size at most Integer.MAX_VALUE
+        // TODO con 33 elementos en la lista con tamaño mínimo 2 se intenta generar una lista con 2^3 = 8589934592 items
+
+
         List<List<String>> cartesianList = Lists.cartesianProduct(allButtonPaths);
         Set<String> paths = new HashSet<>();
         for(List<String> possiblePaths : cartesianList) {
@@ -114,6 +111,21 @@ public class Keypad {
         }
 
         return paths;
+    }
+
+    private char mapDirectionalButton(char button) {
+        if(directional) {
+            return switch(button) {
+                case '<' -> 'L';
+                case '>' -> 'R';
+                case '^' -> 'U';
+                case 'v' -> 'D';
+                case 'A' -> 'A';
+                default -> throw new IllegalStateException("Unexpected button value: " + button);
+            };
+        }
+
+        return button;
     }
 
     /// Presses the specified button retrieving a list of minimum cost directional key presses to achieve that key press.
@@ -127,7 +139,7 @@ public class Keypad {
                                                                 true,4);
 
         int shortestPathSize = Integer.MAX_VALUE;
-        
+
         List<String> paths = new ArrayList<>();
         for(GraphPath<String, LabeledEdge> graphPath : graphPaths) {
             String path = graphPath.getEdgeList().stream().map(LabeledEdge::getValue).collect(Collectors.joining()) + "A";

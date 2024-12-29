@@ -11,9 +11,8 @@ import java.util.Set;
 
 public class KeypadConundrum2 {
 
-    private List<String> codes;
-
-    private Deque<Keypad> keypads = new ArrayDeque<>();
+    private final List<String> codes;
+    private final Deque<Keypad> keypads = new ArrayDeque<>();
 
     public KeypadConundrum2(List<String> inputs, int keypadsNumber) {
         codes = inputs;
