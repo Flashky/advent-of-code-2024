@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @DisplayName(TestDisplayName.DAY_21)
 @TestMethodOrder(OrderAnnotation.class)
 @Disabled("[Disabled] Day 21 - Work in Progress")
-public class Day21Test {
+class Day21Test {
 
 	private static final String INPUT_FOLDER = TestFolder.DAY_21;
 
@@ -30,7 +30,7 @@ public class Day21Test {
 	@Tag(TestTag.PART_1)
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_1_SAMPLE)
-	public void testSolvePart1Sample() {
+	void part1SampleTest() {
 
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
@@ -38,7 +38,7 @@ public class Day21Test {
 		KeypadConundrum keypadConundrum = new KeypadConundrum(inputs, 2);
 
 		assertEquals(126384L, keypadConundrum.solveA());
-		//assertEquals(0L,keypadConundrum.solveA());
+
 	}
 
 	@Test
@@ -46,7 +46,7 @@ public class Day21Test {
 	@Tag(TestTag.PART_1)
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_1_INPUT)
-	public void testSolvePart1Input() {
+	void part1InputTest() {
 
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
@@ -57,12 +57,31 @@ public class Day21Test {
 
 	}
 
+
+	@Test
+	@Order(4)
+	@Tag(TestTag.PART_2)
+	@Tag(TestTag.INPUT)
+	@DisplayName(TestDisplayName.PART_2_SAMPLE)
+	void part2SampleTest() {
+
+		// Read input file
+		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
+
+		KeypadConundrum keypadConundrum = new KeypadConundrum(inputs, 25);
+
+		// Source: https://www.reddit.com/r/adventofcode/comments/1hjb7hh/2024_day_21_part_2_can_someone_share_what_the/
+
+		assertEquals(154115708116294L,keypadConundrum.solveA());
+
+	}
+
 	@Test
 	@Order(4)
 	@Tag(TestTag.PART_2)
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_2_INPUT)
-	public void testSolvePart2Input() {
+	void part2InputTest() {
 
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);

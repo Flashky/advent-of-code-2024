@@ -7,10 +7,7 @@ import org.jgrapht.Graph;
 import org.jgrapht.GraphPath;
 import org.jgrapht.alg.shortestpath.AllDirectedPaths;
 import org.jgrapht.graph.DirectedMultigraph;
-import org.jgrapht.nio.dot.DOTExporter;
 
-import java.io.StringWriter;
-import java.io.Writer;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -69,13 +66,6 @@ public class Keypad {
 
     }
 
-    /// Enters a code to be pressed at the pad returning a [String] representing the needed moves for it.
-    ///
-    /// The code can be either an alphanumeric value as such as `029A` to be pressed at a numeric pad or an
-    /// alphanumeric value such as `<A^A^>^AvvvA` to be pressed at a directional keypad.
-    ///
-    /// @param code the code to enter.
-    /// @return A list of possible instructions to be executed by the next robot
     public long press(String code) {
 
         char[] buttons = code.toCharArray();
@@ -158,7 +148,6 @@ public class Keypad {
             paths.add(path);
         }
 
-        //this.currentButton = String.valueOf(button);
         int finalShortestPathSize = shortestPathSize;
         paths = paths.stream().filter(p -> p.length() == finalShortestPathSize).collect(Collectors.toSet());
 
@@ -168,13 +157,4 @@ public class Keypad {
         return paths;
     }
 
-    public void paint() {
-
-        DOTExporter<String, LabeledEdge> exporter = new DOTExporter<>(v -> v);
-        exporter.setEdgeAttributeProvider(e -> Map.of("label", e));
-
-        Writer writer = new StringWriter();
-        exporter.exportGraph(graph, writer);
-        System.out.println(writer.toString());
-    }
 }
