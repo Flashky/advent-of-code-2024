@@ -20,7 +20,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName(TestDisplayName.DAY_21)
 @TestMethodOrder(OrderAnnotation.class)
-@Disabled("[Disabled] Day 21 - Work in Progress")
 class Day21Test {
 
 	private static final String INPUT_FOLDER = TestFolder.DAY_21;

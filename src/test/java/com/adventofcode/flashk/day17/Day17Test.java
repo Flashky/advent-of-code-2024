@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DisplayName(TestDisplayName.DAY_17)
 @TestMethodOrder(OrderAnnotation.class)
-class Day17Test extends PuzzleTest {
+class Day17Test {
 
 	private static final String INPUT_FOLDER = TestFolder.DAY_17;
 
@@ -117,7 +117,7 @@ class Day17Test extends PuzzleTest {
 	@Tag(TestTag.PART_1)
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_1_SAMPLE)
-	public void testSolvePart1Sample() {
+	void part1SampleTest() {
 
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE);
@@ -132,7 +132,7 @@ class Day17Test extends PuzzleTest {
 	@Tag(TestTag.PART_1)
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_1_INPUT)
-	public void testSolvePart1Input() {
+	void part1InputTest() {
 
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
@@ -156,8 +156,7 @@ class Day17Test extends PuzzleTest {
 	@Tag(TestTag.PART_2)
 	@Tag(TestTag.SAMPLE)
 	@DisplayName(TestDisplayName.PART_2_SAMPLE)
-	@Disabled("[Disabled] Day 17 - testSolvePart2Sample: Work in Progress")
-	public void testSolvePart2Sample() {
+	void part2SampleTest() {
 
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE_SAMPLE_PART_2);
@@ -174,7 +173,7 @@ class Day17Test extends PuzzleTest {
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_2_INPUT)
 	@Disabled("Day 17 - Doesn't give the expected output")
-	public void testSolvePart2Input() {
+	void part2InputLowLevelTest() {
 
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
@@ -190,10 +189,12 @@ class Day17Test extends PuzzleTest {
 	@Tag(TestTag.PART_2)
 	@Tag(TestTag.INPUT)
 	@DisplayName(TestDisplayName.PART_2_INPUT + " - Program")
-	void part2InputWithProgramTest() {
+	void part2InputHighLevelTest() {
 
 		// Read input file
 		List<String> inputs = Input.readStringLines(INPUT_FOLDER, TestFilename.INPUT_FILE);
+
+		// Same test as part2InputLowLevelTest, but it useses the high level version of the program
 
 		Program program = new Program(inputs);
 
