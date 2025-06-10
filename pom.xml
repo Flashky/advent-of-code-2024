@@ -16,17 +16,8 @@
 		<maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
 		<maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
 		<maven.compiler.release>24</maven.compiler.release>
-		<jacoco-maven-plugin.version>0.8.13-SNAPSHOT</jacoco-maven-plugin.version>
+		<jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
 	</properties>
-
-	<!-- Temporary usage of jacoco plugin repository for jacoco 0.8.13-SNAPSHOT -->
-	<!-- Reason: https://github.com/jacoco/jacoco/pull/1631 -->
-	<pluginRepositories>
-		<pluginRepository>
-			<id>jacoco-snapshot</id>
-			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-		</pluginRepository>
-	</pluginRepositories>
 
 	<dependencies>
 		<!-- Testing -->
