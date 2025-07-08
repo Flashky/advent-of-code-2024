@@ -36,6 +36,10 @@
 		<maven.compiler.release>24</maven.compiler.release>
 		<jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
 
+		<!-- Others -->
+		<lombok.version>1.18.38</lombok.version>
+		<jetbrains-annotations.version>26.0.2</jetbrains-annotations.version>
+
 	</properties>
 
 	<dependencies>
