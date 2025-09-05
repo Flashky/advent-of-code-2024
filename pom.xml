@@ -27,7 +27,7 @@
 		<jgrapht.version>1.5.2</jgrapht.version>
 
 		<!-- Others -->
-		<lombok.version>1.18.38</lombok.version>
+		<lombok.version>1.18.40</lombok.version>
 		<jetbrains-annotations.version>26.0.2</jetbrains-annotations.version>
 
 		<!-- Plugins -->
