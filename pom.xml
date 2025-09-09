@@ -28,7 +28,7 @@
 
 		<!-- Others -->
 		<lombok.version>1.18.40</lombok.version>
-		<jetbrains-annotations.version>26.0.2</jetbrains-annotations.version>
+		<jetbrains-annotations.version>26.0.2-1</jetbrains-annotations.version>
 
 		<!-- Plugins -->
 		<maven-surefire-plugin.version>3.5.3</maven-surefire-plugin.version>
