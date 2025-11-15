@@ -60,7 +60,7 @@ jobs:
           fi
 
           # Verify other errors
-          if ! [ "$HTTP_CODE" -ge 400 ]; then
+          if [ "$HTTP_CODE" -ge 400 ]; then
             echo -e "\e[91m❌ Error: Unexpected HTTP status code ($HTTP_CODE).\e[0m" >&2
             log_pat_error
             exit 1
