@@ -26,10 +26,11 @@ jobs:
     steps:
 
       # Verify for existing token secret set
-      - name: Check Personal Access Token secret
+      - name: Check Personal Access Token
         env:
           PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
+          echo "Checking personal access token."
           SECRETS_URL="${{ github.server_url }}/${{ github.repository }}/settings/secrets/actions"
           
           log_pat_error() {
@@ -38,7 +39,7 @@ jobs:
             echo -e "\e[93m2. Click on \e[92mGenerate new token\e[0m\e[93m and then on \e[92mGenerate new token (classic) \e[0m\e[93m\e[0m" >&2
             echo -e "\e[93m3. Give your token a name, select the required scopes (e.g., repo), and click on \e[92mGenerate token\e[93m\e[0m" >&2
             echo -e "\e[93m4. Copy the generated token" >&2
-            echo -e "\e[93m5. Go to your repository: \e[94m$SECRETS_URL\e[93m" >&2
+            echo -e "\e[93m5. Go to your repository action secret settings: \e[94m$SECRETS_URL\e[93m" >&2
             echo -e "\e[93m6. Name the secret \e[94mPAT_TOKEN\e[93m and paste the copied token as the value" >&2
           }
           
