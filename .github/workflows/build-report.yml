@@ -67,7 +67,7 @@ jobs:
           fi
           
           if [[ "$SCOPES" != *"repo"* ]]; then
-            echo "❌ Error: missing scope 'repo' on the PAT."
+            echo "❌ Error: missing scope 'repo' on the PAT." >&2
             log_pat_error
             exit 1
           fi
