@@ -44,7 +44,7 @@ jobs:
 
     
       # Verify token is not expired
-      - name: Check for Token Secret
+      - name: Check for Token Secret expiration
         env:
           PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
@@ -54,12 +54,12 @@ jobs:
           HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" -H "Authorization: token $PAT_TOKEN" https://api.github.com/user)
 
           if [ "$HTTP_CODE" -ge 200 ] && [ "$HTTP_CODE" -lt 300 ]; then
-            echo "✅ Valid PAT_TOKEN."
+            echo -e "✅ Valid PAT_TOKEN."
           elif [ "$HTTP_CODE" -eq 401 ] || [ "$HTTP_CODE" -eq 403 ]; then
-            echo "❌ Error: PAT_TOKEN is invalid, has expired or has insufficente permissions (Código $HTTP_CODE)."
+            echo -e "❌ Error: PAT_TOKEN is invalid, has expired or has insufficient permissions (HTTP status: $HTTP_CODE)."
             exit 1
           else
-            echo "⚠️ Warning: unexpected error while verifying the token (HTTP status: $HTTP_CODE)."
+            echo -e "⚠️ Warning: unexpected error while verifying the token (HTTP status: $HTTP_CODE)."
           fi   
           
   build:
