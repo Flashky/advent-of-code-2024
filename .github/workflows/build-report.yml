@@ -26,7 +26,7 @@ jobs:
     steps:
 
       # Verify for existing token secret set
-      - name: Check for existing Token Secret
+      - name: Check for valid Personal Access Token
         env:
           PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
@@ -70,18 +70,6 @@ jobs:
             log_pat_error
             exit 1
           fi   
-    
-      # Verify token is not expired
-      - name: Check for Token Secret expiration
-        env:
-          PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
-        run: |
-
-          # Simple GET request to verify token expiration
-          # If the token is invalid or has expired, API will return 401 (Unauthorized) or 403 (Forbidden)
-          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" -H "Authorization: token $PAT_TOKEN" https://api.github.com/user)
-
-         
           
   build:
     runs-on: ubuntu-latest
