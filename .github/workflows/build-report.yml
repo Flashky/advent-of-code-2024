@@ -27,7 +27,6 @@ jobs:
 
       # Verify for existing token secret set
       - name: Check for valid Personal Access Token
-        shell: bash -exc
         env:
           PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
