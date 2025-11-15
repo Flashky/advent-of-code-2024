@@ -30,18 +30,46 @@ jobs:
         env:
           PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
+
+          log_pat_error() {
+            #echo -e "\e[91mError: PAT_TOKEN secret is not set or is invalid/expired.\e[0m" >&2
+            echo -e "\e[93mTo generate a personal access token (PAT) for GitHub Actions:\e[0m" >&2
+            echo -e "\e[93m1. Go to \e[94mhttps://github.com/settings/tokens\e[0m" >&2
+            echo -e "\e[93m2. Click on \e[92mGenerate new token\e[0m\e[93m and then on \e[92mGenerate new token (classic) \e[0m\e[93m\e[0m" >&2
+            echo -e "\e[93m3. Give your token a name, select the required scopes (e.g., repo), and click on \e[92mGenerate token\e[93m\e[0m" >&2
+            echo -e "\e[93m4. Copy the generated token" >&2
+            echo -e "\e[93m5. Go to your repository on GitHub -> Settings -> Secrets -> New repository secret" >&2
+            echo -e "\e[93m6. Name the secret \e[94mPAT_TOKEN\e[93m and paste the copied token as the value" >&2
+          }
+          
           if [ -z "$PAT_TOKEN" ]; then
-            echo -e "\e[91mError: PAT_TOKEN secret is not set.\e[0m"
-            echo -e "\e[93mTo generate a personal access token (PAT) for GitHub Actions:\e[0m"
-            echo -e "\e[93m1. Go to \e[94mhttps://github.com/settings/tokens\e[0m"
-            echo -e "\e[93m2. Click on \e[92mGenerate new token\e[0m\e[93m and then on \e[92mGenerate new token (classic) \e[0m\e[93m\e[0m"
-            echo -e "\e[93m3. Give your token a name, select the required scopes (e.g., repo), and click on \e[92mGenerate token\e[93m\e[0m"
-            echo -e "\e[93m4. Copy the generated token"
-            echo -e "\e[93m5. Go to your repository on GitHub -> Settings -> Secrets -> New repository secret"
-            echo -e "\e[93m6. Name the secret \e[94mPAT_TOKEN\e[93m and paste the copied token as the value"
+            #echo -e "\e[91mError: PAT_TOKEN secret is not set.\e[0m"
+            #echo -e "\e[93mTo generate a personal access token (PAT) for GitHub Actions:\e[0m"
+            #echo -e "\e[93m1. Go to \e[94mhttps://github.com/settings/tokens\e[0m"
+            #echo -e "\e[93m2. Click on \e[92mGenerate new token\e[0m\e[93m and then on \e[92mGenerate new token (classic) \e[0m\e[93m\e[0m"
+            #echo -e "\e[93m3. Give your token a name, select the required scopes (e.g., repo), and click on \e[92mGenerate token\e[93m\e[0m"
+            #echo -e "\e[93m4. Copy the generated token"
+            #echo -e "\e[93m5. Go to your repository on GitHub -> Settings -> Secrets -> New repository secret"
+            #echo -e "\e[93m6. Name the secret \e[94mPAT_TOKEN\e[93m and paste the copied token as the value"
+            log_pat_error
             exit 1
           fi
 
+           # Simple GET request to verify token expiration
+          # If the token is invalid or has expired, API will return 401 (Unauthorized) or 403 (Forbidden)
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" -H "Authorization: token $PAT_TOKEN" https://api.github.com/user)
+
+           if [ "$HTTP_CODE" -ge 200 ] && [ "$HTTP_CODE" -lt 300 ]; then
+            echo -e "✅ Valid PAT_TOKEN."
+          elif [ "$HTTP_CODE" -eq 401 ] || [ "$HTTP_CODE" -eq 403 ]; then
+            echo -e "❌ Error: PAT_TOKEN is invalid, has expired or has insufficient permissions (HTTP status: $HTTP_CODE)."
+            log_pat_error
+            exit 1
+          else
+            echo -e "❌ Error: unexpected error while verifying the token (HTTP status: $HTTP_CODE)."
+            log_pat_error
+            exit 1
+          fi   
     
       # Verify token is not expired
       - name: Check for Token Secret expiration
@@ -53,14 +81,7 @@ jobs:
           # If the token is invalid or has expired, API will return 401 (Unauthorized) or 403 (Forbidden)
           HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" -H "Authorization: token $PAT_TOKEN" https://api.github.com/user)
 
-          if [ "$HTTP_CODE" -ge 200 ] && [ "$HTTP_CODE" -lt 300 ]; then
-            echo -e "✅ Valid PAT_TOKEN."
-          elif [ "$HTTP_CODE" -eq 401 ] || [ "$HTTP_CODE" -eq 403 ]; then
-            echo -e "❌ Error: PAT_TOKEN is invalid, has expired or has insufficient permissions (HTTP status: $HTTP_CODE)."
-            exit 1
-          else
-            echo -e "⚠️ Warning: unexpected error while verifying the token (HTTP status: $HTTP_CODE)."
-          fi   
+         
           
   build:
     runs-on: ubuntu-latest
