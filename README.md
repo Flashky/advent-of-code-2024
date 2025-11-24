@@ -46,3 +46,4 @@ git clone https://github.com/Flashky/advent-of-code-2024.git --recurse-submodule
 ## About
 
 - [Advent of Code](https://adventofcode.com/2024/about)
+
