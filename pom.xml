@@ -37,7 +37,7 @@
 		<jacoco-maven-plugin.version>0.8.14</jacoco-maven-plugin.version>
 
 		<!-- Others -->
-		<lombok.version>1.18.42</lombok.version>
+		<lombok.version>1.18.44</lombok.version>
 		<jetbrains-annotations.version>26.1.0</jetbrains-annotations.version>
 
 	</properties>
