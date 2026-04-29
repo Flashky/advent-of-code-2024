@@ -39,5 +39,5 @@ jobs:
             echo "Relanzando build-report.yml en la rama main..."
             
             # 4. Lanzamos tu workflow principal usando su nombre de archivo
-            gh workflow run "build-report.yml" --ref main
+            gh workflow run "build-report.yml" --ref master --repo "${{ github.repository }}"
           fi
