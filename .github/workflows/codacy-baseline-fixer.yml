@@ -27,7 +27,7 @@ jobs:
           echo "Analizando PR #$PR_NUMBER..."
           
           # 2. Wait for report
-          sleep 60 
+          #sleep 60 
 
           # 3. Check validation
           ALL_CHECKS=$(gh pr checks "$PR_NUMBER" --repo "${{ github.repository }}")
