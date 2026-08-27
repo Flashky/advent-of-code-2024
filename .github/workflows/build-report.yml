@@ -11,7 +11,8 @@ on:
   pull_request:
     branches:
       - '**'
-
+  schedule:
+    - cron: '0 3 * * *' # Every day at 03:00 UTC
 jobs:
 
   verify:
